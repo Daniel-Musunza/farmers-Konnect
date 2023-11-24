@@ -18,9 +18,16 @@
     background-color: #f4f4f4;
     padding: 20px;
     border-radius: 8px;
-    min-width: 350px;
+    width: 350px;
 }
-
+@media (max-width: 800px) {
+    .modal-container {
+        padding: 0;
+        width: 50vh;
+        height: 80vh;
+    }
+    
+}
 .create-post {
     margin-top: 20px;
 }
