@@ -18,7 +18,7 @@ function AddImages() {
                         <img src="img/kikuyu-land.jpg" alt="" />
                     </div>
                 </div>
-                <h2 style={{ color: 'black'}}>Add More Images</h2>
+                <h2 style={{ color: 'black' }}>Add More Images</h2>
                 <div className="blog-info">
                     <form method="POST" enctype="multipart/form-data">
                         <div className="input-group">
