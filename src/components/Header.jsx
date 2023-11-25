@@ -34,7 +34,13 @@ function Header({account}) {
         </nav>
       </div>
       <div className="account">
-        <h3>Account: {account}</h3>
+        <h3>Account: 
+          {account?(
+            <span>{account}</span>
+          ): (
+              <span>Not connected</span>
+          )}
+          </h3>
       </div>
       {isMobileMenuOpen && (
         <div className='mobile-menu' onClick={toggleMobileMenu}>
