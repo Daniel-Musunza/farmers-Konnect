@@ -4,7 +4,7 @@ import '../post_land.css';
 function PostLand() {
     return (
         <div className="main-container" style={{maxWidth: '800px'}}>
-            <div className="pro-container2">
+            <div className="pro-container2" style={{width: '100%'}}>
                 <div className="create-post">
 
                     <div className="contain">
