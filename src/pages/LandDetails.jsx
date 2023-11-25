@@ -19,7 +19,7 @@ function LandDetails() {
         <div className="single-pro-image">
           <br />
           <div className="main-image">
-            <img id="mainImage" src="C:\projects\farmers-konnect\public\img\kikuyu-land.jpg" alt="" />
+            <img id="mainImage" src="img/kikuyu-land.jpg" alt="" />
           </div>
           <br />
           <div className="small-img-group" id="ImagesContainer">

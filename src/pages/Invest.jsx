@@ -28,7 +28,7 @@ function Invest() {
                     <div className="card-int">
                         <p className="card-int__title">5 hectares in Kikuyu, Kenya</p>
                         <p className="excerpt">It is suitable for growing a range of crops, including tea, coffee, horticultural produce like avocados and strawberries, as well as staple crops such as maize and wheat, while also supporting livestock farming.</p>
-                        <Link to="/land-details/1"><button className="card-int__button">Show</button></Link>
+                        <Link to={`/land-details/${1}`}><button className="card-int__button">Show</button></Link>
                     </div>
                 </div>
                 <div className="card">

@@ -31,6 +31,14 @@ margin-right: -20px;
     width: 100%;
     text-transform: uppercase;
 }
+.account{
+  position: fixed;
+  z-index: 999;
+  top: 100px;
+  margin-left: -30px;
+  color: blue;
+  text-transform: lowercase;
+}
 .header .container{
     background-color: transparent;
     display: flex;

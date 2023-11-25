@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom'
 
-function Header() {
+function Header({account}) {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Function to toggle the mobile menu
@@ -32,6 +32,9 @@ function Header() {
             <button><Link to="/post-land">Get Started</Link></button>
           </div>
         </nav>
+      </div>
+      <div className="account">
+        <h3>Account: {account}</h3>
       </div>
       {isMobileMenuOpen && (
         <div className='mobile-menu' onClick={toggleMobileMenu}>
