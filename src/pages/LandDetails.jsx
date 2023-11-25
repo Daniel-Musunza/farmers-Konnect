@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom';
 import '../land_details.css';
 import ConnectModal from '../components/ConnectModal';
 
-function LandDetails() {
+function LandDetails({ lands }) {
+  const { id } = useParams();
     const [isModalOpen, setModalOpen] = useState(false);
 
+    const land= lands.find((land) => land.id == id);
   // Function to toggle the mobile menu
   const toggleModal = () => {
     setModalOpen(!isModalOpen);
@@ -19,7 +21,7 @@ function LandDetails() {
         <div className="single-pro-image">
           <br />
           <div className="main-image">
-            <img id="mainImage" src="img/kikuyu-land.jpg" alt="" />
+            <img src={`https://turalhasanov.infura-ipfs.io/ipfs/${land.hash}`} alt="" />
           </div>
           <br />
           <div className="small-img-group" id="ImagesContainer">
@@ -37,9 +39,9 @@ function LandDetails() {
         </div>
 
         <div className="single-pro-details" style={{ textAlign: 'left' }}>
-          <h3 id="Title">5 hectares in Kikuyu, Kenya</h3>
-          <h2 id="carPrice">5M</h2>
-          <p id="carDetails">It is suitable for growing a range of crops, including tea, coffee, horticultural produce like avocados and strawberries, as well as staple crops such as maize and wheat, while also supporting livestock farming. </p>
+          <h3 id="Title">{land.title}, need {land.price}</h3>
+          <h2 id="carPrice">{land.climate}, {land.soilType}</h2>
+          <p id="carDetails">{land.LandDetails}</p>
         </div>
       </section>
     </div>

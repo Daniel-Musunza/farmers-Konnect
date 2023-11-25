@@ -36,7 +36,7 @@ function App() {
   const [loading, setLoading] = useState()
   const [provider, setProvider] = useState()
   const [decentragram, setDecentragram] = useState()
-  const [images, setImages] = useState([])
+  const [lands, setLands] = useState([])
   const [buffer, setBuffer] = useState()
 
 
@@ -75,16 +75,16 @@ function App() {
         const contract = new ethers.Contract(networkData.address, iface.format(FormatTypes.full), signer)
         setDecentragram(contract)
 
-        const imagesCount = await contract.imagesCount()
+        const landsCount = await contract.landsCount()
 
-        const imgs = []
-        for (let imgId = 1; imgId <= imagesCount.toNumber(); imgId++) {
-          const img = await contract.images(imgId)
-          console.log(img)
-          imgs.push(img)
+        const lands = []
+        for (let landId = 1; landId <= landsCount.toNumber(); landId++) {
+          const land = await contract.lands(landId)
+          console.log(land)
+          lands.push(land)
         }
 
-        setImages(imgs.sort((a, b) => b.grantAmount - a.grantAmount))
+        setLands(lands.sort((a, b) => b.grantAmount - a.grantAmount))
 
       }
     } catch (error) {
@@ -105,12 +105,12 @@ function App() {
     }
   }
 
-  async function uploadImage(imageDescription) {
+  async function uploadLand(title, landType, soilType, climate, price, landDetails) {
     setLoading(true)
     try {
       const result = await ipfs.add(buffer)
       console.log("ipfs result", result)
-      const transaction = await decentragram.uploadImage(result.path, imageDescription, {
+      const transaction = await decentragram.uploadLand(result.path, title, landType, soilType, climate, price, landDetails, {
         from: account
       })
       transaction.wait()
@@ -122,9 +122,9 @@ function App() {
     }
   }
 
-  async function tipImageOwner(imageId, grantAmount) {
+  async function tipLandOwner(landId, grantAmount) {
     setLoading(true)
-    const transaction = await decentragram.tipImageOwner(imageId.toNumber(), {
+    const transaction = await decentragram.tipLandOwner(landId.toNumber(), {
       from: account,
       value: grantAmount
     })
@@ -138,51 +138,44 @@ function App() {
       <Router>
         <div className='container'>
           <Header account={account} />
-          <Routes>
-            <Route path='/' element={<Home
-              account={account}
-              captureFile={captureFile}
-              uploadImage={uploadImage}
-              images={images}
-              tipImageOwner={tipImageOwner}
-            />} />
-            <Route path='/invest' element={<Invest
-              account={account}
-              captureFile={captureFile}
-              uploadImage={uploadImage}
-              images={images}
-              tipImageOwner={tipImageOwner}
-            />} />
-            <Route path='/rent' element={<Rent
-              account={account}
-              captureFile={captureFile}
-              uploadImage={uploadImage}
-              images={images}
-              tipImageOwner={tipImageOwner}
-            />} />
-            <Route path='/post-land'
-              element={<PostLand
+          {loading
+            ? <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }} className="spinner-grow text-primary" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+            : <Routes>
+              <Route path='/' element={<Home
+                account={account}
+              />} />
+              <Route path='/invest' element={<Invest
+                account={account}
+                lands={lands}
+                tipLandOwner={tipLandOwner}
+              />} />
+              <Route path='/rent' element={<Rent
+                account={account}
+                lands={lands}
+                tipLandOwner={tipLandOwner}
+              />} />
+              <Route path='/post-land'
+                element={<PostLand
+                  account={account}
+                  captureFile={captureFile}
+                  uploadLand={uploadLand}
+                />} />
+              <Route path='/land-details/:id' element={<LandDetails
+                account={account}
+                lands={lands}
+                tipLandOwner={tipLandOwner}
+              />} />
+              <Route path='/add-images/:id' element={<AddImages
                 account={account}
                 captureFile={captureFile}
-                uploadImage={uploadImage}
-                images={images}
-                tipImageOwner={tipImageOwner}
+                uploadLand={uploadLand}
+                lands={lands}
+                tipLandOwner={tipLandOwner}
               />} />
-            <Route path='/land-details/:id' element={<LandDetails
-              account={account}
-              captureFile={captureFile}
-              uploadImage={uploadImage}
-              images={images}
-              tipImageOwner={tipImageOwner}
-            />} />
-            <Route path='/add-images/:id' element={<AddImages
-              account={account}
-              captureFile={captureFile}
-              uploadImage={uploadImage}
-              images={images}
-              tipImageOwner={tipImageOwner}
-            />} />
-          </Routes>
+            </Routes>
+          }
           <Footer />
         </div>
       </Router>

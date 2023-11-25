@@ -3,82 +3,117 @@ pragma solidity ^0.8.4;
 contract Decentragram {
     string public name = "Decentragram";
 
-    struct Image {
+    struct Land {
         uint id;
         string hash;
-        string description;
+        string title;
+        string landType;
+        string climate;
+        string soilType;
+        string landDetails;
+        string price;
         uint grantAmount;
         address payable user;
     }
 
-    mapping(uint => Image) public images;
-    uint public imagesCount = 0;
+    mapping(uint => Land) public lands;
+    uint public landsCount = 0;
 
-    event ImageUploaded(
+    event LandUploaded(
         uint id,
         string hash,
-        string description,
+        string title,
+        string landType,
+        string climate,
+        string soilType,
+        string landDetails,
+        string price,
         uint grantAmount,
         address payable user
     );
 
-    event ImageTipped(
+    event LandTipped(
         uint id,
         string hash,
-        string description,
+        string title,
+        string landType,
+        string climate,
+        string soilType,
+        string landDetails,
+        string price,
         uint grantAmount,
         address payable user
     );
 
     constructor() {}
 
-    function uploadImage(
+    function uploadLand(
         string memory _hash,
-        string memory _description
+        string memory _title,
+        string memory _landType,
+        string memory _climate,
+        string memory _soilType,
+        string memory _landDetails,
+        string memory _price
     ) public {
         require(
             bytes(_hash).length > 0 &&
-                bytes(_description).length > 0 &&
-                msg.sender != address(0)
+            bytes(_title).length > 0 &&
+            msg.sender != address(0)
         );
 
-        imagesCount++;
-        images[imagesCount] = Image(
-            imagesCount,
+        landsCount++;
+        lands[landsCount] = Land(
+            landsCount,
             _hash,
-            _description,
+            _title,
+            _landType,
+            _climate,
+            _soilType,
+            _landDetails,
+            _price,  // Fixed the order of parameters
             0,
             payable(msg.sender)
         );
 
-        emit ImageUploaded(
-            imagesCount,
+        emit LandUploaded(
+            landsCount,
             _hash,
-            _description,
+            _title,
+            _landType,
+            _climate,
+            _soilType,
+            _landDetails,
+            _price,  // Fixed the order of parameters
             0,
             payable(msg.sender)
         );
     }
 
-    function tipImageOwner(uint _id) public payable {
-        require(_id > 0 && _id <= imagesCount);
+    function tipLandOwner(uint _id) public payable {
+        require(_id > 0 && _id <= landsCount);
 
-        Image memory _image = images[_id];
+        Land storage _land = lands[_id];  // Changed memory to storage
 
-        require(msg.sender != _image.user);
+        require(msg.sender != _land.user);
 
-        payable(address(_image.user)).transfer(msg.value);
+        payable(address(_land.user)).transfer(msg.value);
 
-        _image.grantAmount += msg.value;
+        _land.grantAmount += msg.value;
 
-        images[_id] = _image;
+        lands[_id] = _land;
 
-        emit ImageUploaded(
-            _image.id,
-            _image.hash,
-            _image.description,
-            _image.grantAmount,
-            _image.user
+        emit LandTipped(  // Changed event name to LandTipped
+            _land.id,
+            _land.hash,
+            _land.title,
+            _land.landType,
+            _land.climate,
+            _land.soilType,
+            _land.landDetails,
+            _land.price,
+            _land.grantAmount,
+            _land.user
         );
     }
 }
