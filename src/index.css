@@ -601,6 +601,10 @@ margin-right: -20px;
 }
 }
 @media (max-width:800px) {
+  .account{
+    top: 110px;
+    margin-left: 0;
+  }
     .navbar{
         margin-top: 100px;
     }
