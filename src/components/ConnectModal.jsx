@@ -29,7 +29,7 @@ function ConnectModal({isModalOpen, setModalOpen, bookLand, landId}) {
 
 
                                         <div className="input-group">
-                                            <input ref={amountRef} type="number" name="amount" placeholder="Enter Amount" className="input-field" />
+                                            <input ref={amountRef} type="number" name="amount" placeholder="Enter Amount (USD)" className="input-field" />
                                         </div>
 
                                         <div className="input-group">
