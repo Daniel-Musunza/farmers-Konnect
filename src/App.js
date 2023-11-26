@@ -158,7 +158,7 @@ function App() {
   }
   async function bookLand(landId, grantAmount, message) {
     setLoading(true)
-    const transaction = await decentragram.bookLand(landId.toNumber(), {
+    const transaction = await decentragram.bookLand(landId, {
       from: account,
       value: grantAmount,
       message: message
