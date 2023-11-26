@@ -14,6 +14,7 @@ contract Decentragram {
         string soilType;
         string landDetails;
         string price;
+        string message;
         uint grantAmount;
         address payable user;
     }
@@ -30,11 +31,12 @@ contract Decentragram {
         string soilType,
         string landDetails,
         string price,
+        string message,
         uint grantAmount,
         address payable user
     );
 
-    event LandTipped(
+    event LandBooked(
         uint id,
         string hash,
         string title,
@@ -43,6 +45,7 @@ contract Decentragram {
         string soilType,
         string landDetails,
         string price,
+        string message,
         uint grantAmount,
         address payable user
     );
@@ -56,6 +59,7 @@ contract Decentragram {
         string memory _climate,
         string memory _soilType,
         string memory _landDetails,
+        string memory _message,
         string memory _price
     ) public {
         require(
@@ -74,6 +78,7 @@ contract Decentragram {
             _soilType,
             _landDetails,
             _price,  // Fixed the order of parameters
+            _message,
             0,
             payable(msg.sender)
         );
@@ -87,12 +92,13 @@ contract Decentragram {
             _soilType,
             _landDetails,
             _price,  // Fixed the order of parameters
+            _message,
             0,
             payable(msg.sender)
         );
     }
 
-    function tipLandOwner(uint _id) public payable {
+    function bookLand(uint _id) public payable {
         require(_id > 0 && _id <= landsCount);
 
         Land storage _land = lands[_id];  // Changed memory to storage
@@ -105,7 +111,7 @@ contract Decentragram {
 
         lands[_id] = _land;
 
-        emit LandTipped(  // Changed event name to LandTipped
+        emit LandBooked(  // Changed event name to LandBooked
             _land.id,
             _land.hash,
             _land.title,
@@ -114,6 +120,7 @@ contract Decentragram {
             _land.soilType,
             _land.landDetails,
             _land.price,
+            _land.message,
             _land.grantAmount,
             _land.user
         );
@@ -168,6 +175,5 @@ contract Decentragram {
         );
      }
 
-     //send money to escrow
-     
+
 }

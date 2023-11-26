@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import '../land_details.css';
 import ConnectModal from '../components/ConnectModal';
 
-function LandDetails({ lands, account, images }) {
+function LandDetails({ lands, account, images, bookLand }) {
   const [selectedImage, setSelectedImage] = useState(null);
   const { id } = useParams();
   const [isModalOpen, setModalOpen] = useState(false);
@@ -30,6 +30,8 @@ function LandDetails({ lands, account, images }) {
     <div className="main-container">
       {isModalOpen && (
         <ConnectModal 
+          bookLand={bookLand}
+          landId={id}
           isModalOpen={isModalOpen} 
           setModalOpen={setModalOpen} 
         />

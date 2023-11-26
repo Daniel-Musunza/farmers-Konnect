@@ -156,11 +156,12 @@ function App() {
       setLoading(false)
     }
   }
-  async function tipLandOwner(landId, grantAmount) {
+  async function bookLand(landId, grantAmount, message) {
     setLoading(true)
-    const transaction = await decentragram.tipLandOwner(landId.toNumber(), {
+    const transaction = await decentragram.bookLand(landId.toNumber(), {
       from: account,
-      value: grantAmount
+      value: grantAmount,
+      message: message
     })
     transaction.wait()
     window.location.reload(false);
@@ -182,12 +183,10 @@ function App() {
               <Route path='/invest' element={<Invest
                 account={account}
                 lands={lands}
-                tipLandOwner={tipLandOwner}
               />} />
               <Route path='/rent' element={<Rent
                 account={account}
                 lands={lands}
-                tipLandOwner={tipLandOwner}
               />} />
               <Route path='/post-land'
                 element={<PostLand
@@ -199,7 +198,7 @@ function App() {
                 account={account}
                 lands={lands}
                 images={images}
-                tipLandOwner={tipLandOwner}
+                bookLand={bookLand}
               />} />
               <Route path='/add-images/:id' element={<AddImages
                 account={account}
@@ -207,7 +206,6 @@ function App() {
                 uploadLand={uploadImage}
                 lands={lands}
                 images={images}
-                tipLandOwner={tipLandOwner}
               />} />
             </Routes>
 

@@ -1,11 +1,19 @@
+import React, { useRef } from 'react';
+import { ethers } from 'ethers';
+
 import './connectModal.css';
 
-function ConnectModal({isModalOpen, setModalOpen}) {
-
+function ConnectModal({isModalOpen, setModalOpen, bookLand, landId}) {
+    const amountRef = useRef();
+    const messageRef = useRef();
     // Function to toggle the mobile menu
     const toggleModal = () => {
         setModalOpen(!isModalOpen);
     };
+    async function submitForm(event) {
+        event.preventDefault()
+        bookLand(landId, ethers.utils.parseUnits(amountRef.current.value), messageRef.current.value);
+    }
     return (
         <>
             {isModalOpen && (
@@ -17,15 +25,15 @@ function ConnectModal({isModalOpen, setModalOpen}) {
 
                             <div className="contain">
                                 <div className="land-info">
-                                    <form method="POST" enctype="multipart/form-data">
+                                    <form onSubmit={submitForm}>
 
 
                                         <div className="input-group">
-                                            <input type="number" name="amount" placeholder="Enter Amount" className="input-field" />
+                                            <input ref={amountRef} type="number" name="amount" placeholder="Enter Amount" className="input-field" />
                                         </div>
 
                                         <div className="input-group">
-                                            <textarea name="landDetails" rows="2" placeholder="Enter Your Message"
+                                            <textarea ref={messageRef} name="landDetails" rows="2" placeholder="Enter Your Message"
                                                 className="textarea-field"></textarea>
                                         </div>
                                         <div className="input-group">
