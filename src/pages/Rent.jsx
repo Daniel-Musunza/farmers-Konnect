@@ -1,17 +1,19 @@
 import { Link } from 'react-router-dom'
 function Rent({ lands }) {
+
+    const rentlands = lands.filter((land) => land.landType=='rent');
     return (
         <div className="main-container">
             <div className="heading">
                 <h3>Arable Farming Land For Rent</h3>
             </div>
             <div className="pro-container">
-                {lands.map((land, key) => {
+                {rentlands.map((land, key) => {
                     return (
                         <div className="card" key={key}>
                             <div className="card__corner"></div>
                             <div className="card__img">
-                                <img src={`https://turalhasanov.infura-ipfs.io/ipfs/${land.hash}`} alt="" />
+                                <img src={`https://gateway.pinata.cloud/ipfs/${land.hash}`} alt="" />
                                 <span className="card__span">{land.landType}</span>
                             </div>
                             <div className="card-int">

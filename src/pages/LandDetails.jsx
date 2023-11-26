@@ -3,38 +3,73 @@ import { Link, useParams } from 'react-router-dom';
 import '../land_details.css';
 import ConnectModal from '../components/ConnectModal';
 
-function LandDetails({ lands }) {
+function LandDetails({ lands, account, images }) {
+  const [selectedImage, setSelectedImage] = useState(null);
   const { id } = useParams();
-    const [isModalOpen, setModalOpen] = useState(false);
+  const [isModalOpen, setModalOpen] = useState(false);
+  //for now 
+  lands=[
+    {
+      id: 1,
+      hash: "image.jpg",
+      title: "Land In Kenya",
+      climate: "Rainnny",
+      price: '5M',
+    }
+  ]
 
-    const land= lands.find((land) => land.id == id);
+  const land = lands.find((land) => land.id == id);
   // Function to toggle the mobile menu
   const toggleModal = () => {
     setModalOpen(!isModalOpen);
   };
+  const handleImageClick = (image) => {
+    setSelectedImage(image);
+  };
   return (
     <div className="main-container">
-         {isModalOpen && (
-        <ConnectModal isModalOpen={isModalOpen} setModalOpen={setModalOpen}/>
-         )}
+      {isModalOpen && (
+        <ConnectModal 
+          isModalOpen={isModalOpen} 
+          setModalOpen={setModalOpen} 
+        />
+      )}
       <section id="prodetails" className="section-p1">
         <div className="single-pro-image">
           <br />
           <div className="main-image">
-            <img src={`https://turalhasanov.infura-ipfs.io/ipfs/${land.hash}`} alt="" />
+            {selectedImage ? (
+              <img
+                src={`https://gateway.pinata.cloud/ipfs/${selectedImage.hash}`}
+                alt=""
+              />
+            ) : (
+              <img src={`https://gateway.pinata.cloud/ipfs/${land.hash}`} alt="" />
+             )}
+
           </div>
           <br />
           <div className="small-img-group" id="ImagesContainer">
-            <img src="img/kikuyu-land.jpg" alt="" />
-            <img src="img/kikuyu-land.jpg" alt="" />
-            <img src="img/kikuyu-land.jpg" alt="" />
-            <img src="img/kikuyu-land.jpg" alt="" />
+            {images
+              .filter((image) => image.landId === id)
+              .map((image, key) => (
+                <img
+                  key={key}
+                  src={`https://gateway.pinata.cloud/ipfs/${image.hash}`}
+                  alt=""
+                  onClick={() => handleImageClick(image)}
+                   width='200px'
+                />
+              ))}
           </div>
         </div>
         <div className="buttons">
-          <div className="right-data" style={{ display: 'flex' }}>
-            <button style={{ marginLeft: '20px',padding: '10px' }}><Link to="/add-images/1"><h4>Add More Images</h4></Link></button>
-            <button style={{ backgroundColor: 'green', color: '#fff', fontSize: '25px' , padding: '10px'}} onClick={toggleModal}>BOOK</button>
+          <div  style={{ display: 'flex', alignItems: 'center' }}>
+            {land.from == account &&
+              <button className="upload-button" style={{marginRight: '20px'}}> <Link to={`/add-images/${land.id}`}><h4>Add More Images</h4></Link></button>
+            }
+
+            <button className="upload-button" onClick={toggleModal}>BOOK THIS LAND</button>
           </div>
         </div>
 

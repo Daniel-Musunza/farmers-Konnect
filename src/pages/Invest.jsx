@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 
-function Invest() {
+function Invest({lands}) {
+    const investlands = lands.filter((land) => land.landType=='invest');
     return (
         <div className="main-container">
             <div className="heading">

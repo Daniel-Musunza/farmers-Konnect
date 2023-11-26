@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: GPL-3.0
+
 pragma solidity ^0.8.4;
 
 contract Decentragram {
@@ -116,4 +118,56 @@ contract Decentragram {
             _land.user
         );
     }
+
+    //images
+
+     struct Image {
+        uint id;
+        string hash;
+        string landId;
+        uint grantAmount;
+        address payable user;
+    }
+
+    mapping(uint => Image) public images;
+    uint public imagesCount = 0;
+
+    event ImageUploaded(
+        uint id,
+        string hash,
+        string landId,
+        uint grantAmount,
+        address payable user
+    );
+
+    function uploadImage(
+        string memory _hash,
+        string memory _landId
+    ) public {
+        require(
+            bytes(_hash).length > 0 &&
+            bytes(_landId).length > 0 &&
+            msg.sender != address(0)
+        );
+
+        imagesCount++;
+       images[imagesCount] = Image(
+            imagesCount,
+            _hash,
+            _landId,
+            0,
+            payable(msg.sender)
+        );
+
+        emit ImageUploaded(
+            imagesCount,
+            _hash,
+            _landId,
+            0,
+            payable(msg.sender)
+        );
+     }
+
+     //send money to escrow
+     
 }

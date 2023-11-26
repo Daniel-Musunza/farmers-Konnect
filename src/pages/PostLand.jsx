@@ -13,7 +13,6 @@ function PostLand({ uploadLand, captureFile }) {
     async function submitForm(event) {
         event.preventDefault()
         uploadLand(titleRef.current.value, landTypeRef.current.value, soilTypeRef.current.value, climateRef.current.value, priceRef.current.value, landDetailsRef.current.value)
-
     }
 
     return (

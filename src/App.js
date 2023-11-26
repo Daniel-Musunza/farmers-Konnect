@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import Home from './pages/Home'
 import Header from './components/Header'
 import Footer from './components/Footer'
+import Spinner from './components/Spinner'
 import Invest from './pages/Invest'
 import Rent from './pages/Rent'
 import PostLand from './pages/PostLand'
@@ -17,14 +18,19 @@ import { Buffer as Buff } from 'buffer';
 import { create } from 'ipfs-http-client'
 import { FormatTypes, Interface } from 'ethers/lib/utils';
 
-const INFURA_ID = process.env.REACT_APP_INFURA_ID
-const INFURA_SECRET_KEY = process.env.REACT_APP_INFURA_SECRET_KEY
-const auth = 'Basic ' + Buff.from(INFURA_ID + ':' + INFURA_SECRET_KEY).toString('base64')
+const PINATA_API_KEY = process.env.REACT_APP_PINATA_API_KEY
+const PINATA_SECRET_KEY = process.env.REACT_APP_PINATA_SECRET_KEY
+const auth = 'Basic ' + Buff.from(PINATA_API_KEY + ':' + PINATA_SECRET_KEY).toString('base64')
+
 const ipfs = create({
-  host: 'ipfs.infura.io', port: 5001, protocol: 'https', headers: {
+  host: "api.pinata.cloud",
+  protocol: "https",
+  pathname: "/pinning/pinFileToIPFS",
+  headers: {
     authorization: auth,
   },
-})
+});
+
 
 const iface = new Interface(DecentragramAbi["abi"]);
 
@@ -37,6 +43,7 @@ function App() {
   const [provider, setProvider] = useState()
   const [decentragram, setDecentragram] = useState()
   const [lands, setLands] = useState([])
+  const [images, setImages] = useState([])
   const [buffer, setBuffer] = useState()
 
 
@@ -68,8 +75,9 @@ function App() {
       const accounts = await provider?.send("eth_requestAccounts", []);
       setAccount(accounts[0])
 
-      const networkId = await provider.getNetwork()
-      const networkData = DecentragramAbi.networks["5777"]
+      const networkId = (await provider.getNetwork()).chainId;
+      const networkData = DecentragramAbi.networks[networkId.toString()];
+
 
       if (networkData) {
         const contract = new ethers.Contract(networkData.address, iface.format(FormatTypes.full), signer)
@@ -86,6 +94,16 @@ function App() {
 
         setLands(lands.sort((a, b) => b.grantAmount - a.grantAmount))
 
+        const imagesCount = await contract.imagesCount()
+
+        const images = []
+        for (let imageId = 1; imageId <= imagesCount.toNumber(); imageId++) {
+          const image = await contract.images(imageId)
+          console.log(image)
+          images.push(image)
+        }
+
+        setImages(images.sort((a, b) => b.grantAmount - a.grantAmount))
       }
     } catch (error) {
       console.log(error)
@@ -118,10 +136,26 @@ function App() {
     } catch (error) {
       console.log(error)
     } finally {
+
       setLoading(false)
     }
   }
-
+  async function uploadImage(landId) {
+    setLoading(true)
+    try {
+      const result = await ipfs.add(buffer)
+      console.log("ipfs result", result)
+      const transaction = await decentragram.uploadLand(result.path, landId, {
+        from: account
+      })
+      transaction.wait()
+      window.location.reload(false);
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setLoading(false)
+    }
+  }
   async function tipLandOwner(landId, grantAmount) {
     setLoading(true)
     const transaction = await decentragram.tipLandOwner(landId.toNumber(), {
@@ -136,13 +170,12 @@ function App() {
   return (
     <>
       <Router>
-        <div className='container'>
-          <Header account={account} />
-          {loading
-            ? <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }} className="spinner-grow text-primary" role="status">
-              <span className="visually-hidden">Loading...</span>
-            </div>
-            : <Routes>
+        {loading &&
+          <Spinner/> 
+        }
+          <div className='container'>
+            <Header account={account} />
+            <Routes>
               <Route path='/' element={<Home
                 account={account}
               />} />
@@ -165,19 +198,22 @@ function App() {
               <Route path='/land-details/:id' element={<LandDetails
                 account={account}
                 lands={lands}
+                images={images}
                 tipLandOwner={tipLandOwner}
               />} />
               <Route path='/add-images/:id' element={<AddImages
                 account={account}
                 captureFile={captureFile}
-                uploadLand={uploadLand}
+                uploadLand={uploadImage}
                 lands={lands}
+                images={images}
                 tipLandOwner={tipLandOwner}
               />} />
             </Routes>
-          }
-          <Footer />
-        </div>
+
+            <Footer />
+
+          </div>
       </Router>
       <ToastContainer />
     </>
