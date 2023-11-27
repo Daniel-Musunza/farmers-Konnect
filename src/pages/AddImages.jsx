@@ -14,6 +14,7 @@ function AddImages({ lands, account, images, uploadImage, captureFile }) {
         uploadImage(id);
     }
 
+    
 
     const handleImageClick = (image) => {
         setSelectedImage(image);
