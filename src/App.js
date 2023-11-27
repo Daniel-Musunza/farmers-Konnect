@@ -13,7 +13,7 @@ import LandDetails from './pages/LandDetails'
 import AddImages from './pages/AddImages'
 
 import { ethers, providers } from 'ethers';
-import DecentragramAbi from './abis/Decentragram.json'
+import DecentragramAbi from '../artifacts/contracts/Decentragram.sol/Decentragram.json'
 import { Buffer as Buff } from 'buffer';
 import { create } from 'ipfs-http-client'
 import { FormatTypes, Interface } from 'ethers/lib/utils';
@@ -31,9 +31,7 @@ const ipfs = create({
   },
 });
 
-
 const iface = new Interface(DecentragramAbi["abi"]);
-
 
 function App() {
 
