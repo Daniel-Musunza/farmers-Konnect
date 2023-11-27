@@ -61,8 +61,8 @@ function AddImages({ lands, account, images, uploadImage, captureFile }) {
                 </div>
 
                 <div className="single-pro-details" style={{ textAlign: 'left' }}>
-                    <h3 id="Title">{land.title}, need {land.price}</h3>
-                    <h2 id="carPrice">{land.climate}, {land.soilType}</h2>
+                    <h3 id="Title">Title: {land.title}, {land.price} USD needed </h3>
+                    <h2 id="carPrice">Country: {land.country}, Soil Type: {land.soilType}</h2>
                     <p id="carDetails">{land.LandDetails}</p>
                 </div>
             </section>

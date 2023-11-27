@@ -10,7 +10,7 @@ contract Decentragram {
         string hash;
         string title;
         string landType;
-        string climate;
+        string country;
         string soilType;
         string landDetails;
         string price;
@@ -27,7 +27,7 @@ contract Decentragram {
         string hash,
         string title,
         string landType,
-        string climate,
+        string country,
         string soilType,
         string landDetails,
         string price,
@@ -41,7 +41,7 @@ contract Decentragram {
         string hash,
         string title,
         string landType,
-        string climate,
+        string country,
         string soilType,
         string landDetails,
         string price,
@@ -56,17 +56,13 @@ contract Decentragram {
         string memory _hash,
         string memory _title,
         string memory _landType,
-        string memory _climate,
+        string memory _country,
         string memory _soilType,
         string memory _landDetails,
         string memory _message,
         string memory _price
     ) public {
-        require(
-            bytes(_hash).length > 0 &&
-            bytes(_title).length > 0 &&
-            msg.sender != address(0)
-        );
+        require(bytes(_hash).length > 0 && bytes(_title).length > 0);
 
         landsCount++;
         lands[landsCount] = Land(
@@ -74,10 +70,10 @@ contract Decentragram {
             _hash,
             _title,
             _landType,
-            _climate,
+            _country,
             _soilType,
             _landDetails,
-            _price,  // Fixed the order of parameters
+            _price,
             _message,
             0,
             payable(msg.sender)
@@ -88,10 +84,10 @@ contract Decentragram {
             _hash,
             _title,
             _landType,
-            _climate,
+            _country,
             _soilType,
             _landDetails,
-            _price,  // Fixed the order of parameters
+            _price,
             _message,
             0,
             payable(msg.sender)
@@ -101,9 +97,7 @@ contract Decentragram {
     function bookLand(uint _id) public payable {
         require(_id > 0 && _id <= landsCount);
 
-        Land storage _land = lands[_id];  // Changed memory to storage
-
-        require(msg.sender != _land.user);
+        Land storage _land = lands[_id];
 
         payable(address(_land.user)).transfer(msg.value);
 
@@ -111,12 +105,12 @@ contract Decentragram {
 
         lands[_id] = _land;
 
-        emit LandBooked(  // Changed event name to LandBooked
+        emit LandBooked(
             _land.id,
             _land.hash,
             _land.title,
             _land.landType,
-            _land.climate,
+            _land.country,
             _land.soilType,
             _land.landDetails,
             _land.price,
@@ -128,7 +122,7 @@ contract Decentragram {
 
     //images
 
-     struct Image {
+    struct Image {
         uint id;
         string hash;
         string landId;
@@ -147,18 +141,11 @@ contract Decentragram {
         address payable user
     );
 
-    function uploadImage(
-        string memory _hash,
-        string memory _landId
-    ) public {
-        require(
-            bytes(_hash).length > 0 &&
-            bytes(_landId).length > 0 &&
-            msg.sender != address(0)
-        );
+    function uploadImage(string memory _hash, string memory _landId) public {
+        require(bytes(_hash).length > 0 && bytes(_landId).length > 0);
 
         imagesCount++;
-       images[imagesCount] = Image(
+        images[imagesCount] = Image(
             imagesCount,
             _hash,
             _landId,
@@ -166,14 +153,6 @@ contract Decentragram {
             payable(msg.sender)
         );
 
-        emit ImageUploaded(
-            imagesCount,
-            _hash,
-            _landId,
-            0,
-            payable(msg.sender)
-        );
-     }
-
-
+        emit ImageUploaded(imagesCount, _hash, _landId, 0, payable(msg.sender));
+    }
 }

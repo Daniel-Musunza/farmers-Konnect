@@ -1,18 +1,26 @@
-import React, { useRef } from 'react'
-
+import React, { useRef, useState } from 'react';
 import '../post_land.css';
+import { countries as countriesList } from 'countries-list';
+
+const mycountries = Object.values(countriesList);
 
 function PostLand({ uploadLand, captureFile }) {
+    const [selectedCountry, setSelectedCountry] = useState('');
+
+ 
     const titleRef = useRef();
     const landTypeRef = useRef();
     const soilTypeRef = useRef();
-    const climateRef = useRef();
     const priceRef = useRef();
-    const landDetailsRef = useRef()
+    const landDetailsRef = useRef();
+
+    const handleCountryChange = (event) => {
+        setSelectedCountry(event.target.value);
+      };
 
     async function submitForm(event) {
         event.preventDefault()
-        uploadLand(titleRef.current.value, landTypeRef.current.value, soilTypeRef.current.value, climateRef.current.value, priceRef.current.value, landDetailsRef.current.value)
+        uploadLand(titleRef.current.value, landTypeRef.current.value, soilTypeRef.current.value, selectedCountry, priceRef.current.value, landDetailsRef.current.value)
     }
 
     return (
@@ -32,16 +40,24 @@ function PostLand({ uploadLand, captureFile }) {
                                     </select>
                                 </div>
                                 <div className="input-group">
+                                    <select id="countrySelect" className="input-field" value={selectedCountry} onChange={handleCountryChange}>
+                                        <option value="">-- Select Country --</option>
+                                        {mycountries.map((country) => (
+                                        <option key={country.name} value={country.name}>
+                                            {country.name}
+                                        </option>
+                                        ))}
+                                    </select>
+                                </div>
+                                <div className="input-group">
                                     <input type="text" name="title" ref={titleRef} placeholder="Enter Title of the post" className="input-field" />
                                 </div>
                                 <div className="input-group">
                                     <input type="text" name="soilType" ref={soilTypeRef} placeholder="Enter Soil Type" className="input-field" />
                                 </div>
+                                
                                 <div className="input-group">
-                                    <input type="text" name="climate" ref={climateRef} placeholder="Enter Climate" className="input-field" />
-                                </div>
-                                <div className="input-group">
-                                    <input type="text" name="price" ref={priceRef} placeholder="Enter Price" className="input-field" />
+                                    <input type="text" name="price" ref={priceRef} placeholder="Enter Amount Needed (USD)" className="input-field" />
                                 </div>
                                 <div className="input-group">
                                     <input type="file" id="image" name="image" accept=".png, .jpg, .jpeg, .webp, .avif"

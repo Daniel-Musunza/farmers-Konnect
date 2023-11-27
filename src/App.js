@@ -123,12 +123,12 @@ function App() {
     }
   }
 
-  async function uploadLand(title, landType, soilType, climate, price, landDetails) {
+  async function uploadLand(title, landType, soilType, country, price, landDetails) {
     setLoading(true)
     try {
       const result = await ipfs.add(buffer)
       console.log("ipfs result", result)
-      const transaction = await decentragram.uploadLand(result.path, title, landType, soilType, climate, price, landDetails, {
+      const transaction = await decentragram.uploadLand(result.path, title, landType, soilType, country, price, landDetails, {
         from: account
       })
       transaction.wait()

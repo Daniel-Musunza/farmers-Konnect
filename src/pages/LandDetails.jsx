@@ -8,15 +8,15 @@ function LandDetails({ lands, account, images, bookLand }) {
   const { id } = useParams();
   const [isModalOpen, setModalOpen] = useState(false);
   //for now 
-  lands=[
-    {
-      id: 1,
-      hash: "image.jpg",
-      title: "Land In Kenya",
-      climate: "Rainnny",
-      price: '5M',
-    }
-  ]
+  // lands=[
+  //   {
+  //     id: 1,
+  //     hash: "image.jpg",
+  //     title: "Land In Kenya",
+  //     country: "Rainnny",
+  //     price: '5000',
+  //   }
+  // ]
 
   const land = lands.find((land) => land.id == id);
   // Function to toggle the mobile menu
@@ -32,6 +32,7 @@ function LandDetails({ lands, account, images, bookLand }) {
         <ConnectModal 
           bookLand={bookLand}
           landId={id}
+          landAmount={land.price}
           isModalOpen={isModalOpen} 
           setModalOpen={setModalOpen} 
         />
@@ -76,8 +77,8 @@ function LandDetails({ lands, account, images, bookLand }) {
         </div>
 
         <div className="single-pro-details" style={{ textAlign: 'left' }}>
-          <h3 id="Title">{land.title}, need {land.price}</h3>
-          <h2 id="carPrice">{land.climate}, {land.soilType}</h2>
+          <h3 id="Title">Title: {land.title}, {land.price} USD needed </h3>
+          <h2 id="carPrice">Country: {land.country}, Soil Type: {land.soilType}</h2>
           <p id="carDetails">{land.LandDetails}</p>
         </div>
       </section>
