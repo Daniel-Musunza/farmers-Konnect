@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { ethers } from 'ethers';
+import { ethers} from 'ethers';
 
 import './connectModal.css';
 

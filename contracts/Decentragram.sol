@@ -120,7 +120,7 @@ contract Decentragram {
         );
     }
 
-    //images
+    // Images
 
     struct Image {
         uint id;

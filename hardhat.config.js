@@ -1,7 +1,15 @@
+require('@openzeppelin/hardhat-upgrades');
 
-require("@nomicfoundation/hardhat-toolbox");
-
-/** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
-  solidity: "0.8.19",
+  // ... other configurations
+  solidity: {
+    version: '0.8.4',
+  },
+  
+  networks: {
+    localhost: {
+      url: 'http://localhost:8545',
+    },
+  },
+  // ... other configurations
 };
