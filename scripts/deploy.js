@@ -1,25 +1,17 @@
-const { ethers, upgrades } = require("hardhat");
+const hre = require("hardhat");
 
 async function main() {
-  try {
-    // Deploy the Decentragram contract
-    const Decentragram = await ethers.getContractFactory("Decentragram");
-    const decentragram = await upgrades.deployProxy(Decentragram, [], { initializer: "initialize" });
+  const Decentragram = await hre.ethers.getContractFactory("Decentragram"); 
+  const decentragram = await Decentragram.deploy();
 
-    // Wait for the deployment to be mined
-    await decentragram.deployed();
+  await decentragram.deployed();
 
-    console.log(`Decentragram deployed to: ${decentragram.address}`);
-
-    // If you want to upgrade the contract using Hardhat Upgrades Plugin, you can use the following:
-    // const UpgradedDecentragram = await upgrades.upgradeProxy(decentragram.address, UpgradedDecentragram);
-    // console.log(`Decentragram upgraded to: ${UpgradedDecentragram.address}`);
-
-  } catch (error) {
-    console.error("Error deploying Decentragram:", error.message || error);
-    process.exitCode = 1;
-  }
+  console.log("Library deployed to:", decentragram.address);
 }
 
-// Execute the deployment script
-main();
+main().catch((error) => {
+  console.error(error);
+  process.exitCode = 1;
+});
+// real 0xBD90db46f1EE284928dC127A1143a37189D0bc70
+// contract 0x5FbDB2315678afecb367f032d93F642f64180aa3

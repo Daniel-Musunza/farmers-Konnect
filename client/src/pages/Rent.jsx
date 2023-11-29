@@ -1,13 +1,35 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { countries as countriesList } from 'countries-list';
 
 const mycountries = Object.values(countriesList);
 
-function Rent({ lands, account }) {
+function Rent({ contract, account }) {
+    const [lands, setLands] = useState([]);
     const [filteredRentalLands, setFilteredRentalLand] = useState([]);
     const [selectingCountry, setSelectingCountry] = useState(false);
     const [selectedCountry, setSelectedCountry] = useState('');
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                // Call the lands function on the contract
+                const landsCount = await contract.landsCount();
+                const fetchedLands = [];
+
+                for (let i = 1; i <= landsCount; i++) {
+                    const land = await contract.lands(i);
+                    fetchedLands.push(land);
+                }
+
+                setLands(fetchedLands);
+            } catch (error) {
+                console.error('Error fetching lands:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
 
     const filterRef = useRef();
     const rentlands = lands.filter((land) => land.landType == 'rent');
@@ -22,7 +44,7 @@ function Rent({ lands, account }) {
             const filteredlands = rentlands.filter((land) => land.user == account);
             setFilteredRentalLand(filteredlands);
             setSelectingCountry(false);
-            
+
         } else if (filterRef.current.value == "country") {
             setSelectingCountry(true);
 
@@ -68,7 +90,7 @@ function Rent({ lands, account }) {
                             <div className="card" key={key}>
                                 <div className="card__corner"></div>
                                 <div className="card__img">
-                                    <img src={`https://gateway.pinata.cloud/ipfs/${land.hash}`} alt="" />
+                                    <img src={`https://gateway.pinata.cloud/ipfs/${land.hash.substring(6)}`} alt="" />
                                     <span className="card__span">{land.landType}</span>
                                 </div>
                                 <div className="card-int">
@@ -88,7 +110,7 @@ function Rent({ lands, account }) {
                         <div className="card" key={key}>
                             <div className="card__corner"></div>
                             <div className="card__img">
-                                <img src={`https://gateway.pinata.cloud/ipfs/${land.hash}`} alt="" />
+                                <img src={`https://gateway.pinata.cloud/ipfs/${land.hash.substring(6)}`} alt="" />
                                 <span className="card__span">{land.landType}</span>
                             </div>
                             <div className="card-int">

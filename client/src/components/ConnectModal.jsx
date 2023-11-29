@@ -3,8 +3,7 @@ import { ethers} from 'ethers';
 
 import './connectModal.css';
 
-function ConnectModal({ isModalOpen, setModalOpen, bookLand, landId, landAmount }) {
-   
+function ConnectModal({ isModalOpen, setModalOpen, contract, setLoading, landId, landAmount }) {
     const messageRef = useRef();
     // Function to toggle the mobile menu
     const toggleModal = () => {
@@ -13,6 +12,7 @@ function ConnectModal({ isModalOpen, setModalOpen, bookLand, landId, landAmount 
  
 
     async function submitForm(event) {
+        setLoading(true);
         event.preventDefault();
     
         const amountInUSD = parseFloat(landAmount);
@@ -34,11 +34,13 @@ function ConnectModal({ isModalOpen, setModalOpen, bookLand, landId, landAmount 
             const amountInWei = ethers.utils.parseUnits(amountInEth.toString(), 'ether');
     
             // Now you can use amountInWei in your bookLand function
-            bookLand(landId, amountInWei, messageRef.current.value);
+            contract.bookLand(landId, amountInWei, messageRef.current.value);
+            alert("Land booked successfully");
         } else {
             console.error('Invalid exchange rate. Please try again later.');
             // Handle the error or provide feedback to the user
         }
+        setLoading(false);
     }
     
     return (

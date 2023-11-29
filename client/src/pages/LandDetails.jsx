@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from "axios";
 import { Link, useParams } from 'react-router-dom';
 import '../land_details.css';
 import ConnectModal from '../components/ConnectModal';
+import Spinner from '../components/Spinner';
 
-function LandDetails({ lands, account, images, bookLand }) {
+function LandDetails({ account, contract }) {
+  const [loading, setLoading] = useState(null);
+  const [lands, setLands] = useState([]);
+    const [images, setImages] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
   const { id } = useParams();
   const [isModalOpen, setModalOpen] = useState(false);
@@ -17,7 +22,37 @@ function LandDetails({ lands, account, images, bookLand }) {
   //     price: '5000',
   //   }
   // ]
+  useEffect(() => {
+    const fetchData = async () => {
+        try {
+            // Call the lands function on the contract
+            const landsCount = await contract.landsCount();
+            const fetchedLands = [];
 
+            for (let i = 1; i <= landsCount; i++) {
+                const land = await contract.lands(i);
+                fetchedLands.push(land);
+            }
+
+            setLands(fetchedLands);
+
+            // Call the lands function on the contract
+            const imagesCount = await contract.imagesCount();
+            const fetchedImages = [];
+
+            for (let i = 1; i <= imagesCount; i++) {
+                const image = await contract.images(i);
+                fetchedImages.push(image);
+            }
+
+            setImages(fetchedImages);
+        } catch (error) {
+            console.error('Error fetching Data:', error);
+        }
+    };
+
+    fetchData();
+}, []);
   const land = lands.find((land) => land.id == id);
   // Function to toggle the mobile menu
   const toggleModal = () => {
@@ -26,15 +61,22 @@ function LandDetails({ lands, account, images, bookLand }) {
   const handleImageClick = (image) => {
     setSelectedImage(image);
   };
+
   return (
+    <>
+    {loading &&
+        <Spinner />
+    }
     <div className="main-container">
       {isModalOpen && (
         <ConnectModal 
-          bookLand={bookLand}
           landId={id}
           landAmount={land.price}
           isModalOpen={isModalOpen} 
           setModalOpen={setModalOpen} 
+          loading={loading} 
+          setLoading={setLoading} 
+          contract={contract}
         />
       )}
       <section id="prodetails" className="section-p1">
@@ -43,11 +85,11 @@ function LandDetails({ lands, account, images, bookLand }) {
           <div className="main-image">
             {selectedImage ? (
               <img
-                src={`https://gateway.pinata.cloud/ipfs/${selectedImage.hash}`}
+                src={`https://gateway.pinata.cloud/ipfs/${selectedImage.hash.substring(6)}`}
                 alt=""
               />
             ) : (
-              <img src={`https://gateway.pinata.cloud/ipfs/${land.hash}`} alt="" />
+              <img src={`https://gateway.pinata.cloud/ipfs/${land.hash.substring(6)}`} alt="" />
              )}
 
           </div>
@@ -83,6 +125,7 @@ function LandDetails({ lands, account, images, bookLand }) {
         </div>
       </section>
     </div>
+    </>
   );
 }
 
