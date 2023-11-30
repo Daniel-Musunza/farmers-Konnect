@@ -5,7 +5,29 @@ import { countries as countriesList } from 'countries-list';
 const mycountries = Object.values(countriesList);
 
 function Invest({ contract, account }) {
-    const [lands, setLands] = useState([]);
+    const [lands, setLands] = useState(
+        [
+            {
+                id: '1', 
+                hash: 'https://magenta-efficient-centipede-68.mypinata.cloud/ipfs/QmbyG33fUQbM1APeComix1uN9VQBdKtRHYJsX51M59gcKi?_gl=1*kq9a1f*_ga*MTc0NTY4NDgzNi4xNzAxMzQ3ODcz*_ga_5RMPXG14TE*MTcwMTM0Nzg4Mi4xLjEuMTcwMTM0ODI2Mi4yNS4wLjA.',
+                title: 'Arable Land In Kikuyu.',
+                landType: 'invest',
+                price: '2000',
+                country: 'Kenya',
+                soilType: 'Loom',
+                landDetails: ''
+            },
+            {
+                id: '2', 
+                hash: 'https://magenta-efficient-centipede-68.mypinata.cloud/ipfs/QmZvfb4fjrSM59tsf8JYKwys6WFgRt28m2D2Dy9F2J87LT?_gl=1*1yf5ise*_ga*MTc0NTY4NDgzNi4xNzAxMzQ3ODcz*_ga_5RMPXG14TE*MTcwMTM1NjQyOS4zLjAuMTcwMTM1NjQyOS42MC4wLjA.',
+                title: 'Arable Land For Farming Ocra',
+                landType: 'invest',
+                price: '5000',
+                country: 'Albania',
+                soilType: 'Loose Sand',
+                landDetails: ''
+            }
+        ]);
     const [filteredInvestmentLands, setFilteredInvestmentLand] = useState([]);
     const [selectingCountry, setSelectingCountry] = useState(false);
     const [selectedCountry, setSelectedCountry] = useState('');
@@ -38,7 +60,7 @@ function Invest({ contract, account }) {
     async function Filter(event) {
         event.preventDefault()
         if (filterRef.current.value == "posted") {
-            const filteredlands = investlands.filter((land) => land.from == account);
+            const filteredlands = investlands.filter((land) => land.user == account);
             setFilteredInvestmentLand(filteredlands);
             setSelectingCountry(false);
         } else if (filterRef.current.value == "booked") {
@@ -91,12 +113,12 @@ function Invest({ contract, account }) {
                             <div className="card" key={key}>
                                 <div className="card__corner"></div>
                                 <div className="card__img">
-                                    <img src={`https://gateway.pinata.cloud/ipfs/${land.hash.substring(6)}`} alt="" />
-                                    <span className="card__span">{land.landType}</span>
+                                    <img src={` ${land.hash.substring(6)}`} alt="" style={{width: '100%'}} />
+                                    <span className="card__span">In need of an Investor</span>
                                 </div>
                                 <div className="card-int">
-                                    <p className="card-int__title">{land.title}, need {land.price}</p>
-                                    <p className="excerpt">{land.country}, {land.soilType}</p>
+                                    <p className="card-int__title">{land.title}, USD {land.price} needed</p>
+                                    <p className="excerpt">Country: {land.country}, Soil Type:{land.soilType}</p>
                                     <Link to={`/land-details/${land.id}`}><button className="card-int__button">Show</button></Link>
                                 </div>
                             </div>
@@ -111,12 +133,12 @@ function Invest({ contract, account }) {
                         <div className="card" key={key}>
                             <div className="card__corner"></div>
                             <div className="card__img">
-                                <img src={`https://gateway.pinata.cloud/ipfs/${land.hash.substring(6)}`} alt="" />
-                                <span className="card__span">{land.landType}</span>
+                                <img src={`${land.hash.substring(6)}`} alt="" style={{width: '100%'}}/>
+                                <span className="card__span">In need of an Investor</span>
                             </div>
                             <div className="card-int">
-                                <p className="card-int__title">{land.title}, need {land.price}</p>
-                                <p className="excerpt">{land.country}, {land.soilType}</p>
+                            <p className="card-int__title">{land.title}, USD {land.price} needed</p>
+                                    <p className="excerpt">Country: {land.country}, Soil Type:{land.soilType}</p>
                                 <Link to={`/land-details/${land.id}`}><button className="card-int__button">Show</button></Link>
                             </div>
                         </div>

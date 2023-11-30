@@ -35,19 +35,23 @@ function App() {
         // });
         await provider.send("eth_requestAccounts", []);
         const signer = provider.getSigner();
-        const address = await signer.getAddress();
-        setAccount(address);
-        let contractAddress = process.env.CONTRACT_ADDRESS;
+        try{
+          const address = await signer.getAddress();
+          setAccount(address);
+          let contractAddress = '';
         
-
-        const contract = new ethers.Contract(
-          contractAddress,
-          DecentragramAbi.abi,
-          signer
-        );
-        console.log(contract);
-        setContract(contract);
-        setProvider(provider);
+          const contract = new ethers.Contract(
+            contractAddress,
+            DecentragramAbi.abi,
+            signer
+          );
+          console.log(contract);
+          setContract(contract);
+          setProvider(provider);
+        } catch(error){
+          throw(error)
+        }
+        
       } else {
         console.error("Metamask is not installed");
       }
@@ -58,7 +62,6 @@ function App() {
   return (
     <>
       <Router>
-    
           <div className='container'>
             <Header account={account} />
             <Routes>
