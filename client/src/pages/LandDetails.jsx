@@ -154,7 +154,7 @@ function LandDetails({ account, contract }) {
           <div className="single-pro-image">
             <div className="contract" style={{ padding: '10px', borderRadius: '10px', position: 'fixed', zIndex: '1', textAlign: 'center', right: '10px', background: "#fff", width: '300px', minHeight: '200px' }}>
               <h2 style={{marginTop: '20px'}}>Contract Status</h2>
-              <p style={{marginTop: '20px'}}>You are not yet in contract with us. Please book this Land.</p>
+              <p style={{marginTop: '20px'}}>You have not yet booked this land. Please book this Land.</p>
             </div>
 
 

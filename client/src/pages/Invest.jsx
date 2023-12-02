@@ -8,7 +8,7 @@ function Invest({ contract, account }) {
     const [lands, setLands] = useState(
         [
             {
-                id: '1', 
+                id: '1',
                 hash: 'https://magenta-efficient-centipede-68.mypinata.cloud/ipfs/QmbyG33fUQbM1APeComix1uN9VQBdKtRHYJsX51M59gcKi?_gl=1*kq9a1f*_ga*MTc0NTY4NDgzNi4xNzAxMzQ3ODcz*_ga_5RMPXG14TE*MTcwMTM0Nzg4Mi4xLjEuMTcwMTM0ODI2Mi4yNS4wLjA.',
                 title: 'Arable Land In Kikuyu.',
                 landType: 'invest',
@@ -18,7 +18,7 @@ function Invest({ contract, account }) {
                 landDetails: ''
             },
             {
-                id: '2', 
+                id: '2',
                 hash: 'https://magenta-efficient-centipede-68.mypinata.cloud/ipfs/QmZvfb4fjrSM59tsf8JYKwys6WFgRt28m2D2Dy9F2J87LT?_gl=1*1yf5ise*_ga*MTc0NTY4NDgzNi4xNzAxMzQ3ODcz*_ga_5RMPXG14TE*MTcwMTM1NjQyOS4zLjAuMTcwMTM1NjQyOS42MC4wLjA.',
                 title: 'Arable Land For Farming Ocra',
                 landType: 'invest',
@@ -77,10 +77,14 @@ function Invest({ contract, account }) {
     };
 
     const handleCountryChange = (event) => {
-        setSelectedCountry(event.target.value);
-        const filteredlands = investlands.filter((land) => land.country == selectedCountry);
-        setFilteredInvestmentLand(filteredlands);
+        const selectedCountryValue = event.target.value;
+        setSelectedCountry(selectedCountryValue);
+        console.log("Selected Country: " + selectedCountryValue);
+
+        const filteredLands = investlands.filter((land) => land.country === selectedCountryValue);
+        setFilteredInvestmentLand(filteredLands);
     };
+
     return (
         <div className="main-container">
             <div className="heading" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', marginTop: '30px' }}>
@@ -104,6 +108,7 @@ function Invest({ contract, account }) {
                             </select>
                         </div>
                     )}
+
                 </div>
             </div>
             {filteredInvestmentLands.length > 0 && (
@@ -113,7 +118,7 @@ function Invest({ contract, account }) {
                             <div className="card" key={key}>
                                 <div className="card__corner"></div>
                                 <div className="card__img">
-                                    <img src={` ${land.hash.substring(6)}`} alt="" style={{width: '100%'}} />
+                                    <img src={` ${land.hash.substring(6)}`} alt="" style={{ width: '100%' }} />
                                     <span className="card__span">In need of an Investor</span>
                                 </div>
                                 <div className="card-int">
@@ -133,12 +138,12 @@ function Invest({ contract, account }) {
                         <div className="card" key={key}>
                             <div className="card__corner"></div>
                             <div className="card__img">
-                                <img src={`${land.hash.substring(6)}`} alt="" style={{width: '100%'}}/>
+                                <img src={`${land.hash.substring(6)}`} alt="" style={{ width: '100%' }} />
                                 <span className="card__span">In need of an Investor</span>
                             </div>
                             <div className="card-int">
-                            <p className="card-int__title">{land.title}, USD {land.price} needed</p>
-                                    <p className="excerpt">Country: {land.country}, Soil Type:{land.soilType}</p>
+                                <p className="card-int__title">{land.title}, USD {land.price} needed</p>
+                                <p className="excerpt">Country: {land.country}, Soil Type:{land.soilType}</p>
                                 <Link to={`/land-details/${land.id}`}><button className="card-int__button">Show</button></Link>
                             </div>
                         </div>

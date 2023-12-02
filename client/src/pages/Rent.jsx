@@ -8,7 +8,7 @@ function Rent({ contract, account }) {
     const [lands, setLands] = useState(
         [
             {
-                id: '3', 
+                id: '3',
                 hash: 'https://magenta-efficient-centipede-68.mypinata.cloud/ipfs/QmbyG33fUQbM1APeComix1uN9VQBdKtRHYJsX51M59gcKi?_gl=1*kq9a1f*_ga*MTc0NTY4NDgzNi4xNzAxMzQ3ODcz*_ga_5RMPXG14TE*MTcwMTM0Nzg4Mi4xLjEuMTcwMTM0ODI2Mi4yNS4wLjA.',
                 title: 'Arable Land In Kikuyu.',
                 landType: 'rent',
@@ -18,7 +18,7 @@ function Rent({ contract, account }) {
                 landDetails: ''
             },
             {
-                id: '4', 
+                id: '4',
                 hash: 'https://magenta-efficient-centipede-68.mypinata.cloud/ipfs/QmZvfb4fjrSM59tsf8JYKwys6WFgRt28m2D2Dy9F2J87LT?_gl=1*1yf5ise*_ga*MTc0NTY4NDgzNi4xNzAxMzQ3ODcz*_ga_5RMPXG14TE*MTcwMTM1NjQyOS4zLjAuMTcwMTM1NjQyOS42MC4wLjA.',
                 title: 'Arable Land For Farming Ocra',
                 landType: 'rent',
@@ -76,10 +76,14 @@ function Rent({ contract, account }) {
     };
 
     const handleCountryChange = (event) => {
-        setSelectedCountry(event.target.value);
-        const filteredlands = rentlands.filter((land) => land.country == selectedCountry);
-        setFilteredRentalLand(filteredlands);
+        const selectedCountryValue = event.target.value;
+        setSelectedCountry(selectedCountryValue);
+        console.log("Selected Country: " + selectedCountryValue);
+
+        const filteredLands = rentlands.filter((land) => land.country === selectedCountryValue);
+        setFilteredRentalLand(filteredLands);
     };
+
     return (
         <div className="main-container">
             <div className="heading" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', marginTop: '30px' }}>
@@ -103,6 +107,7 @@ function Rent({ contract, account }) {
                             </select>
                         </div>
                     )}
+
                 </div>
             </div>
             {filteredRentalLands.length > 0 && (
@@ -112,7 +117,7 @@ function Rent({ contract, account }) {
                             <div className="card" key={key}>
                                 <div className="card__corner"></div>
                                 <div className="card__img">
-                                    <img src={` ${land.hash.substring(6)}`} alt="" style={{width: '100%'}}/>
+                                    <img src={` ${land.hash.substring(6)}`} alt="" style={{ width: '100%' }} />
                                     <span className="card__span">To let</span>
                                 </div>
                                 <div className="card-int">
@@ -132,7 +137,7 @@ function Rent({ contract, account }) {
                         <div className="card" key={key}>
                             <div className="card__corner"></div>
                             <div className="card__img">
-                                <img src={` ${land.hash.substring(6)}`} alt="" style={{width: '100%'}} />
+                                <img src={` ${land.hash.substring(6)}`} alt="" style={{ width: '100%' }} />
                                 <span className="card__span">To let</span>
                             </div>
                             <div className="card-int">
