@@ -26,19 +26,19 @@ function App() {
 
     const loadProvider = async () => {
       if (provider) {
-        // window.ethereum.on("chainChanged", () => {
-        //   window.location.reload();
-        // });
+        window.ethereum.on("chainChanged", () => {
+          window.location.reload();
+        });
 
-        // window.ethereum.on("accountsChanged", () => {
-        //   window.location.reload();
-        // });
+        window.ethereum.on("accountsChanged", () => {
+          window.location.reload();
+        });
         await provider.send("eth_requestAccounts", []);
         const signer = provider.getSigner();
         try{
           const address = await signer.getAddress();
           setAccount(address);
-          let contractAddress = '';
+          let contractAddress = '0xBD90db46f1EE284928dC127A1143a37189D0bc70';
         
           const contract = new ethers.Contract(
             contractAddress,

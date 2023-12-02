@@ -17,69 +17,80 @@ function PostLand({ account, contract, provider }) {
     const priceRef = useRef();
     const landDetailsRef = useRef();
     const [file, setFile] = useState(null);
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
+    
         if (!file) {
             setLoading(false);
             alert("Please Select an Image");
             setFile(null);
             return;
         }
-            try {
-                const formData = new FormData();
-                formData.append("file", file);
-
-                const resFile = await axios({
-                    method: "post",
-                    url: "https://api.pinata.cloud/pinning/pinFileToIPFS",
-                    data: formData,
-                    headers: {
-                        pinata_api_key: process.env.REACT_APP_PINATA_API_KEY,
-                        pinata_secret_api_key: process.env.REACT_APP_PINATA_SECRET_KEY,
-                        "Content-Type": "multipart/form-data",
-                    },
-                });
-                const hash = `https://gateway.pinata.cloud/ipfs/${resFile.data.IpfsHash}`;
-                const user = account;
-                const title = titleRef.current.value;
-                const landType = landTypeRef.current.value;
-                const soilType = soilTypeRef.current.value;
-                const country = selectedCountry;
-                const price = priceRef.current.value;
-                const landDetails = landDetailsRef.current.value;
-
-                console.log(user, hash, title, landType, soilType, country, price, landDetails);
-                contract.uploadLand(user, hash, title, landType, soilType, country, price, landDetails);
-
-                const uploadLandResult = await contract.uploadLand(
-                    user,
-                    hash,
-                    title,
-                    landType,
-                    soilType,
-                    country,
-                    price,
-                    landDetails
-                );
     
-                // Assuming uploadLandResult contains the ID of the uploaded land
-                const id = uploadLandResult.id;
+        try {
+            const formData = new FormData();
+            formData.append("file", file);
     
-                // Navigate to "/add-images/${id}"
-                navigate(`/add-images/${id}`);
-
-                setFile(null);
-            } catch (error) {
-                console(error);
-            }
+            const resFile = await axios({
+                method: "post",
+                url: "https://api.pinata.cloud/pinning/pinFileToIPFS",
+                data: formData,
+                headers: {
+                    pinata_api_key: process.env.REACT_APP_PINATA_API_KEY,
+                    pinata_secret_api_key: process.env.REACT_APP_PINATA_SECRET_KEY,
+                    "Content-Type": "multipart/form-data",
+                },
+            });
+    
+            const hash = `https://gateway.pinata.cloud/ipfs/${resFile.data.IpfsHash}`;
+            const user = account;
+            const title = titleRef.current.value;
+            const landType = landTypeRef.current.value;
+            const soilType = soilTypeRef.current.value;
+            const country = selectedCountry;
+            const price = priceRef.current.value;
+            const landDetails = landDetailsRef.current.value;
+    
+            console.log(user, hash, title, landType, soilType, country, price, landDetails);
+            
+            const uploadLandResult = await contract.uploadLand(
+                user,
+                hash,
+                title,
+                landType,
+                soilType,
+                country,
+                price,
+                landDetails
+            );
+    
+            // Assuming uploadLandResult contains the ID of the uploaded land
+            const id = uploadLandResult.id;
+    
+            // Navigate to "/add-images/${id}"
+            navigate(`/add-images/${id}`);
+    
+            setFile(null);
             setLoading(false);
             alert("Successfully Land Posted");
+        } catch (error) {
+            console.error("Error uploading land:", error);
+    
+            if (error.response && error.response.status === 400) {
+                // Handle specific error related to the transaction rejection
+                alert("Transaction rejected. Please check your gas or balance.");
+            } else {
+                // Handle other errors
+                alert("An error occurred while uploading land. Please try again.");
+            }
+    
+            setLoading(false);
             setFile(null);
-        
-        
-        
+        }
     };
+    
     const retrieveFile = (e) => {
         const data = e.target.files[0]; //files array of files object
         // console.log(data);

@@ -16,7 +16,7 @@ contract Decentragram {
         string price;
         string message;
         uint grantAmount;
-        address payable user;
+        address user;
     }
 
     mapping(uint => Land) public lands;
@@ -33,7 +33,7 @@ contract Decentragram {
         string price,
         string message,
         uint grantAmount,
-        address payable user
+        address user
     );
 
     event LandBooked(
@@ -47,7 +47,7 @@ contract Decentragram {
         string price,
         string message,
         uint grantAmount,
-        address payable user
+        address user
     );
 
     constructor() {}
@@ -76,7 +76,7 @@ contract Decentragram {
             _price,
             _message,
             0,
-            payable(msg.sender)
+            msg.sender
         );
 
         emit LandUploaded(
@@ -90,7 +90,7 @@ contract Decentragram {
             _price,
             _message,
             0,
-            payable(msg.sender)
+            msg.sender
         );
     }
 
@@ -98,8 +98,6 @@ contract Decentragram {
         require(_id > 0 && _id <= landsCount);
 
         Land storage _land = lands[_id];
-
-        payable(address(_land.user)).transfer(msg.value);
 
         _land.grantAmount += msg.value;
 
@@ -127,7 +125,7 @@ contract Decentragram {
         string hash;
         string landId;
         uint grantAmount;
-        address payable user;
+        address user;
     }
 
     mapping(uint => Image) public images;
@@ -138,7 +136,7 @@ contract Decentragram {
         string hash,
         string landId,
         uint grantAmount,
-        address payable user
+        address user
     );
 
     function uploadImage(string memory _hash, string memory _landId) public {
@@ -150,9 +148,9 @@ contract Decentragram {
             _hash,
             _landId,
             0,
-            payable(msg.sender)
+            msg.sender
         );
-
-        emit ImageUploaded(imagesCount, _hash, _landId, 0, payable(msg.sender));
+   
+        emit ImageUploaded(imagesCount, _hash, _landId, 0,  msg.sender);
     }
 }

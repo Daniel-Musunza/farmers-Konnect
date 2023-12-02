@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "C:\\projects\\farmers-konnect\\contracts\\Decentragram.sol": {
-      "lastModificationDate": 1701250593198,
-      "contentHash": "6ca6c4c456633e861eda6fc2fbadc0df",
+      "lastModificationDate": 1701426431614,
+      "contentHash": "6f1331922effb04e484125d54f351cb6",
       "sourceName": "contracts/Decentragram.sol",
       "solcConfig": {
         "version": "0.8.9",

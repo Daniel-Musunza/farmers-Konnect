@@ -160,6 +160,14 @@ function AddImages({ account, contract }) {
             setFile(null);
         } catch (error) {
             console(error);
+            
+            if (error.response && error.response.status === 400) {
+                // Handle specific error related to the transaction rejection
+                alert("Transaction rejected. Please check your gas or balance.");
+            } else {
+                // Handle other errors
+                alert("An error occurred while uploading land. Please try again.");
+            }
         }
         setLoading(false);
         alert("Successfully Image Uploaded");
@@ -197,7 +205,7 @@ function AddImages({ account, contract }) {
                         <div className="main-image">
                             {selectedImage ? (
                                 <img
-                                    src={`https://gateway.pinata.cloud/ipfs/${selectedImage.hash.substring(6)}`}
+                                    src={`${selectedImage.hash.substring(6)}`}
                                     alt=""
                                 />
                             ) : (
@@ -215,6 +223,7 @@ function AddImages({ account, contract }) {
                                         src={` ${image.hash}`}
                                         alt=""
                                         onClick={() => handleImageClick(image)}
+                                        width="200"
                                     />
                                 ))}
                         </div>
