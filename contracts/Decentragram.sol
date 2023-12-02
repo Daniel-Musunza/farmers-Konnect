@@ -4,6 +4,8 @@ pragma solidity >=0.7.0 <0.9.0;
 
 contract Decentragram {
     string public name = "Decentragram";
+    
+    address public owner;
 
     struct Land {
         uint id;
@@ -49,8 +51,6 @@ contract Decentragram {
         uint grantAmount,
         address user
     );
-
-    constructor() {}
 
     function uploadLand(
         string memory _hash,
@@ -99,6 +99,13 @@ contract Decentragram {
 
         Land storage _land = lands[_id];
 
+        // Check if the grantAmount is already greater than or equal to the desired amount
+        require(_land.grantAmount + msg.value >= desiredAmount, "Insufficient funds");
+
+        // Transfer the received funds to the seller's address (escrow release)
+        payable(_land.user).transfer(msg.value);
+
+        // Update the grantAmount
         _land.grantAmount += msg.value;
 
         lands[_id] = _land;
@@ -116,6 +123,27 @@ contract Decentragram {
             _land.grantAmount,
             _land.user
         );
+    }
+
+    uint public desiredAmount = 100; // Set the desired escrow amount here
+
+    // Function to set the desired escrow amount (onlyOwner can set it)
+    function setDesiredAmount(uint _amount) public onlyOwner {
+        desiredAmount = _amount;
+    }
+   /**
+     * @dev Sets the contract's owner to the address that deploys the contract.
+     */
+    constructor() {
+        owner = msg.sender;
+    }
+
+    /**
+     * @dev Modifier to allow only the owner to call certain functions.
+     */
+    modifier onlyOwner() {
+        require(msg.sender == owner, "Only owner can call this function.");
+        _;
     }
 
     // Images

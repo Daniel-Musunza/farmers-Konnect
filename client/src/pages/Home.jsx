@@ -33,7 +33,7 @@ function Home() {
                   <h1>Get Investors</h1>
                   <p>You don't have enough capital for farming? Get Investors here!</p>
                   <div className="button">
-                    <a href="#content_management">readmore<i className="fi fi-sr-angle-small-right"></i></a>
+                    <a href="#">readmore<i className="fi fi-sr-angle-small-right"></i></a>
                   </div>
                 </div>
               </div>
@@ -45,7 +45,7 @@ function Home() {
                   <h1>Rent Arable Land</h1>
                   <p>You want to do farming but you don't have a piece of land? Get some hectares here!</p>
                   <div className="button">
-                    <a href="#streaming">readmore<i className="fi fi-sr-angle-small-right"></i></a>
+                    <a href="#">readmore<i className="fi fi-sr-angle-small-right"></i></a>
                   </div>
                 </div>
               </div>
@@ -57,7 +57,7 @@ function Home() {
                   <h1>In-house Loan Service</h1>
                   <p>Access to affordable and timely financing</p>
                   <div className="button">
-                    <a href="#mobile_and_tv_apps">readmore<i className="fi fi-sr-angle-small-right"></i></a>
+                    <a href="#">readmore<i className="fi fi-sr-angle-small-right"></i></a>
                   </div>
                 </div>
               </div>
