@@ -14,7 +14,7 @@ function Home() {
             <div className="swiper-wrapper">
               <div className="swiper-slide hero-image">
                 <div className="text">
-                  <p>Agricultural Platform</p>
+                  <p>Decentralized Agricultural Platform</p>
                   <h1 style={{ color: 'black' }}>Connects Farmers to Investors and Arable Land</h1>
                   <button><Link to="/post-land">Get Started</Link></button>
                 </div>
@@ -65,8 +65,6 @@ function Home() {
           </div>
         </section>
 
-        
-        
       </div>
     </>
   );

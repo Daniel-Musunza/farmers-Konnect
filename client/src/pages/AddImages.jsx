@@ -144,8 +144,8 @@ function AddImages({ account, contract }) {
                 url: "https://api.pinata.cloud/pinning/pinFileToIPFS",
                 data: formData,
                 headers: {
-                    pinata_api_key: process.env.REACT_APP_PINATA_API_KEY,
-                    pinata_secret_api_key: process.env.REACT_APP_PINATA_SECRET_KEY,
+                    pinata_api_key: `7f5c8eb0809e099a09e4`,
+                    pinata_secret_api_key: `ac902cb198a06e9de7bf565a75455bdfb37c000cd2021f38747009635f062fff`,
                     "Content-Type": "multipart/form-data",
                 },
             });

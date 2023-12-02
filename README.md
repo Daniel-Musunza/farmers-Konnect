@@ -1,16 +1,13 @@
-# Decentralized Image Upload and Sharing
+# Decentralized Agricultural Platform
 
-This project facilitates decentralized image upload and sharing on the blockchain using Solidity for the smart contract and React for the front-end interface. It enables users to securely upload images to IPFS (InterPlanetary File System) and share access with specified users through smart contract functionality.
+This project facilitates decentralized land image upload and sharing on the blockchain using Solidity for the smart contract and React for the front-end interface. It enables users to securely upload images of land to IPFS (InterPlanetary File System) and share access with specified users through smart contract functionality.
 
-Here is the video in English - [Decentralize Google Drive](https://youtu.be/M-KRLlHG_zs?si=rD7I-fH-P8kGiwwf)
-
-Here is the video in Hindi - [Decentralize Google Drive](https://youtu.be/fghqq3-P3x0?si=CVMpHFTW3-fa3R3A)
 
 ## Features
 
 - **Decentralized Storage:** Images are uploaded to IPFS, ensuring decentralized and immutable storage.
 - **Smart Contract:** Utilizes Solidity smart contracts on the Ethereum blockchain for access control and ownership management.
-- **Access Control:** Users can grant or revoke access to their uploaded images to specific individuals through the smart contract.
+- **Access Control:** Any User can access to the uploaded Farm data through the smart contract but only the user who posted the details can Add more images to it.
 
 ## Technologies Used
 
@@ -25,13 +22,13 @@ Here is the video in Hindi - [Decentralize Google Drive](https://youtu.be/fghqq3
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/decentralized-image-upload.git
+   git clone https://github.com/Daniel-Musunza/farmers-Konnect.git
    ```
 2. Install dependencies for the hardhat:
 
    ```bash
    # Navigate to the root directory
-   cd Dgdrive3.0
+   cd farmers-konnect
    # Install hardhat dependencies
    npm install
    ```
@@ -56,7 +53,7 @@ Here is the video in Hindi - [Decentralize Google Drive](https://youtu.be/fghqq3
 6. Run the react application:
    ```bash
    # Start React Application
-   npm start
+   npm run start
    ```
    
 ### Configuration
@@ -64,7 +61,7 @@ Here is the video in Hindi - [Decentralize Google Drive](https://youtu.be/fghqq3
 1. Set up environment variables:
 
    - Obtain API keys for Pinata to interact with IPFS.
-   - Update the React component (FileUpload.js) with your Pinata API keys.
+   - Update the React component (PostLand.jsx) and (AddImages.jsx) with your Pinata API keys.
      
 ### Usage
 
