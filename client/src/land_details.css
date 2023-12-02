@@ -63,23 +63,42 @@
 }
 
 @media (max-width: 800px) {
-    .main-image {
-
+    .single-pro-image{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 90%;
+        margin: 10px;
+    }
+    .single-pro-details {
+        width: 90%;
+        margin-left: 0;
+        margin-right: 0;
+        padding-top: 30px;
+    }
+    .main-image
+     {
+        width: 90% ;
         display: flex;
         justify-content: center;
         align-items: center;
     }
+.contract {
+    display: none;
+}
 
     .main-image img {
         margin: 10px;
-        width: 400px !important;
+        width: 100%;
     }
 
     .small-img-group {
-        padding-left: 200px;
-        padding-right: 200px;
+        width: 90%;
     }
-
+    .small-img-group img{
+        margin-right: 0;
+    }
     #button {
         position: relative;
         top: 0;
