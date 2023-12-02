@@ -17,7 +17,7 @@ function PostLand({ account, contract, provider }) {
     const priceRef = useRef();
     const landDetailsRef = useRef();
     const [file, setFile] = useState(null);
-    
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -44,7 +44,7 @@ function PostLand({ account, contract, provider }) {
                 },
             });
     
-            const hash = `https://gateway.pinata.cloud/ipfs/${resFile.data.IpfsHash}`;
+            const hash = `https://magenta-efficient-centipede-68.mypinata.cloud/ipfs/${resFile.data.IpfsHash}`;
             const user = account;
             const title = titleRef.current.value;
             const landType = landTypeRef.current.value;

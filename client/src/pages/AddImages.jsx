@@ -149,7 +149,7 @@ function AddImages({ account, contract }) {
                     "Content-Type": "multipart/form-data",
                 },
             });
-            const hash = `https://gateway.pinata.cloud/ipfs/${resFile.data.IpfsHash}`;
+            const hash = `https://magenta-efficient-centipede-68.mypinata.cloud/ipfs/${resFile.data.IpfsHash}`;
             const user = account;
             const landId = id;
 
@@ -160,7 +160,7 @@ function AddImages({ account, contract }) {
             setFile(null);
         } catch (error) {
             console(error);
-            
+
             if (error.response && error.response.status === 400) {
                 // Handle specific error related to the transaction rejection
                 alert("Transaction rejected. Please check your gas or balance.");
