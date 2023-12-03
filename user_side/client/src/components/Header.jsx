@@ -46,10 +46,10 @@ const setUser = () => {
           ):(
             <i className="fa-solid fa-bars" id="menu" style={{ color: '#fff', fontSize: '40px', marginRight: '20px' }} onClick={toggleMobileMenu}></i>
           )}
-          {user && account ? (
+          { account ? (
             <button><Link to="/post-land">Get Started</Link></button>
           ): (
-              <button onClick={setUser}><a href="https://farmers-konnect.vercel.app/register">Register</a></button>
+              <div>connect to metamask</div>
           )}
             
           </div>
