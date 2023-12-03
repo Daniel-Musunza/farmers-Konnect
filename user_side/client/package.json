@@ -19,11 +19,7 @@
     "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.0",
     "react-toastify": "^8.1.1"
-  },
-  "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^4.4.0"
-  },
-  
+  },  
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
