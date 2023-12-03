@@ -27,7 +27,7 @@ function Invest({ contract, account }) {
                 soilType: 'Loose Sand',
                 landDetails: ''
             }
-        ] && JSON.parse(localStorage.getItem('lands')) );
+        ]);
     const [filteredInvestmentLands, setFilteredInvestmentLand] = useState([]);
     const [selectingCountry, setSelectingCountry] = useState(false);
     const [selectedCountry, setSelectedCountry] = useState('');
@@ -51,6 +51,14 @@ function Invest({ contract, account }) {
         };
 
         fetchData();
+    }, []);
+
+    useEffect(() => {
+        // Load lands from local storage and combine with fetched lands
+        const localLands = JSON.parse(localStorage.getItem('lands')) || [];
+        console.log(localLands);
+        setLands((prevLands) => [...prevLands, ...localLands]);
+        
     }, []);
 
     const filterRef = useRef();

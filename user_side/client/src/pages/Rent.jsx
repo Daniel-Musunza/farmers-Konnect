@@ -27,7 +27,7 @@ function Rent({ contract, account }) {
                 soilType: 'Loose Sand',
                 landDetails: ''
             }
-        ] && JSON.parse(localStorage.getItem('lands')));
+        ]);
     const [filteredRentalLands, setFilteredRentalLand] = useState([]);
     const [selectingCountry, setSelectingCountry] = useState(false);
     const [selectedCountry, setSelectedCountry] = useState('');
@@ -51,6 +51,14 @@ function Rent({ contract, account }) {
         };
 
         fetchData();
+    }, []);
+
+    useEffect(() => {
+        // Load lands from local storage and combine with fetched lands
+        const localLands = JSON.parse(localStorage.getItem('lands')) || [];
+        console.log(localLands);
+        setLands((prevLands) => [...prevLands, ...localLands]);
+        
     }, []);
 
     const filterRef = useRef();

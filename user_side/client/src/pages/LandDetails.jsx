@@ -124,6 +124,15 @@ function LandDetails({ account, contract }) {
 
     fetchData();
   }, []);
+
+  useEffect(() => {
+    // Load lands from local storage and combine with fetched lands
+    const localLands = JSON.parse(localStorage.getItem('lands')) || [];
+    console.log(localLands);
+    setLands((prevLands) => [...prevLands, ...localLands]);
+    
+  }, []);
+
   const land = lands.find((land) => land.id == id);
   // Function to toggle the mobile menu
   const toggleModal = () => {
@@ -161,15 +170,12 @@ function LandDetails({ account, contract }) {
             <br />
             <div className="main-image">
               {selectedImage ? (
-                <img
-                  src={` ${selectedImage.hash.substring(6)}`}
-                  alt=""
-                />
+                <img src={selectedImage.hash && selectedImage.hash.substring(6)} alt="" />
               ) : (
-                <img src={` ${land.hash.substring(6)}`} alt="" />
+                <img src={land && land.hash && land.hash.substring(6)} alt="" />
               )}
-
             </div>
+
             <br />
             <div className="small-img-group" id="ImagesContainer">
               {images
@@ -177,7 +183,7 @@ function LandDetails({ account, contract }) {
                 .map((image, key) => (
                   <img
                     key={key}
-                    src={` ${image.hash}`}
+                    src={image.hash && image.hash.substring(6)}
                     alt=""
                     onClick={() => handleImageClick(image)}
                     width='200px'
@@ -187,7 +193,7 @@ function LandDetails({ account, contract }) {
           </div>
           <div className="buttons">
             <div style={{ display: 'flex', alignItems: 'center' }}>
-              {land.user == account &&
+              {land && land.user == account &&
                 <button className="upload-button" style={{ marginRight: '20px' }}> <Link to={`/add-images/${land.id}`}><h4>Add More Images</h4></Link></button>
               }
 
@@ -196,9 +202,9 @@ function LandDetails({ account, contract }) {
           </div>
 
           <div className="single-pro-details" style={{ textAlign: 'left' }}>
-            <h3 id="Title">Title: {land.title}, {land.price} USD needed </h3>
-            <h2 id="carPrice">Country: {land.country}, Soil Type: {land.soilType}</h2>
-            <p id="carDetails">{land.LandDetails}</p>
+            <h3 id="Title">Title: {land && land.title}, {land && land.price} USD needed </h3>
+            <h2 id="carPrice">Country: {land && land.country}, Soil Type: {land && land.soilType}</h2>
+            <p id="carDetails">{land && land.landDetails}</p>
           </div>
         </section>
       </div>

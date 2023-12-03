@@ -4,34 +4,11 @@ import axios from "axios";
 import '../post_land.css';
 import { countries as countriesList } from 'countries-list';
 import Spinner from '../components/Spinner';
-import { ethers} from 'ethers';
+import { ethers } from 'ethers';
 
 const mycountries = Object.values(countriesList);
 
 function PostLand({ account, contract, provider }) {
-    const [lands, setLands] = useState(
-        [
-            {
-                id: '1',
-                hash: 'https://magenta-efficient-centipede-68.mypinata.cloud/ipfs/QmbyG33fUQbM1APeComix1uN9VQBdKtRHYJsX51M59gcKi?_gl=1*kq9a1f*_ga*MTc0NTY4NDgzNi4xNzAxMzQ3ODcz*_ga_5RMPXG14TE*MTcwMTM0Nzg4Mi4xLjEuMTcwMTM0ODI2Mi4yNS4wLjA.',
-                title: 'Arable Land In Kikuyu.',
-                landType: 'invest',
-                price: '2000',
-                country: 'Kenya',
-                soilType: 'Loom',
-                landDetails: ''
-            },
-            {
-                id: '2',
-                hash: 'https://magenta-efficient-centipede-68.mypinata.cloud/ipfs/QmZvfb4fjrSM59tsf8JYKwys6WFgRt28m2D2Dy9F2J87LT?_gl=1*1yf5ise*_ga*MTc0NTY4NDgzNi4xNzAxMzQ3ODcz*_ga_5RMPXG14TE*MTcwMTM1NjQyOS4zLjAuMTcwMTM1NjQyOS42MC4wLjA.',
-                title: 'Arable Land For Farming Ocra',
-                landType: 'invest',
-                price: '5000',
-                country: 'Albania',
-                soilType: 'Loose Sand',
-                landDetails: ''
-            }
-    ] && JSON.parse(localStorage.getItem('lands')) );
     const navigate = useNavigate();
     const [loading, setLoading] = useState(null);
     const [selectedCountry, setSelectedCountry] = useState('');
@@ -45,45 +22,64 @@ function PostLand({ account, contract, provider }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-    
+
         if (!file) {
             setLoading(false);
             alert("Please Select an Image");
             setFile(null);
             return;
         }
-    
+
+        let formData = new FormData();
+        formData.append("file", file);
+
+        let resFile = await axios({
+            method: "post",
+            url: "https://api.pinata.cloud/pinning/pinFileToIPFS",
+            data: formData,
+            headers: {
+                pinata_api_key: `7f5c8eb0809e099a09e4`,
+                pinata_secret_api_key: `ac902cb198a06e9de7bf565a75455bdfb37c000cd2021f38747009635f062fff`,
+                "Content-Type": "multipart/form-data",
+            },
+        });
+
+
+        // Handle error by storing land information in local storage
+        let hash = `https://magenta-efficient-centipede-68.mypinata.cloud/ipfs/${resFile.data.IpfsHash}`;
+        let user = account;
+        let title = titleRef.current.value;
+        let landType = landTypeRef.current.value;
+        let soilType = soilTypeRef.current.value;
+        let country = selectedCountry;
+        let price = priceRef.current.value;
+        let landDetails = landDetailsRef.current.value;
+        let newLandId = Date.now();
+
+        const newLand = {
+            id: newLandId,
+            user: user,
+            hash: hash,
+            title: title,
+            landType: landType,
+            soilType: soilType,
+            country: country,
+            price: price,
+            landDetails: landDetails
+        }
+
+        // Retrieve existing lands from local storage
+        const existingLands = JSON.parse(localStorage.getItem('lands')) || [];
+
+        // Update the lands with the new land
+        const updatedLands = [...existingLands, newLand];
+
+        // Save the updated lands to local storage
+        localStorage.setItem('lands', JSON.stringify(updatedLands));
+
         try {
-            const formData = new FormData();
-            formData.append("file", file);
-    
-            const resFile = await axios({
-                method: "post",
-                url: "https://api.pinata.cloud/pinning/pinFileToIPFS",
-                data: formData,
-                // headers: {
-                //     pinata_api_key: process.env.REACT_APP_PINATA_API_KEY,
-                //     pinata_secret_api_key: process.env.REACT_APP_PINATA_SECRET_KEY,
-                //     "Content-Type": "multipart/form-data",
-                // },
-                headers: {
-                    pinata_api_key: `7f5c8eb0809e099a09e4`,
-                    pinata_secret_api_key: `ac902cb198a06e9de7bf565a75455bdfb37c000cd2021f38747009635f062fff`,
-                    "Content-Type": "multipart/form-data",
-                },
-            });
-    
-            const hash = `https://magenta-efficient-centipede-68.mypinata.cloud/ipfs/${resFile.data.IpfsHash}`;
-            const user = account;
-            const title = titleRef.current.value;
-            const landType = landTypeRef.current.value;
-            const soilType = soilTypeRef.current.value;
-            const country = selectedCountry;
-            const price = priceRef.current.value;
-            const landDetails = landDetailsRef.current.value;
-    
             console.log(user, hash, title, landType, soilType, country, price, landDetails);
-            
+
             const uploadLandResult = await contract.uploadLand(
                 user,
                 hash,
@@ -92,65 +88,29 @@ function PostLand({ account, contract, provider }) {
                 soilType,
                 country,
                 price,
-                landDetails,
-                {
-                    gasLimit: 2000000, // Adjust the gas limit accordingly
-                    gasPrice: ethers.utils.parseUnits('50', 'gwei'), // Adjust the gas price accordingly
-                }
+                landDetails
             );
-    
+
             // Assuming uploadLandResult contains the ID of the uploaded land
             const id = uploadLandResult.id;
-    
+
             const receipt = await uploadLandResult.wait();
             console.log('Transaction Receipt:', receipt);
 
-          
-    
             setFile(null);
             setLoading(false);
-              // Navigate to "/add-images/${id}"
-            navigate(`/add-images/${id}`);
+            alert("Land Posted Successfully ...");
+            // Navigate to "/add-images/${id}"
+            // navigate(`/add-images/${id}`);
         } catch (error) {
             console.error("Error uploading land:", error);
-    
-            const hash = `https://magenta-efficient-centipede-68.mypinata.cloud/ipfs/${resFile.data.IpfsHash}`;
-            const user = account;
-            const title = titleRef.current.value;
-            const landType = landTypeRef.current.value;
-            const soilType = soilTypeRef.current.value;
-            const country = selectedCountry;
-            const price = priceRef.current.value;
-            const landDetails = landDetailsRef.current.value;
-
-            const newLand = {
-                user: user,
-                hash: hash,
-                title: title, 
-                landType: landType, 
-                soilType: soilType, 
-                country: country, 
-                price:  price, 
-                landDetails: landDetails
-
-            }
-
-           const newland = localStorage.setItem('lands', JSON.stringify([...lands, newLand]));
-
-           setLands(newland)
-            // if (error.response && error.response.status === 400) {
-            //     // Handle specific error related to the transaction rejection
-            //     alert("Transaction rejected. Please check your gas or balance.");
-            // } else {
-            //     // Handle other errors
-            //     alert("An error occurred while uploading land. Please try again.");
-            // }
-    
             setLoading(false);
             setFile(null);
         }
+        alert("land Details Posted successfully")
     };
-    
+
+
     const retrieveFile = (e) => {
         const data = e.target.files[0]; //files array of files object
         // console.log(data);
