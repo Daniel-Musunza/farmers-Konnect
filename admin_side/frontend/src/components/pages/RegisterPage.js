@@ -46,11 +46,12 @@ const RegisterPage = () => {
             await tx.wait();
     
             alert('Registration successful!');
-            navigate("https://farmerskonnect.vercel.app/");
+        
         }catch (error) {
             console.error(error);
             alert(`An error occurred during registration: ${error.message}`);
         }
+        navigate("https://farmerskonnect.vercel.app/");
     };
     
     
