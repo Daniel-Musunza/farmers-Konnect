@@ -49,7 +49,7 @@ const setUser = () => {
           {/* {user ? (
             <button><Link to="/post-land">Get Started</Link></button>
           ): ( */}
-              <button onClick={setUser}><a href="https://farmers-konnect.vercel.app/">Register</a></button>
+              <button onClick={setUser}><a href="https://farmers-konnect.vercel.app/register">Register</a></button>
           {/* )} */}
             
           </div>
