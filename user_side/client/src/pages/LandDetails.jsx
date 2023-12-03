@@ -130,6 +130,10 @@ function LandDetails({ account, contract }) {
     const localLands = JSON.parse(localStorage.getItem('lands')) || [];
     console.log(localLands);
     setLands((prevLands) => [...prevLands, ...localLands]);
+
+    const localImages = JSON.parse(localStorage.getItem('images')) || [];
+    console.log(localImages);
+    setImages((prevImages) => [...prevImages, ...localImages]);
     
   }, []);
 

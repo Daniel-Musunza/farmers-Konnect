@@ -131,6 +131,10 @@ function AddImages({ account, contract }) {
         console.log(localLands);
         setLands((prevLands) => [...prevLands, ...localLands]);
 
+        const localImages = JSON.parse(localStorage.getItem('images')) || [];
+        console.log(localImages);
+        setImages((prevImages) => [...prevImages, ...localImages]);
+
     }, []);
 
 
@@ -145,23 +149,43 @@ function AddImages({ account, contract }) {
             setFile(null);
             return;
         }
-        try {
-            const formData = new FormData();
-            formData.append("file", file);
 
-            const resFile = await axios({
-                method: "post",
-                url: "https://api.pinata.cloud/pinning/pinFileToIPFS",
-                data: formData,
-                headers: {
-                    pinata_api_key: `7f5c8eb0809e099a09e4`,
-                    pinata_secret_api_key: `ac902cb198a06e9de7bf565a75455bdfb37c000cd2021f38747009635f062fff`,
-                    "Content-Type": "multipart/form-data",
-                },
-            });
-            const hash = `https://magenta-efficient-centipede-68.mypinata.cloud/ipfs/${resFile.data.IpfsHash}`;
-            const user = account;
-            const landId = id;
+        const formData = new FormData();
+        formData.append("file", file);
+
+        const resFile = await axios({
+            method: "post",
+            url: "https://api.pinata.cloud/pinning/pinFileToIPFS",
+            data: formData,
+            headers: {
+                pinata_api_key: `7f5c8eb0809e099a09e4`,
+                pinata_secret_api_key: `ac902cb198a06e9de7bf565a75455bdfb37c000cd2021f38747009635f062fff`,
+                "Content-Type": "multipart/form-data",
+            },
+        });
+        const hash = `https://magenta-efficient-centipede-68.mypinata.cloud/ipfs/${resFile.data.IpfsHash}`;
+        const user = account;
+        const landId = id;
+        let newImageId = Date.now();
+
+
+        const newImage = {
+            id: newImageId,
+            user: user,
+            hash: hash,
+            landId: landId
+        }
+
+        // Retrieve existing lands from local storage
+        const existingImages = JSON.parse(localStorage.getItem('images')) || [];
+
+        // Update the lands with the new land
+        const updatedImages = [...existingImages, newImage];
+
+        // Save the updated lands to local storage
+        localStorage.setItem('images', JSON.stringify(updatedImages));
+
+        try {
 
             console.log(user, hash, landId);
             contract.uploadImage(user, hash, landId);

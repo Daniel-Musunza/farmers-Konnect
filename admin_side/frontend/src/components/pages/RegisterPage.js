@@ -40,18 +40,17 @@ const RegisterPage = () => {
                 signer
             );
     
-            const userTypeEnum = userType === 'Investor' ? 0 : 1; // Map user type to enum value
+            const userTypeEnum = userType == 'Investor' ? 0 : 1; // Map user type to enum value
             const tx = await registrationContract.registerProfile(name, email, userTypeEnum);
             await tx.wait();
     
-            alert('Registration successful!');
-            navigate("https://farmerskonnect.vercel.app/");
+           
         }catch (error) {
             console.error(error);
-            navigate("https://farmerskonnect.vercel.app/");
-            // alert(`An error occurred during registration: ${error.message}`);
 
         }
+        alert('Registration successful!');
+        navigate("https://farmerskonnect.vercel.app/");
     };
     
     return (
