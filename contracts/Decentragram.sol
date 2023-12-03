@@ -38,20 +38,6 @@ contract Decentragram {
         address user
     );
 
-    event LandBooked(
-        uint id,
-        string hash,
-        string title,
-        string landType,
-        string country,
-        string soilType,
-        string landDetails,
-        string price,
-        string message,
-        uint grantAmount,
-        address user
-    );
-
     function uploadLand(
         string memory _hash,
         string memory _title,
@@ -93,6 +79,22 @@ contract Decentragram {
             msg.sender
         );
     }
+    
+    event LandBooked(
+        uint id,
+        string hash,
+        string title,
+        string landType,
+        string country,
+        string soilType,
+        string landDetails,
+        string price,
+        string message,
+        uint grantAmount,
+        address user
+    );
+
+
 
     function bookLand(uint _id) public payable {
         require(_id > 0 && _id <= landsCount);

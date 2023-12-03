@@ -4,6 +4,7 @@ import axios from "axios";
 import '../post_land.css';
 import { countries as countriesList } from 'countries-list';
 import Spinner from '../components/Spinner';
+import { ethers} from 'ethers';
 
 const mycountries = Object.values(countriesList);
 
@@ -68,18 +69,25 @@ function PostLand({ account, contract, provider }) {
                 soilType,
                 country,
                 price,
-                landDetails
+                landDetails,
+                {
+                    gasLimit: 2000000, // Adjust the gas limit accordingly
+                    gasPrice: ethers.utils.parseUnits('50', 'gwei'), // Adjust the gas price accordingly
+                }
             );
     
             // Assuming uploadLandResult contains the ID of the uploaded land
             const id = uploadLandResult.id;
     
-            // Navigate to "/add-images/${id}"
-            navigate(`/add-images/${id}`);
+            const receipt = await uploadLandResult.wait();
+            console.log('Transaction Receipt:', receipt);
+
+          
     
             setFile(null);
             setLoading(false);
-            alert("Successfully Land Posted");
+              // Navigate to "/add-images/${id}"
+            navigate(`/add-images/${id}`);
         } catch (error) {
             console.error("Error uploading land:", error);
     
@@ -169,8 +177,6 @@ function PostLand({ account, contract, provider }) {
                 </div>
             </div>
         </>
-
-
     )
 }
 

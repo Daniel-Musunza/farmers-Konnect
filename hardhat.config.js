@@ -1,24 +1,21 @@
 require("@nomicfoundation/hardhat-toolbox");
 
-/** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
   solidity: "0.8.9",
-  // networks: {
-  //   hardhat: {
-  //     chainId: 1337,
-  //   },
-  // },
+  defaultNetwork: "hardhat",
   networks: {
-    localhost: {
-      url: 'http://localhost:8545',
+    hardhat: {
+      // url: 'http://localhost:8545',
+    },
+    sepolia: {
+      url: "https://thrilling-virulent-dinghy.ethereum-sepolia.quiknode.pro/c2e0582ada626b6b5724cb461493e2129374ab14/",
+      accounts: ["a283b2433fd6ec2609ec7e669900185908ae6377a85f0fac4445eecf2550d29b"],
     },
   },
   paths: {
     artifacts: "./client/src/artifacts",
   },
-  rinkeby: {
-    url: "<YOUR_INFURA_RINKEBY_URL>",
-    accounts: ["0xYOUR_PRIVATE_KEY"],
-  },
-  
+  etherscan: {
+    apiKey: "IP8KJMX95EWWSAYDF28IJT3DRKW7DIMBBB",
+  }
 };
