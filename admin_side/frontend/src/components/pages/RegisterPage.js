@@ -1,6 +1,5 @@
 // RegisterPage.js
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { ethers } from 'ethers';
 import InvestorFarmerRegistration from '../../contracts/InvestorFarmerRegistration.json';
 import contractAddress from '../../contracts/contract-address.json';
@@ -8,7 +7,6 @@ import '../../escrow.css';
 
 
 const RegisterPage = () => {
-    const navigate = useNavigate();
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');    
     const [userType, setUserType] = useState('Investor'); // or 'Farmer'
@@ -50,7 +48,7 @@ const RegisterPage = () => {
 
         }
         alert('Registration successful!');
-        navigate("https://farmerskonnect.vercel.app/");
+        window.open('https://farmerskonnect.vercel.app', '_blank');
     };
     
     return (
