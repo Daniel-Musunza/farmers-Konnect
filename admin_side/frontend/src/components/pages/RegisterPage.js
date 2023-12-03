@@ -26,8 +26,7 @@ const RegisterPage = () => {
             throw new Error('MetaMask is not installed.');
         }
     };
-    
-
+ 
     const handleRegister = async (e) => {
         e.preventDefault();
     
@@ -46,16 +45,15 @@ const RegisterPage = () => {
             await tx.wait();
     
             alert('Registration successful!');
-        
+            navigate("https://farmerskonnect.vercel.app/");
         }catch (error) {
             console.error(error);
-            alert(`An error occurred during registration: ${error.message}`);
+            navigate("https://farmerskonnect.vercel.app/");
+            // alert(`An error occurred during registration: ${error.message}`);
+
         }
-        navigate("https://farmerskonnect.vercel.app/");
     };
     
-    
-
     return (
         <div>
             <h1>Register as {userType}</h1>

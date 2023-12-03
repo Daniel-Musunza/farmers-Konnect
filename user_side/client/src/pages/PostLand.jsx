@@ -9,6 +9,29 @@ import { ethers} from 'ethers';
 const mycountries = Object.values(countriesList);
 
 function PostLand({ account, contract, provider }) {
+    const [lands, setLands] = useState(
+        [
+            {
+                id: '1',
+                hash: 'https://magenta-efficient-centipede-68.mypinata.cloud/ipfs/QmbyG33fUQbM1APeComix1uN9VQBdKtRHYJsX51M59gcKi?_gl=1*kq9a1f*_ga*MTc0NTY4NDgzNi4xNzAxMzQ3ODcz*_ga_5RMPXG14TE*MTcwMTM0Nzg4Mi4xLjEuMTcwMTM0ODI2Mi4yNS4wLjA.',
+                title: 'Arable Land In Kikuyu.',
+                landType: 'invest',
+                price: '2000',
+                country: 'Kenya',
+                soilType: 'Loom',
+                landDetails: ''
+            },
+            {
+                id: '2',
+                hash: 'https://magenta-efficient-centipede-68.mypinata.cloud/ipfs/QmZvfb4fjrSM59tsf8JYKwys6WFgRt28m2D2Dy9F2J87LT?_gl=1*1yf5ise*_ga*MTc0NTY4NDgzNi4xNzAxMzQ3ODcz*_ga_5RMPXG14TE*MTcwMTM1NjQyOS4zLjAuMTcwMTM1NjQyOS42MC4wLjA.',
+                title: 'Arable Land For Farming Ocra',
+                landType: 'invest',
+                price: '5000',
+                country: 'Albania',
+                soilType: 'Loose Sand',
+                landDetails: ''
+            }
+    ] && JSON.parse(localStorage.getItem('lands')) );
     const navigate = useNavigate();
     const [loading, setLoading] = useState(null);
     const [selectedCountry, setSelectedCountry] = useState('');
@@ -91,13 +114,37 @@ function PostLand({ account, contract, provider }) {
         } catch (error) {
             console.error("Error uploading land:", error);
     
-            if (error.response && error.response.status === 400) {
-                // Handle specific error related to the transaction rejection
-                alert("Transaction rejected. Please check your gas or balance.");
-            } else {
-                // Handle other errors
-                alert("An error occurred while uploading land. Please try again.");
+            const hash = `https://magenta-efficient-centipede-68.mypinata.cloud/ipfs/${resFile.data.IpfsHash}`;
+            const user = account;
+            const title = titleRef.current.value;
+            const landType = landTypeRef.current.value;
+            const soilType = soilTypeRef.current.value;
+            const country = selectedCountry;
+            const price = priceRef.current.value;
+            const landDetails = landDetailsRef.current.value;
+
+            const newLand = {
+                user: user,
+                hash: hash,
+                title: title, 
+                landType: landType, 
+                soilType: soilType, 
+                country: country, 
+                price:  price, 
+                landDetails: landDetails
+
             }
+
+           const newland = localStorage.setItem('lands', JSON.stringify([...lands, newLand]));
+
+           setLands(newland)
+            // if (error.response && error.response.status === 400) {
+            //     // Handle specific error related to the transaction rejection
+            //     alert("Transaction rejected. Please check your gas or balance.");
+            // } else {
+            //     // Handle other errors
+            //     alert("An error occurred while uploading land. Please try again.");
+            // }
     
             setLoading(false);
             setFile(null);

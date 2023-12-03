@@ -27,7 +27,7 @@ function Invest({ contract, account }) {
                 soilType: 'Loose Sand',
                 landDetails: ''
             }
-        ]);
+        ] && JSON.parse(localStorage.getItem('lands')) );
     const [filteredInvestmentLands, setFilteredInvestmentLand] = useState([]);
     const [selectingCountry, setSelectingCountry] = useState(false);
     const [selectedCountry, setSelectedCountry] = useState('');
