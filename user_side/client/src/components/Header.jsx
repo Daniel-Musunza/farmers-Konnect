@@ -49,7 +49,7 @@ const setUser = () => {
           { account ? (
             <button><Link to="/post-land">Get Started</Link></button>
           ): (
-            <button style={{color: 'red'}}> connect to metamask</button>
+            <button style={{color: 'red'}}> <Link to="/" >connect to metamask </Link></button>
           )}
             
           </div>
