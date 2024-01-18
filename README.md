@@ -32,8 +32,8 @@ This project facilitates decentralized land image upload and sharing on the bloc
 2. Install dependencies for the hardhat:
 
    ```bash
-   # Navigate to the root directory
-   cd farmers-konnect
+   # Navigate to the User Side root directory
+   cd farmers-konnect/user_side
    # Install hardhat dependencies
    npm install
    ```

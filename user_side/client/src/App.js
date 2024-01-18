@@ -52,11 +52,12 @@ function App() {
         }
         
       } else {
-        console.error("Metamask is not installed");
+        console.log("Metamask is not installed");
+        setProvider(null);
       }
     };
     provider && loadProvider();
-  }, []);
+  }, [provider]);
 
   return (
     <>
