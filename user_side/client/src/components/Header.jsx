@@ -74,7 +74,13 @@ const setUser = () => {
           <hr />
           <Link to="/rent" style={{ color: '#fff' }} className='link'>Land For Rent</Link>
           <br />
+
           <hr />
+          { account ? (
+            <button><Link to="/post-land">Get Started</Link></button>
+          ): (
+            <button style={{color: 'red'}}> <a href="https://metamask.io/download/" >Metamask </a></button>
+          )}
         </div>
       )}
     </section>
