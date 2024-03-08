@@ -2,32 +2,14 @@ import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { countries as countriesList } from 'countries-list';
 
+
+import { db } from "../firebase";
+import { getDocs, query, orderBy, collection } from 'firebase/firestore';
+
 const mycountries = Object.values(countriesList);
 
 function Rent({ contract, account }) {
-    const [lands, setLands] = useState(
-        [
-            {
-                id: '3',
-                hash: 'https://magenta-efficient-centipede-68.mypinata.cloud/ipfs/QmbyG33fUQbM1APeComix1uN9VQBdKtRHYJsX51M59gcKi?_gl=1*kq9a1f*_ga*MTc0NTY4NDgzNi4xNzAxMzQ3ODcz*_ga_5RMPXG14TE*MTcwMTM0Nzg4Mi4xLjEuMTcwMTM0ODI2Mi4yNS4wLjA.',
-                title: 'Arable Land In Kikuyu.',
-                landType: 'rent',
-                price: '2000',
-                country: 'Kenya',
-                soilType: 'Loom',
-                landDetails: ''
-            },
-            {
-                id: '4',
-                hash: 'https://magenta-efficient-centipede-68.mypinata.cloud/ipfs/QmZvfb4fjrSM59tsf8JYKwys6WFgRt28m2D2Dy9F2J87LT?_gl=1*1yf5ise*_ga*MTc0NTY4NDgzNi4xNzAxMzQ3ODcz*_ga_5RMPXG14TE*MTcwMTM1NjQyOS4zLjAuMTcwMTM1NjQyOS42MC4wLjA.',
-                title: 'Arable Land For Farming Ocra',
-                landType: 'rent',
-                price: '5000',
-                country: 'Albania',
-                soilType: 'Loose Sand',
-                landDetails: ''
-            }
-        ]);
+    const [lands, setLands] = useState([]);
     const [filteredRentalLands, setFilteredRentalLand] = useState([]);
     const [selectingCountry, setSelectingCountry] = useState(false);
     const [selectedCountry, setSelectedCountry] = useState('');
@@ -35,14 +17,12 @@ function Rent({ contract, account }) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // Call the lands function on the contract
-                const landsCount = await contract.landsCount();
-                const fetchedLands = [];
-
-                for (let i = 1; i <= landsCount; i++) {
-                    const land = await contract.lands(i);
-                    fetchedLands.push(land);
-                }
+                  // Call the lands function on the contract
+                  const querySnapshot = await getDocs(
+                    query(collection(db, "lands"), orderBy("id", "desc"))
+                  );
+            
+                  const fetchedLands = querySnapshot.docs.map((doc) => doc.data());
 
                 setLands(fetchedLands);
             } catch (error) {
@@ -53,13 +33,6 @@ function Rent({ contract, account }) {
         fetchData();
     }, []);
 
-    useEffect(() => {
-        // Load lands from local storage and combine with fetched lands
-        const localLands = JSON.parse(localStorage.getItem('lands')) || [];
-        console.log(localLands);
-        setLands((prevLands) => [...prevLands, ...localLands]);
-        
-    }, []);
 
     const filterRef = useRef();
     const rentlands = lands.filter((land) => land.landType == 'rent');
@@ -125,7 +98,7 @@ function Rent({ contract, account }) {
                             <div className="card" key={key}>
                                 <div className="card__corner"></div>
                                 <div className="card__img">
-                                    <img src={` ${land.hash.substring(6)}`} alt="" style={{ width: '100%' }} />
+                                    <img src={` ${land.hash}`} alt="" style={{ width: '100%' }} />
                                     <span className="card__span">To let</span>
                                 </div>
                                 <div className="card-int">
@@ -145,7 +118,7 @@ function Rent({ contract, account }) {
                         <div className="card" key={key}>
                             <div className="card__corner"></div>
                             <div className="card__img">
-                                <img src={` ${land.hash.substring(6)}`} alt="" style={{ width: '100%' }} />
+                                <img src={` ${land.hash}`} alt="" style={{ width: '100%' }} />
                                 <span className="card__span">To let</span>
                             </div>
                             <div className="card-int">

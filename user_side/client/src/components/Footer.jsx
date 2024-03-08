@@ -4,7 +4,7 @@ function Footer() {
   return (
 
     <section className="footer" id="footer">
-      <div className="container">
+      <div className="container container1">
         <div style={{ color: '#fff', display: 'flex', alignItems: 'center' }} className="logo">
           <Link to="/"><img src="img/logo.png" alt="" width="50px" /></Link>
           <h3 style={{ paddingLeft: '5px' }}>Farmers' Konnect</h3>

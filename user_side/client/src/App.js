@@ -13,6 +13,8 @@ import AddImages from './pages/AddImages';
 
 import { ethers } from 'ethers';
 import DecentragramAbi from './artifacts/contracts/Decentragram.sol/Decentragram.json';
+import Login from './pages/Login';
+import Register from './pages/Register';
 
 function App() {
   const [account, setAccount] = useState("");
@@ -64,43 +66,45 @@ function App() {
   return (
     <>
       <Router>
-          <div className='container'>
-            <Header account={account} />
-            <Routes>
-              <Route path='/' element={<Home
-                account={account}
-              />} />
-              <Route path='/invest' element={<Invest
-                account={account}
-                contract={contract}
-                provider={provider}
-              />} />
-              <Route path='/rent' element={<Rent
-                account={account}
-                contract={contract}
-                provider={provider}
-              />} />
-              <Route path='/post-land'
-                element={<PostLand
-                  account={account}
-                  contract={contract}
-                  provider={provider}
-                />} />
-              <Route path='/land-details/:id' element={<LandDetails
+        <div className='container'>
+          <Header account={account} />
+          <Routes>
+            <Route path='/' element={<Home
+              account={account}
+            />} />
+            <Route path='/invest' element={<Invest
+              account={account}
+              contract={contract}
+              provider={provider}
+            />} />
+            <Route path='/rent' element={<Rent
+              account={account}
+              contract={contract}
+              provider={provider}
+            />} />
+            <Route path='/post-land'
+              element={<PostLand
                 account={account}
                 contract={contract}
                 provider={provider}
               />} />
-              <Route path='/add-images/:id' element={<AddImages
-                account={account}
-                contract={contract}
-                provider={provider}
-              />} />
-            </Routes>
+            <Route path='/land-details/:id' element={<LandDetails
+              account={account}
+              contract={contract}
+              provider={provider}
+            />} />
+            <Route path='/add-images/:id' element={<AddImages
+              account={account}
+              contract={contract}
+              provider={provider}
+            />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/register' element={<Register />} />
+          </Routes>
 
-            <Footer />
+          <Footer />
 
-          </div>
+        </div>
       </Router>
       <ToastContainer />
     </>

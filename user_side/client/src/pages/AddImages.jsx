@@ -6,88 +6,8 @@ import Spinner from '../components/Spinner';
 
 function AddImages({ account, contract }) {
     const [loading, setLoading] = useState(null);
-    const [lands, setLands] = useState(
-        [
-            {
-                id: '1',
-                hash: 'https://magenta-efficient-centipede-68.mypinata.cloud/ipfs/QmbyG33fUQbM1APeComix1uN9VQBdKtRHYJsX51M59gcKi?_gl=1*kq9a1f*_ga*MTc0NTY4NDgzNi4xNzAxMzQ3ODcz*_ga_5RMPXG14TE*MTcwMTM0Nzg4Mi4xLjEuMTcwMTM0ODI2Mi4yNS4wLjA.',
-                title: 'Arable Land In Kikuyu.',
-                landType: 'invest',
-                price: '2000',
-                country: 'Kenya',
-                soilType: 'Loom',
-                landDetails: 'It is suitable for growing a range of crops, including tea, coffee, horticultural produce like avocados and strawberries, as well as staple crops such as maize and wheat, while also supporting livestock farming.',
-                user: '0xBD90db46f1EE284928dC127A1143a37189D0bc70'
-            },
-            {
-                id: '2',
-                hash: 'https://magenta-efficient-centipede-68.mypinata.cloud/ipfs/QmZvfb4fjrSM59tsf8JYKwys6WFgRt28m2D2Dy9F2J87LT?_gl=1*1yf5ise*_ga*MTc0NTY4NDgzNi4xNzAxMzQ3ODcz*_ga_5RMPXG14TE*MTcwMTM1NjQyOS4zLjAuMTcwMTM1NjQyOS42MC4wLjA.',
-                title: 'Arable Land For Farming Ocra',
-                landType: 'invest',
-                price: '5000',
-                country: 'Albania',
-                soilType: 'Loose Sand',
-                landDetails: 'It is suitable for growing a range of crops, including tea, coffee, horticultural produce like avocados and strawberries, as well as staple crops such as maize and wheat, while also supporting livestock farming.',
-                user: '0xBD90db46f1EE284928dC127A1143a37189D0bc70'
-            },
-            {
-                id: '3',
-                hash: 'https://magenta-efficient-centipede-68.mypinata.cloud/ipfs/QmbyG33fUQbM1APeComix1uN9VQBdKtRHYJsX51M59gcKi?_gl=1*kq9a1f*_ga*MTc0NTY4NDgzNi4xNzAxMzQ3ODcz*_ga_5RMPXG14TE*MTcwMTM0Nzg4Mi4xLjEuMTcwMTM0ODI2Mi4yNS4wLjA.',
-                title: 'Arable Land In Kikuyu.',
-                landType: 'rent',
-                price: '2000',
-                country: 'Kenya',
-                soilType: 'Loom',
-                landDetails: 'It is suitable for growing a range of crops, including tea, coffee, horticultural produce like avocados and strawberries, as well as staple crops such as maize and wheat, while also supporting livestock farming.',
-                user: '0xBD90db46f1EE284928dC127A1143a37189D0bc70'
-            },
-            {
-                id: '4',
-                hash: 'https://magenta-efficient-centipede-68.mypinata.cloud/ipfs/QmZvfb4fjrSM59tsf8JYKwys6WFgRt28m2D2Dy9F2J87LT?_gl=1*1yf5ise*_ga*MTc0NTY4NDgzNi4xNzAxMzQ3ODcz*_ga_5RMPXG14TE*MTcwMTM1NjQyOS4zLjAuMTcwMTM1NjQyOS42MC4wLjA.',
-                title: 'Arable Land For Farming Ocra',
-                landType: 'rent',
-                price: '5000',
-                country: 'Albania',
-                soilType: 'Loose Sand',
-                landDetails: 'It is suitable for growing a range of crops, including tea, coffee, horticultural produce like avocados and strawberries, as well as staple crops such as maize and wheat, while also supporting livestock farming.',
-                user: '0xBD90db46f1EE284928dC127A1143a37189D0bc70'
-            }
-        ]);
-    const [images, setImages] = useState(
-        [
-            {
-                landId: '1',
-                hash: 'https://magenta-efficient-centipede-68.mypinata.cloud/ipfs/QmbyG33fUQbM1APeComix1uN9VQBdKtRHYJsX51M59gcKi?_gl=1*kq9a1f*_ga*MTc0NTY4NDgzNi4xNzAxMzQ3ODcz*_ga_5RMPXG14TE*MTcwMTM0Nzg4Mi4xLjEuMTcwMTM0ODI2Mi4yNS4wLjA.'
-            },
-            {
-                landId: '2',
-                hash: 'https://magenta-efficient-centipede-68.mypinata.cloud/ipfs/QmZvfb4fjrSM59tsf8JYKwys6WFgRt28m2D2Dy9F2J87LT?_gl=1*1yf5ise*_ga*MTc0NTY4NDgzNi4xNzAxMzQ3ODcz*_ga_5RMPXG14TE*MTcwMTM1NjQyOS4zLjAuMTcwMTM1NjQyOS42MC4wLjA.'
-            },
-            {
-                landId: '3',
-                hash: 'https://magenta-efficient-centipede-68.mypinata.cloud/ipfs/QmbyG33fUQbM1APeComix1uN9VQBdKtRHYJsX51M59gcKi?_gl=1*kq9a1f*_ga*MTc0NTY4NDgzNi4xNzAxMzQ3ODcz*_ga_5RMPXG14TE*MTcwMTM0Nzg4Mi4xLjEuMTcwMTM0ODI2Mi4yNS4wLjA.'
-            },
-            {
-                landId: '4',
-                hash: 'https://magenta-efficient-centipede-68.mypinata.cloud/ipfs/QmZvfb4fjrSM59tsf8JYKwys6WFgRt28m2D2Dy9F2J87LT?_gl=1*1yf5ise*_ga*MTc0NTY4NDgzNi4xNzAxMzQ3ODcz*_ga_5RMPXG14TE*MTcwMTM1NjQyOS4zLjAuMTcwMTM1NjQyOS42MC4wLjA.'
-            },
-            {
-                landId: '2',
-                hash: 'https://magenta-efficient-centipede-68.mypinata.cloud/ipfs/QmbyG33fUQbM1APeComix1uN9VQBdKtRHYJsX51M59gcKi?_gl=1*kq9a1f*_ga*MTc0NTY4NDgzNi4xNzAxMzQ3ODcz*_ga_5RMPXG14TE*MTcwMTM0Nzg4Mi4xLjEuMTcwMTM0ODI2Mi4yNS4wLjA.'
-            },
-            {
-                landId: '1',
-                hash: 'https://magenta-efficient-centipede-68.mypinata.cloud/ipfs/QmZvfb4fjrSM59tsf8JYKwys6WFgRt28m2D2Dy9F2J87LT?_gl=1*1yf5ise*_ga*MTc0NTY4NDgzNi4xNzAxMzQ3ODcz*_ga_5RMPXG14TE*MTcwMTM1NjQyOS4zLjAuMTcwMTM1NjQyOS42MC4wLjA.'
-            },
-            {
-                landId: '4',
-                hash: 'https://magenta-efficient-centipede-68.mypinata.cloud/ipfs/QmbyG33fUQbM1APeComix1uN9VQBdKtRHYJsX51M59gcKi?_gl=1*kq9a1f*_ga*MTc0NTY4NDgzNi4xNzAxMzQ3ODcz*_ga_5RMPXG14TE*MTcwMTM0Nzg4Mi4xLjEuMTcwMTM0ODI2Mi4yNS4wLjA.'
-            },
-            {
-                landId: '3',
-                hash: 'https://magenta-efficient-centipede-68.mypinata.cloud/ipfs/QmZvfb4fjrSM59tsf8JYKwys6WFgRt28m2D2Dy9F2J87LT?_gl=1*1yf5ise*_ga*MTc0NTY4NDgzNi4xNzAxMzQ3ODcz*_ga_5RMPXG14TE*MTcwMTM1NjQyOS4zLjAuMTcwMTM1NjQyOS42MC4wLjA.'
-            }
-        ]);
+    const [lands, setLands] = useState([]);
+    const [images, setImages] = useState([]);
     const [file, setFile] = useState(null);
     const [selectedImage, setSelectedImage] = useState(null);
     const { id } = useParams();
@@ -238,9 +158,9 @@ function AddImages({ account, contract }) {
                         <br />
                         <div className="main-image">
                             {selectedImage ? (
-                                <img src={selectedImage.hash && selectedImage.hash.substring(6)} alt="" />
+                                <img src={selectedImage.hash && selectedImage.hash} alt="" />
                             ) : (
-                                <img src={land && land.hash && land.hash.substring(6)} alt="" />
+                                <img src={land && land.hash && land.hash} alt="" />
                             )}
                         </div>
 
@@ -251,7 +171,7 @@ function AddImages({ account, contract }) {
                                 .map((image, key) => (
                                     <img
                                         key={key}
-                                        src={image.hash && image.hash.substring(6)}
+                                        src={image.hash && image.hash}
                                         alt=""
                                         onClick={() => handleImageClick(image)}
                                         width='200px'

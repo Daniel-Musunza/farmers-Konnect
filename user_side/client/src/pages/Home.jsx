@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 function Home({account}) {
+  let user = localStorage.getItem('user' || null);
   return (
     <>
      
@@ -16,8 +17,10 @@ function Home({account}) {
                 <div className="text">
                   <p>Decentralized Agricultural Platform</p>
                   <h1 style={{ color: 'black' }}>Connects Farmers to Investors and Arable Land</h1>
-                  {account && (
-                    <button><Link to="/post-land">Get Started</Link></button>
+                  {user ? (
+                    <button><Link to="/post-land">Post land</Link></button>
+                  ): (
+                    <button><Link to="/register">Get started</Link></button>
                   )}
                 
                 </div>

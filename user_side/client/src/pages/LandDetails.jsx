@@ -5,90 +5,13 @@ import '../land_details.css';
 import ConnectModal from '../components/ConnectModal';
 import Spinner from '../components/Spinner';
 
+import { db } from "../firebase";
+import { getDocs, query, collection } from 'firebase/firestore';
+
 function LandDetails({ account, contract }) {
   const [loading, setLoading] = useState(null);
-  const [lands, setLands] = useState(
-    [
-      {
-        id: '1',
-        hash: 'https://magenta-efficient-centipede-68.mypinata.cloud/ipfs/QmbyG33fUQbM1APeComix1uN9VQBdKtRHYJsX51M59gcKi?_gl=1*kq9a1f*_ga*MTc0NTY4NDgzNi4xNzAxMzQ3ODcz*_ga_5RMPXG14TE*MTcwMTM0Nzg4Mi4xLjEuMTcwMTM0ODI2Mi4yNS4wLjA.',
-        title: 'Arable Land In Kikuyu.',
-        landType: 'invest',
-        price: '2000',
-        country: 'Kenya',
-        soilType: 'Loom',
-        landDetails: 'It is suitable for growing a range of crops, including tea, coffee, horticultural produce like avocados and strawberries, as well as staple crops such as maize and wheat, while also supporting livestock farming.',
-        user: '0xBD90db46f1EE284928dC127A1143a37189D0bc70'
-      },
-      {
-        id: '2',
-        hash: 'https://magenta-efficient-centipede-68.mypinata.cloud/ipfs/QmZvfb4fjrSM59tsf8JYKwys6WFgRt28m2D2Dy9F2J87LT?_gl=1*1yf5ise*_ga*MTc0NTY4NDgzNi4xNzAxMzQ3ODcz*_ga_5RMPXG14TE*MTcwMTM1NjQyOS4zLjAuMTcwMTM1NjQyOS42MC4wLjA.',
-        title: 'Arable Land For Farming Ocra',
-        landType: 'invest',
-        price: '5000',
-        country: 'Albania',
-        soilType: 'Loose Sand',
-        landDetails: 'It is suitable for growing a range of crops, including tea, coffee, horticultural produce like avocados and strawberries, as well as staple crops such as maize and wheat, while also supporting livestock farming.',
-        user: '0xBD90db46f1EE284928dC127A1143a37189D0bc70'
-      },
-      {
-        id: '3',
-        hash: 'https://magenta-efficient-centipede-68.mypinata.cloud/ipfs/QmbyG33fUQbM1APeComix1uN9VQBdKtRHYJsX51M59gcKi?_gl=1*kq9a1f*_ga*MTc0NTY4NDgzNi4xNzAxMzQ3ODcz*_ga_5RMPXG14TE*MTcwMTM0Nzg4Mi4xLjEuMTcwMTM0ODI2Mi4yNS4wLjA.',
-        title: 'Arable Land In Kikuyu.',
-        landType: 'rent',
-        price: '2000',
-        country: 'Kenya',
-        soilType: 'Loom',
-        landDetails: 'It is suitable for growing a range of crops, including tea, coffee, horticultural produce like avocados and strawberries, as well as staple crops such as maize and wheat, while also supporting livestock farming.',
-        user: '0xBD90db46f1EE284928dC127A1143a37189D0bc70'
-      },
-      {
-        id: '4',
-        hash: 'https://magenta-efficient-centipede-68.mypinata.cloud/ipfs/QmZvfb4fjrSM59tsf8JYKwys6WFgRt28m2D2Dy9F2J87LT?_gl=1*1yf5ise*_ga*MTc0NTY4NDgzNi4xNzAxMzQ3ODcz*_ga_5RMPXG14TE*MTcwMTM1NjQyOS4zLjAuMTcwMTM1NjQyOS42MC4wLjA.',
-        title: 'Arable Land For Farming Ocra',
-        landType: 'rent',
-        price: '5000',
-        country: 'Albania',
-        soilType: 'Loose Sand',
-        landDetails: 'It is suitable for growing a range of crops, including tea, coffee, horticultural produce like avocados and strawberries, as well as staple crops such as maize and wheat, while also supporting livestock farming.',
-        user: '0xBD90db46f1EE284928dC127A1143a37189D0bc70'
-      }
-    ]);
-  const [images, setImages] = useState(
-    [
-      {
-        landId: '1',
-        hash: 'https://magenta-efficient-centipede-68.mypinata.cloud/ipfs/QmbyG33fUQbM1APeComix1uN9VQBdKtRHYJsX51M59gcKi?_gl=1*kq9a1f*_ga*MTc0NTY4NDgzNi4xNzAxMzQ3ODcz*_ga_5RMPXG14TE*MTcwMTM0Nzg4Mi4xLjEuMTcwMTM0ODI2Mi4yNS4wLjA.'
-      },
-      {
-        landId: '2',
-        hash: 'https://magenta-efficient-centipede-68.mypinata.cloud/ipfs/QmZvfb4fjrSM59tsf8JYKwys6WFgRt28m2D2Dy9F2J87LT?_gl=1*1yf5ise*_ga*MTc0NTY4NDgzNi4xNzAxMzQ3ODcz*_ga_5RMPXG14TE*MTcwMTM1NjQyOS4zLjAuMTcwMTM1NjQyOS42MC4wLjA.'
-      },
-      {
-        landId: '3',
-        hash: 'https://magenta-efficient-centipede-68.mypinata.cloud/ipfs/QmbyG33fUQbM1APeComix1uN9VQBdKtRHYJsX51M59gcKi?_gl=1*kq9a1f*_ga*MTc0NTY4NDgzNi4xNzAxMzQ3ODcz*_ga_5RMPXG14TE*MTcwMTM0Nzg4Mi4xLjEuMTcwMTM0ODI2Mi4yNS4wLjA.'
-      },
-      {
-        landId: '4',
-        hash: 'https://magenta-efficient-centipede-68.mypinata.cloud/ipfs/QmZvfb4fjrSM59tsf8JYKwys6WFgRt28m2D2Dy9F2J87LT?_gl=1*1yf5ise*_ga*MTc0NTY4NDgzNi4xNzAxMzQ3ODcz*_ga_5RMPXG14TE*MTcwMTM1NjQyOS4zLjAuMTcwMTM1NjQyOS42MC4wLjA.'
-      },
-      {
-        landId: '2',
-        hash: 'https://magenta-efficient-centipede-68.mypinata.cloud/ipfs/QmbyG33fUQbM1APeComix1uN9VQBdKtRHYJsX51M59gcKi?_gl=1*kq9a1f*_ga*MTc0NTY4NDgzNi4xNzAxMzQ3ODcz*_ga_5RMPXG14TE*MTcwMTM0Nzg4Mi4xLjEuMTcwMTM0ODI2Mi4yNS4wLjA.'
-      },
-      {
-        landId: '1',
-        hash: 'https://magenta-efficient-centipede-68.mypinata.cloud/ipfs/QmZvfb4fjrSM59tsf8JYKwys6WFgRt28m2D2Dy9F2J87LT?_gl=1*1yf5ise*_ga*MTc0NTY4NDgzNi4xNzAxMzQ3ODcz*_ga_5RMPXG14TE*MTcwMTM1NjQyOS4zLjAuMTcwMTM1NjQyOS42MC4wLjA.'
-      },
-      {
-        landId: '4',
-        hash: 'https://magenta-efficient-centipede-68.mypinata.cloud/ipfs/QmbyG33fUQbM1APeComix1uN9VQBdKtRHYJsX51M59gcKi?_gl=1*kq9a1f*_ga*MTc0NTY4NDgzNi4xNzAxMzQ3ODcz*_ga_5RMPXG14TE*MTcwMTM0Nzg4Mi4xLjEuMTcwMTM0ODI2Mi4yNS4wLjA.'
-      },
-      {
-        landId: '3',
-        hash: 'https://magenta-efficient-centipede-68.mypinata.cloud/ipfs/QmZvfb4fjrSM59tsf8JYKwys6WFgRt28m2D2Dy9F2J87LT?_gl=1*1yf5ise*_ga*MTc0NTY4NDgzNi4xNzAxMzQ3ODcz*_ga_5RMPXG14TE*MTcwMTM1NjQyOS4zLjAuMTcwMTM1NjQyOS42MC4wLjA.'
-      }
-    ]);
+  const [lands, setLands] = useState([]);
+  const [images, setImages] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
   const { id } = useParams();
   const [isModalOpen, setModalOpen] = useState(false);
@@ -96,25 +19,21 @@ function LandDetails({ account, contract }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Call the lands function on the contract
-        const landsCount = await contract.landsCount();
-        const fetchedLands = [];
+        // Call the lands function on the firebare
+        const landsQuerySnapshot = await getDocs(
+          query(collection(db, "lands"))
+        );
 
-        for (let i = 1; i <= landsCount; i++) {
-          const land = await contract.lands(i);
-          fetchedLands.push(land);
-        }
+        const fetchedLands = landsQuerySnapshot.docs.map((doc) => doc.data());
 
         setLands(fetchedLands);
 
-        // Call the lands function on the contract
-        const imagesCount = await contract.imagesCount();
-        const fetchedImages = [];
+        // Call the images function on the firebare
+        const imagesQuerySnapshot = await getDocs(
+          query(collection(db, "images"))
+        );
 
-        for (let i = 1; i <= imagesCount; i++) {
-          const image = await contract.images(i);
-          fetchedImages.push(image);
-        }
+        const fetchedImages = imagesQuerySnapshot.docs.map((doc) => doc.data());
 
         setImages(fetchedImages);
       } catch (error) {
@@ -125,17 +44,6 @@ function LandDetails({ account, contract }) {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    // Load lands from local storage and combine with fetched lands
-    const localLands = JSON.parse(localStorage.getItem('lands')) || [];
-    console.log(localLands);
-    setLands((prevLands) => [...prevLands, ...localLands]);
-
-    const localImages = JSON.parse(localStorage.getItem('images')) || [];
-    console.log(localImages);
-    setImages((prevImages) => [...prevImages, ...localImages]);
-    
-  }, []);
 
   const land = lands.find((land) => land.id == id);
   // Function to toggle the mobile menu
@@ -166,17 +74,17 @@ function LandDetails({ account, contract }) {
         <section id="prodetails" className="section-p1">
           <div className="single-pro-image">
             <div className="contract" style={{ padding: '10px', borderRadius: '10px', position: 'fixed', zIndex: '1', textAlign: 'center', right: '10px', background: "#fff", width: '300px', minHeight: '200px' }}>
-              <h2 style={{marginTop: '20px'}}>Contract Status</h2>
-              <p style={{marginTop: '20px'}}>You have not yet booked this land. Please book this Land.</p>
+              <h2 style={{ marginTop: '20px' }}>Contract Status</h2>
+              <p style={{ marginTop: '20px' }}>You have not yet booked this land. Please book this Land.</p>
             </div>
 
 
             <br />
             <div className="main-image">
               {selectedImage ? (
-                <img src={selectedImage.hash && selectedImage.hash.substring(6)} alt="" />
+                <img src={selectedImage.hash && selectedImage.hash} alt="" />
               ) : (
-                <img src={land && land.hash && land.hash.substring(6)} alt="" />
+                <img src={land && land.hash && land.hash} alt="" />
               )}
             </div>
 

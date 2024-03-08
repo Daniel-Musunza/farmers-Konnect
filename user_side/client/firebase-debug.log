@@ -1,0 +1,51 @@
+[debug] [2024-03-07T11:14:45.004Z] ----------------------------------------------------------------------
+[debug] [2024-03-07T11:14:45.014Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\ADMIN\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2024-03-07T11:14:45.015Z] CLI Version:   13.2.1
+[debug] [2024-03-07T11:14:45.016Z] Platform:      win32
+[debug] [2024-03-07T11:14:45.017Z] Node Version:  v21.2.0
+[debug] [2024-03-07T11:14:45.017Z] Time:          Thu Mar 07 2024 14:14:45 GMT+0300 (East Africa Time)
+[debug] [2024-03-07T11:14:45.018Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-03-07T11:14:45.030Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2024-03-07T11:14:45.245Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-03-07T11:14:45.246Z] > authorizing via signed-in user (qualityafreelancers@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\projects\farmers-konnect\user_side\client
+
+Before we get started, keep in mind:
+
+  * You are currently outside your home directory
+
+[debug] [2024-03-07T11:14:46.339Z] <<< [apiv2][status] GET https://firebase-public.firebaseio.com/cli.json 200
+[debug] [2024-03-07T11:14:46.347Z] <<< [apiv2][body] GET https://firebase-public.firebaseio.com/cli.json {"cloudBuildErrorAfter":1594252800000,"cloudBuildWarnAfter":1590019200000,"defaultNode10After":1594252800000,"minVersion":"3.0.5","node8DeploysDisabledAfter":1613390400000,"node8RuntimeDisabledAfter":1615809600000,"node8WarnAfter":1600128000000}
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[info] i  If you want to create a project in a Google Cloud organization or folder, please use "firebase projects:create" instead, and return to this command when you've created the project. 
+[debug] [2024-03-07T11:16:49.679Z] > refreshing access token with scopes: []
+[debug] [2024-03-07T11:16:49.687Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2024-03-07T11:16:49.688Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-03-07T11:16:50.321Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2024-03-07T11:16:50.321Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-03-07T11:16:50.374Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects [none]
+[debug] [2024-03-07T11:16:50.375Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects {"projectId":"farmerskonnect-ece42","name":"farmerskonnect"}
+[debug] [2024-03-07T11:16:52.052Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects 409
+[debug] [2024-03-07T11:16:52.053Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects {"error":{"code":409,"message":"Requested entity already exists","status":"ALREADY_EXISTS"}}
+[debug] [2024-03-07T11:16:52.485Z] FirebaseError: HTTP Error: 409, Requested entity already exists
+    at responseToError (C:\Users\ADMIN\AppData\Roaming\npm\node_modules\firebase-tools\lib\responseToError.js:49:12)
+    at RetryOperation._fn (C:\Users\ADMIN\AppData\Roaming\npm\node_modules\firebase-tools\lib\apiv2.js:292:77)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+[error] 
+[error] Error: Failed to create project because there is already a project with ID farmerskonnect-ece42. Please try again with a unique project ID.
