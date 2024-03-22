@@ -95,7 +95,7 @@ function Header({ account }) {
                   <></>
                 ) : (
 
-                  <a href="https://metamask.io/download/" className="button" > <span style={{fontSize: '10px'}}>connect to metamask</span></a>
+                  <a href="https://metamask.io/download/" className="button" > <span style={{ fontSize: '10px' }}>connect to metamask</span></a>
 
                 )}
               </>
@@ -106,10 +106,10 @@ function Header({ account }) {
                     <button onClick={() => { localStorage.removeItem('user'); window.location.reload(); }} className="button">Log Out</button>
                   </>
                 ) : (
-                  <div style={{display: 'flex'}}>
-                  
-                      <Link to="/login" className='link button' style={{zIndex: 1000}}> <span> Log In</span></Link>
-                     <Link to="/register" className='link button' style={{marginLeft: '-30px'}}><span style={{marginLeft: '30px'}}>  Register</span></Link>
+                  <div style={{ display: 'flex' }}>
+
+                    <Link to="/login" className='link button' style={{ zIndex: 1000 }}> <span> Log In</span></Link>
+                    <Link to="/register" className='link button' style={{ marginLeft: '-30px' }}><span style={{ marginLeft: '30px' }}>  Register</span></Link>
                   </div>
 
                 )}
@@ -144,13 +144,14 @@ function Header({ account }) {
           <br />
 
           <hr />
-          {account ? (
-          <Link to="/post-land">post Land</Link>
-          ) : (
-            <></>
-            // <button style={{color: 'red'}}> <a href="https://metamask.io/download/" >Metamask </a></button>
-          )}
-          <select
+          <div className="right-data">
+            {account ? (
+              <Link to="/post-land">post Land</Link>
+            ) : (
+              <></>
+              // <button style={{color: 'red'}}> <a href="https://metamask.io/download/" >Metamask </a></button>
+            )}
+            <select
               name="web-version"
               id="web-version"
               style={{
@@ -182,21 +183,21 @@ function Header({ account }) {
             ) : (
               <div >
                 {user ? (
-                  <>
+                  <div className="right-data">
                     <button onClick={() => { localStorage.removeItem('user'); window.location.reload(); }}>Log Out</button>
-                  </>
+                  </div>
                 ) : (
-                  <div style={{display: 'flex'}}>
-                    <button style={{zIndex: 1000}}>
+                  <div style={{ display: 'flex' }} className="right-data" >
+                    <button style={{ zIndex: 1000 }}>
                       <Link to="/login" className='link'>Log In</Link>
                     </button>
-                    <button style={{marginLeft: '-30px'}}>   <Link to="/register" className='link' style={{marginLeft: '30px'}}>Register</Link></button>
+                    <button style={{ marginLeft: '-30px' }}>   <Link to="/register" className='link' style={{ marginLeft: '30px' }}>Register</Link></button>
                   </div>
 
                 )}
               </div>
             )}
-
+          </div>
         </div>
       )}
 
