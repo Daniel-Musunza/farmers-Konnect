@@ -95,21 +95,21 @@ function Header({ account }) {
                   <></>
                 ) : (
 
-                  <a href="https://metamask.io/download/" className="button" > <span style={{fontSize: '10px'}}>connect to metamask</span></a>
+                  <a href="https://metamask.io/download/"  className="select-for-bg button" > <span style={{fontSize: '10px'}}>connect to metamask</span></a>
 
                 )}
               </>
             ) : (
-              <div >
+              <div className='select-for-bg' >
                 {user ? (
                   <>
-                    <button onClick={() => { localStorage.removeItem('user'); window.location.reload(); }} className="button">Log Out</button>
+                    <button onClick={() => { localStorage.removeItem('user'); window.location.reload(); }}  className="select-for-bg button">Log Out</button>
                   </>
                 ) : (
                   <div style={{display: 'flex'}}>
                   
-                      <Link to="/login" className='link button' style={{zIndex: 1000}}> <span> Log In</span></Link>
-                     <Link to="/register" className='link button' style={{marginLeft: '-30px'}}><span style={{marginLeft: '30px'}}>  Register</span></Link>
+                      <Link to="/login"  className='link button' style={{zIndex: 1000}}> <span> Log In</span></Link>
+                     <Link to="/register"  className='link button' style={{marginLeft: '-30px'}}><span style={{marginLeft: '30px'}}>  Register</span></Link>
                   </div>
 
                 )}
@@ -180,21 +180,19 @@ function Header({ account }) {
                 )}
               </>
             ) : (
-              <div >
+              <>
                 {user ? (
                   <>
-                    <button onClick={() => { localStorage.removeItem('user'); window.location.reload(); }}>Log Out</button>
+                    <button onClick={() => { localStorage.removeItem('user'); window.location.reload(); }} className='btn'>Log Out</button>
                   </>
                 ) : (
-                  <div style={{display: 'flex'}}>
-                    <button style={{zIndex: 1000}}>
+                  <>
                       <Link to="/login" className='link'>Log In</Link>
-                    </button>
-                    <button style={{marginLeft: '-30px'}}>   <Link to="/register" className='link' style={{marginLeft: '30px'}}>Register</Link></button>
-                  </div>
+                  <Link to="/register" className='link'>Register</Link>
+                  </>
 
                 )}
-              </div>
+              </>
             )}
 
         </div>
