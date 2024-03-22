@@ -17,7 +17,9 @@ text-decoration: none;
 box-sizing: border-box;
 font-family: 'Gilroy', sans-serif;
 }
-
+body{
+  overflow-x: hidden;
+}
 section{
 padding: 20px 150px;
 margin-right: -20px;
@@ -137,7 +139,7 @@ margin-right: -20px;
 }
 /*header*/
 .main-container {
-    padding-top: 100px; /* Adjust this value based on your header's height */
+    padding-top: 80px; 
     padding-bottom: 20px;
     background-color: rgb(237, 250, 237);
     text-align: center;
@@ -622,7 +624,9 @@ margin-right: -20px;
        width: 100%;
        
     }
-    
+    .select-for-bg{
+      display: none;
+    }
     .footer .container .logo img{
       max-width: 100px;
   }

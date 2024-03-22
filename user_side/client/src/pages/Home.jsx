@@ -1,14 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function Home({account}) {
+function Home({ account }) {
   let user = localStorage.getItem('user' || null);
   return (
     <>
-     
+
       {/* Main Container */}
       <div className="main-container">
-        
+
         {/* Hero Area */}
         <section className="hero" id="hero">
           <div className="swiper slider">
@@ -19,16 +19,16 @@ function Home({account}) {
                   <h1 style={{ color: 'black' }}>Connects Farmers to Investors and Arable Land</h1>
                   {user ? (
                     <button><Link to="/post-land">Post land</Link></button>
-                  ): (
+                  ) : (
                     <button><Link to="/register">Get started</Link></button>
                   )}
-                
+
                 </div>
               </div>
             </div>
           </div>
         </section>
-        
+
 
         {/* About Area */}
         <section className="service" id="about">
@@ -67,6 +67,102 @@ function Home({account}) {
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* How It Works Section */}
+        <section className="how-it-works" id="how-it-works">
+          <div className="container">
+            <h2>How It Works</h2>
+            <div className="steps">
+              <div className="step">
+                <h3>Step 1: Sign up and create your account</h3>
+                <p>Get started by registering on our platform and creating your profile.</p>
+              </div>
+              <div className="step">
+                <h3>Step 2: Explore available land listings</h3>
+                <p>Browse through our listings to find the perfect agricultural opportunity.</p>
+              </div>
+              <div className="step">
+                <h3>Step 3: Connect with investors or landowners</h3>
+                <p>Engage with potential partners to discuss your farming venture.</p>
+              </div>
+              <div className="step">
+                <h3>Step 4: Finalize agreements and begin your agricultural venture</h3>
+                <p>Once agreements are in place, start working on your agricultural project.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Testimonials Section */}
+        <section className="testimonials" id="testimonials">
+          <div className="container">
+            <h2>Testimonials</h2>
+            <div className="testimonial">
+              <p>"Farmers' Konnect helped me find the perfect land for my farming project. Highly recommended!" - John Doe, Farmer</p>
+            </div>
+            <div className="testimonial">
+              <p>"As an investor, I appreciate the transparency and efficiency of Farmers' Konnect. Great platform!" - Jane Smith, Investor</p>
+            </div>
+            <div className="testimonial">
+              <p>"Thanks to Farmers' Konnect, I was able to monetize my unused land and contribute to sustainable agriculture." - Michael Johnson, Landowner</p>
+            </div>
+          </div>
+        </section>
+
+        {/* FAQs Section */}
+        <section className="faqs" id="faqs">
+          <div className="container">
+            <h2>FAQs</h2>
+            <div className="faq">
+              <h3>Question 1: How does Farmers' Konnect ensure the security of transactions?</h3>
+              <p>Answer: Farmers' Konnect utilizes blockchain technology and smart contracts to ensure secure and transparent transactions.</p>
+            </div>
+            <div className="faq">
+              <h3>Question 2: Can I post multiple land listings on Farmers' Konnect?</h3>
+              <p>Answer: Yes, landowners can post multiple listings to maximize their opportunities for connecting with investors.</p>
+            </div>
+            <div className="faq">
+              <h3>Question 3: What types of agricultural ventures are supported on Farmers' Konnect?</h3>
+              <p>Answer: Farmers' Konnect supports a wide range of agricultural ventures, including crop farming, livestock rearing, and agroforestry.</p>
+            </div>
+          </div>
+        </section>
+
+        {/* Call to Action Section */}
+        <section className="cta" id="cta">
+          <div className="container">
+            <h2>Join the Movement</h2>
+            <p>Sign up today and unlock your agricultural potential.</p>
+            <div className="cta-buttons">
+              {user ? (
+                <button><Link to="/post-land">Post Land</Link></button>
+              ) : (
+                <button><Link to="/register">Get Started</Link></button>
+              )}
+            </div>
+          </div>
+        </section>
+
+        {/* Contact Details Section */}
+        <section className="contact" id="contact">
+          <div className="container">
+            <h2>Contact Us</h2>
+            <p>For inquiries or support, reach out to us:</p>
+            <ul>
+              <li>Email: info@farmerskonnect.com</li>
+              <li>Phone: +123-456-7890</li>
+            </ul>
+            <div className="social-media">
+              <h3>Follow Us:</h3>
+              <ul>
+                <li><a href="#">Facebook</a></li>
+                <li><a href="#">Twitter</a></li>
+                <li><a href="#">Instagram</a></li>
+                <li><a href="#">LinkedIn</a></li>
+              </ul>
             </div>
           </div>
         </section>

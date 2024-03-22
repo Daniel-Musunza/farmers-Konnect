@@ -48,6 +48,7 @@ function Register() {
             setLoading(false);
             toast.success('Registration successful!');
             navigate('/');
+            window.location.reload();
         } catch (error) {
             console.error('Error during registration:', error.message);
             setLoading(false);

@@ -1,0 +1,218 @@
+/* How It Works Section */
+.how-it-works {
+    background-color: #f0fff0;
+    padding: 50px 0;
+  }
+  
+  .how-it-works h2 {
+    text-align: center;
+    color: #228b22; /* Forest green */
+    margin-bottom: 40px;
+  }
+  
+  .steps {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+  
+  .step {
+    flex-basis: calc(50% - 20px);
+    margin-bottom: 40px;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .step:hover {
+    transform: translateY(-5px);
+  }
+  
+  .step h3 {
+    color: #228b22; /* Forest green */
+    margin-bottom: 20px;
+  }
+  
+  /* Testimonials Section */
+  .testimonials {
+    background-color: #e0ffe0;
+    padding: 50px 0;
+  }
+  
+  .testimonials h2 {
+    text-align: center;
+    color: #228b22; /* Forest green */
+    margin-bottom: 40px;
+  }
+  
+  .testimonial {
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .testimonial:hover {
+    transform: translateY(-5px);
+  }
+  
+  .testimonial p {
+    color: #228b22; /* Forest green */
+  }
+  
+  /* FAQs Section */
+  .faqs {
+    padding: 50px 0;
+  }
+  
+  .faqs h2 {
+    text-align: center;
+    color: #228b22; /* Forest green */
+    margin-bottom: 40px;
+  }
+  
+  .faq {
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .faq:hover {
+    transform: translateY(-5px);
+  }
+  
+  .faq h3 {
+    color: #228b22; /* Forest green */
+    margin-bottom: 20px;
+  }
+  
+  /* Call to Action Section */
+  .cta {
+    background-color: #f0fff0;
+    padding: 50px 0;
+  }
+  
+  .cta h2 {
+    text-align: center;
+    color: #228b22; /* Forest green */
+    margin-bottom: 20px;
+  }
+  
+  .cta p {
+    text-align: center;
+    color: #228b22; /* Forest green */
+    margin-bottom: 40px;
+  }
+  
+  .cta-buttons {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .cta-buttons button {
+    padding: 15px 30px;
+    background-color: #228b22; /* Forest green */
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .cta-buttons button:hover {
+    background-color: #32cd32; /* Lime green */
+  }
+  
+  /* Contact Details Section */
+  .contact {
+    background-color: #e0ffe0;
+    padding: 50px 0;
+  }
+  
+  .contact h2 {
+    text-align: center;
+    color: #228b22; /* Forest green */
+    margin-bottom: 40px;
+  }
+  
+  .contact p {
+    text-align: center;
+    color: #228b22; /* Forest green */
+    margin-bottom: 20px;
+  }
+  
+  .contact ul {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+  }
+  
+  .contact ul li {
+    margin-bottom: 10px;
+    color: #228b22; /* Forest green */
+  }
+  
+  .social-media {
+    text-align: center;
+  }
+  
+  .social-media ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .social-media ul li {
+    display: inline-block;
+    margin-right: 10px;
+  }
+  
+  .social-media ul li:last-child {
+    margin-right: 0;
+  }
+  
+  .social-media ul li a {
+    color: #228b22; /* Forest green */
+  }
+  
+  .social-media ul li a:hover {
+    color: #32cd32; /* Lime green */
+  }
+  @media screen and (max-width: 800px) {
+    /* How It Works Section */
+    .steps {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .step {
+      flex-basis: 100%;
+      margin-bottom: 20px;
+    }
+  
+    /* Testimonials Section */
+    .testimonial {
+      margin-bottom: 20px;
+    }
+  
+    /* FAQs Section */
+    .faq {
+      margin-bottom: 20px;
+    }
+    
+    /* Call to Action Section */
+    .cta-buttons button {
+      padding: 12px 24px;
+      font-size: 14px;
+    }
+  
+    /* Contact Details Section */
+    .contact ul li {
+      font-size: 14px;
+    }
+  }
+    

@@ -1,30 +1,33 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom'
 import { countries as countriesList } from 'countries-list';
-
+import Spinner from '../components/Spinner'
 import { db } from "../firebase";
 import { getDocs, query, orderBy, collection } from 'firebase/firestore';
 const mycountries = Object.values(countriesList);
 
-function Invest({account }) {
+function Invest({ account }) {
     const [lands, setLands] = useState([]);
     const [filteredInvestmentLands, setFilteredInvestmentLand] = useState([]);
     const [selectingCountry, setSelectingCountry] = useState(false);
     const [selectedCountry, setSelectedCountry] = useState('');
-
+    const [loading, setLoading] = useState(null);
     useEffect(() => {
         const fetchData = async () => {
             try {
+                setLoading(true);
                 // Call the lands function on the contract
                 const querySnapshot = await getDocs(
                     query(collection(db, "lands"), orderBy("id", "desc"))
                   );
-            
+                
                   const fetchedLands = querySnapshot.docs.map((doc) => doc.data());
-
+                
                 setLands(fetchedLands);
+                setLoading(false);
             } catch (error) {
                 console.error('Error fetching lands:', error);
+                setLoading(false);
             }
         };
 
@@ -64,9 +67,11 @@ function Invest({account }) {
         const filteredLands = investlands.filter((land) => land.country === selectedCountryValue);
         setFilteredInvestmentLand(filteredLands);
     };
-
+    if (loading) {
+        return <Spinner />
+      }
     return (
-        <div className="main-container">
+        <div className="main-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <div className="heading" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', marginTop: '30px' }}>
                 <h3>Farms waiting for you to invest in</h3>
                 <div className="input-group" style={{ width: 'fit-content', marginLeft: '30px' }}>

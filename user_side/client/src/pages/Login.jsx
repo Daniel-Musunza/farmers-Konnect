@@ -27,10 +27,10 @@ function Login() {
       const { uid, name } = userCredential.user;
       localStorage.setItem('user', JSON.stringify({ uid, email, name }));
       
+      toast.success("Success");
+      setLoading(false)
       navigate('/');
-
-      setLoading(false);
-      toast.success("Success")
+      window.location.reload();
     } catch (err) {
       setLoading(false);
       switch (err.code) {

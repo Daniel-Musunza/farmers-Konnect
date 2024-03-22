@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { countries as countriesList } from 'countries-list';
-
+import Spinner from '../components/Spinner'
 
 import { db } from "../firebase";
 import { getDocs, query, orderBy, collection } from 'firebase/firestore';
@@ -13,10 +13,12 @@ function Rent({ contract, account }) {
     const [filteredRentalLands, setFilteredRentalLand] = useState([]);
     const [selectingCountry, setSelectingCountry] = useState(false);
     const [selectedCountry, setSelectedCountry] = useState('');
+    const [loading, setLoading] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
+                setLoading(true);
                   // Call the lands function on the contract
                   const querySnapshot = await getDocs(
                     query(collection(db, "lands"), orderBy("id", "desc"))
@@ -25,8 +27,10 @@ function Rent({ contract, account }) {
                   const fetchedLands = querySnapshot.docs.map((doc) => doc.data());
 
                 setLands(fetchedLands);
+                setLoading(false);
             } catch (error) {
                 console.error('Error fetching lands:', error);
+                setLoading(false);
             }
         };
 
@@ -64,7 +68,9 @@ function Rent({ contract, account }) {
         const filteredLands = rentlands.filter((land) => land.country === selectedCountryValue);
         setFilteredRentalLand(filteredLands);
     };
-
+    if (loading) {
+        return <Spinner />
+      }
     return (
         <div className="main-container">
             <div className="heading" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', marginTop: '30px' }}>

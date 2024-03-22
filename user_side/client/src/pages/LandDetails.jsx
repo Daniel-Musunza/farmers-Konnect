@@ -9,6 +9,8 @@ import { db } from "../firebase";
 import { getDocs, query, collection } from 'firebase/firestore';
 
 function LandDetails({ account, contract }) {
+  const user = JSON.parse(localStorage.getItem('user')) || null;
+  
   const [loading, setLoading] = useState(null);
   const [lands, setLands] = useState([]);
   const [images, setImages] = useState([]);
@@ -105,7 +107,7 @@ function LandDetails({ account, contract }) {
           </div>
           <div className="buttons">
             <div style={{ display: 'flex', alignItems: 'center' }}>
-              {land && land.user == account &&
+              {land && land.user == account || land && land.user == user?.uid&&
                 <button className="upload-button" style={{ marginRight: '20px' }}> <Link to={`/add-images/${land.id}`}><h4>Add More Images</h4></Link></button>
               }
 

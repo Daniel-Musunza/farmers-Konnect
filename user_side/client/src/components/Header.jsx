@@ -72,6 +72,7 @@ function Header({ account }) {
             <select
               name="web-version"
               id="web-version"
+              className='select-for-bg'
               style={{
                 borderRadius: '5px',
                 padding: '5px',
