@@ -32,12 +32,13 @@ margin-right: -20px;
     z-index: 999;
     width: 100%;
     text-transform: uppercase;
+    padding-left: 10px;
 }
 .account{
   position: fixed;
   z-index: 999;
   top: 100px;
-  margin-left: -30px;
+  margin-left: 30px;
   color: blue;
   text-transform: none;
   font-size: 10px;
@@ -53,7 +54,7 @@ margin-right: -20px;
 }
 
 .header .container nav{
-    margin-left: 30px;
+    /* margin-left: 30px; */
     display: flex;
     align-items: center;
 }
@@ -325,13 +326,14 @@ margin-right: -20px;
     }
   }
   .hero {
-    margin-top: -10px;
+    margin: -10px;
     background-image: url("../public/img/farm.jpg");
     background-repeat: no-repeat;
     background-size: cover; /* Ensures the background image covers the entire element */
     background-position: center; /* Centers the background image */
     padding-top: 50px;
     height: 350px;
+    width: 100%;
 }
 
 

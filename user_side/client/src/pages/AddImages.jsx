@@ -3,134 +3,115 @@ import axios from "axios";
 import { Link, useParams } from 'react-router-dom';
 import '../land_details.css';
 import Spinner from '../components/Spinner';
+import { toast } from 'react-toastify';
+
+import { db } from "../firebase";
+import { getDocs, query, collection, setDoc, doc } from "firebase/firestore";
+import { getStorage, ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 
 function AddImages({ account, contract }) {
+    const [chain, setChain] = useState(localStorage.getItem('chain'));
+    const user = JSON.parse(localStorage.getItem('user')) || null;
+
     const [loading, setLoading] = useState(null);
     const [lands, setLands] = useState([]);
     const [images, setImages] = useState([]);
     const [file, setFile] = useState(null);
     const [selectedImage, setSelectedImage] = useState(null);
     const { id } = useParams();
-
+    
+    const fetchData = async () => {
+        try {
+          // Call the lands function on the firebare
+          const landsQuerySnapshot = await getDocs(
+            query(collection(db, "lands"))
+          );
+  
+          const fetchedLands = landsQuerySnapshot.docs.map((doc) => doc.data());
+  
+          setLands(fetchedLands);
+  
+          // Call the images function on the firebare
+          const imagesQuerySnapshot = await getDocs(
+            query(collection(db, "images"))
+          );
+  
+          const fetchedImages = imagesQuerySnapshot.docs.map((doc) => doc.data());
+  
+          setImages(fetchedImages);
+        } catch (error) {
+          console.error('Error fetching Data:', error);
+        }
+      };
+  
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                // Call the lands function on the contract
-                const landsCount = await contract.landsCount();
-                const fetchedLands = [];
-
-                for (let i = 1; i <= landsCount; i++) {
-                    const land = await contract.lands(i);
-                    fetchedLands.push(land);
-                }
-
-                setLands(fetchedLands);
-
-                // Call the lands function on the contract
-                const imagesCount = await contract.imagesCount();
-                const fetchedImages = [];
-
-                for (let i = 1; i <= imagesCount; i++) {
-                    const image = await contract.images(i);
-                    fetchedImages.push(image);
-                }
-
-                setImages(fetchedImages);
-            } catch (error) {
-                console.error('Error fetching Data:', error);
-            }
-        };
-
+     
         fetchData();
-    }, []);
-
-
-    useEffect(() => {
-        // Load lands from local storage and combine with fetched lands
-        const localLands = JSON.parse(localStorage.getItem('lands')) || [];
-        console.log(localLands);
-        setLands((prevLands) => [...prevLands, ...localLands]);
-
-        const localImages = JSON.parse(localStorage.getItem('images')) || [];
-        console.log(localImages);
-        setImages((prevImages) => [...prevImages, ...localImages]);
-
-    }, []);
-
-
+      }, []);
+    
     const land = lands.find((land) => land.id == id);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
+    
         if (!file) {
             setLoading(false);
-            alert("Please Select an Image");
-            setFile(null);
+            alert("Please select an image");
             return;
         }
-
-        const formData = new FormData();
-        formData.append("file", file);
-
-        const resFile = await axios({
-            method: "post",
-            url: "https://api.pinata.cloud/pinning/pinFileToIPFS",
-            data: formData,
-            headers: {
-                pinata_api_key: `7f5c8eb0809e099a09e4`,
-                pinata_secret_api_key: `ac902cb198a06e9de7bf565a75455bdfb37c000cd2021f38747009635f062fff`,
-                "Content-Type": "multipart/form-data",
-            },
-        });
-        const hash = `https://magenta-efficient-centipede-68.mypinata.cloud/ipfs/${resFile.data.IpfsHash}`;
-        const user = account;
-        const landId = id;
-        let newImageId = Date.now();
-
-
-        const newImage = {
-            id: newImageId,
-            user: user,
-            hash: hash,
-            landId: landId
-        }
-
-        // Retrieve existing lands from local storage
-        const existingImages = JSON.parse(localStorage.getItem('images')) || [];
-
-        // Update the lands with the new land
-        const updatedImages = [...existingImages, newImage];
-
-        // Save the updated lands to local storage
-        localStorage.setItem('images', JSON.stringify(updatedImages));
-
+    
         try {
-
-            console.log(user, hash, landId);
-            contract.uploadImage(user, hash, landId);
-
-
-            setFile(null);
+            const storage = getStorage();
+            const storageRef = ref(storage, 'images/' + file.name);
+            const uploadTask = uploadBytesResumable(storageRef, file);
+    
+            uploadTask.on(
+                "state_changed",
+                (snapshot) => {
+                    // Handle upload state changes if needed
+                    console.log(snapshot);
+                },
+                (error) => {
+                    console.error(error);
+                    setLoading(false);
+                    toast.error("Upload failed. Please try again.");
+                },
+                async () => {
+                    try {
+                        const currentUser = chain === 'web3' ? account : user.uid;
+                        const downloadURL = await getDownloadURL(storageRef);
+    
+                        const timestamp = Date.now();
+    
+                        const landsCollectionRef = collection(db, "images");
+                        const landRef = doc(landsCollectionRef, timestamp.toString());
+    
+                        await setDoc(landRef, {
+                            hash: downloadURL,
+                            user: currentUser,
+                            landId: id,
+                            id: timestamp
+                        });
+    
+                        setLoading(false);
+                        toast.success("Image posted successfully.");
+                        // Fetch images after posting
+                        fetchData();
+                    } catch (error) {
+                        console.error(error);
+                        setLoading(false);
+                        toast.error("An error occurred while posting the image.");
+                    }
+                }
+            );
         } catch (error) {
-            console(error);
-
-            if (error.response && error.response.status === 400) {
-                // Handle specific error related to the transaction rejection
-                alert("Transaction rejected. Please check your gas or balance.");
-            } else {
-                // Handle other errors
-                alert("An error occurred while uploading land. Please try again.");
-            }
+            console.error(error);
+            setLoading(false);
+            toast.error("An error occurred while uploading the image.");
         }
-        setLoading(false);
-        alert("Successfully Image Uploaded");
-        window.location.reload();
-        setFile(null);
-
-
-
     };
+    
     const retrieveFile = (e) => {
         const data = e.target.files[0]; //files array of files object
         // console.log(data);

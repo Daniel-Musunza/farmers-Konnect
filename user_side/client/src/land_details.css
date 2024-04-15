@@ -63,12 +63,16 @@
 }
 
 @media (max-width: 800px) {
-    .single-pro-image{
+    #prodetails{
+        width: 300px!important;
+    }
+    .main-image img{
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        width: 90%;
+       height: 300px!important;
+       width: auto!important;
         margin: 10px;
     }
     .single-pro-details {

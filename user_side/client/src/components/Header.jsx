@@ -62,6 +62,7 @@ function Header({ account }) {
               // <button style={{color: 'red'}}> <a href="https://metamask.io/download/" >connect to metamask </a></button>
             )}
           </div>
+          
           <div className="right-data">
             {isMobileMenuOpen ? (
               <i className="fa-regular fa-circle-xmark" id="menu" style={{ color: '#fff', fontSize: '40px', marginRight: '20px' }} onClick={toggleMobileMenu}></i>
@@ -175,7 +176,7 @@ function Header({ account }) {
                   <></>
                 ) : (
 
-                  <button > <a href="https://metamask.io/download/" >connect to metamask</a></button>
+                  <Link to="https://metamask.io/download/" className='btn' >connect to metamask</Link>
 
                 )}
               </>

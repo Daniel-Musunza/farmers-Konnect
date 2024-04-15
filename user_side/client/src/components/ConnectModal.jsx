@@ -1,9 +1,15 @@
-import React, { useRef } from 'react';
+import React, { useRef , useState} from 'react';
 import { ethers} from 'ethers';
 
 import './connectModal.css';
+import { db } from "../firebase";
+import { collection, setDoc, doc } from "firebase/firestore";
 
-function ConnectModal({ isModalOpen, setModalOpen, contract, setLoading, landId, landAmount }) {
+
+function ConnectModal({ isModalOpen, setModalOpen, contract, owner, account, setLoading, landId, landAmount}) {
+    const [chain, setChain] = useState(localStorage.getItem('chain'));
+    const user = JSON.parse(localStorage.getItem('user')) || null;
+  
     const messageRef = useRef();
     // Function to toggle the mobile menu
     const toggleModal = () => {
@@ -33,14 +39,29 @@ function ConnectModal({ isModalOpen, setModalOpen, contract, setLoading, landId,
             // Use ethers.utils.parseUnits to convert the amount to wei (the smallest unit of ether)
             const amountInWei = ethers.utils.parseUnits(amountInEth.toString(), 'ether');
     
-            // Now you can use amountInWei in your bookLand function
-            contract.bookLand(landId, amountInWei, messageRef.current.value);
+            const timestamp = Date.now();
+
+      const bookingsCollectionRef = collection(db, "bookings");
+      const bookingRef = doc(bookingsCollectionRef, timestamp.toString());
+      const currentUser = chain === 'web3' ? account : user.uid;
+      const price = landAmount;
+
+      await setDoc(bookingRef, {
+          id: timestamp,
+          user: currentUser,
+          owner,
+          landId,
+          price,
+          message:  messageRef.current.value
+      });
             alert("Land booked successfully");
+            
         } else {
             console.error('Invalid exchange rate. Please try again later.');
             // Handle the error or provide feedback to the user
         }
         setLoading(false);
+        toggleModal();
     }
     
     return (

@@ -4,13 +4,16 @@ import { Link, useParams } from 'react-router-dom';
 import '../land_details.css';
 import ConnectModal from '../components/ConnectModal';
 import Spinner from '../components/Spinner';
+import { toast } from 'react-toastify';
+
 
 import { db } from "../firebase";
-import { getDocs, query, collection } from 'firebase/firestore';
+import { getDocs, query, collection, setDoc, doc } from "firebase/firestore";
 
 function LandDetails({ account, contract }) {
+  const [chain, setChain] = useState(localStorage.getItem('chain'));
   const user = JSON.parse(localStorage.getItem('user')) || null;
-  
+
   const [loading, setLoading] = useState(null);
   const [lands, setLands] = useState([]);
   const [images, setImages] = useState([]);
@@ -18,33 +21,35 @@ function LandDetails({ account, contract }) {
   const { id } = useParams();
   const [isModalOpen, setModalOpen] = useState(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // Call the lands function on the firebare
-        const landsQuerySnapshot = await getDocs(
-          query(collection(db, "lands"))
-        );
+  const fetchData = async () => {
+    try {
+      // Call the lands function on the firebare
+      const landsQuerySnapshot = await getDocs(
+        query(collection(db, "lands"))
+      );
 
-        const fetchedLands = landsQuerySnapshot.docs.map((doc) => doc.data());
+      const fetchedLands = landsQuerySnapshot.docs.map((doc) => doc.data());
 
-        setLands(fetchedLands);
+      setLands(fetchedLands);
 
-        // Call the images function on the firebare
-        const imagesQuerySnapshot = await getDocs(
-          query(collection(db, "images"))
-        );
+      // Call the images function on the firebare
+      const imagesQuerySnapshot = await getDocs(
+        query(collection(db, "images"))
+      );
 
-        const fetchedImages = imagesQuerySnapshot.docs.map((doc) => doc.data());
+      const fetchedImages = imagesQuerySnapshot.docs.map((doc) => doc.data());
 
-        setImages(fetchedImages);
-      } catch (error) {
-        console.error('Error fetching Data:', error);
-      }
-    };
+      setImages(fetchedImages);
+    } catch (error) {
+      console.error('Error fetching Data:', error);
+    }
+  };
 
+useEffect(() => {
+ 
     fetchData();
   }, []);
+
 
 
   const land = lands.find((land) => land.id == id);
@@ -55,6 +60,7 @@ function LandDetails({ account, contract }) {
   const handleImageClick = (image) => {
     setSelectedImage(image);
   };
+
 
   return (
     <>
@@ -71,6 +77,8 @@ function LandDetails({ account, contract }) {
             loading={loading}
             setLoading={setLoading}
             contract={contract}
+            account={account}
+            owner={land.user}
           />
         )}
         <section id="prodetails" className="section-p1">
@@ -92,18 +100,18 @@ function LandDetails({ account, contract }) {
 
             <br />
             <div className="small-img-group" id="ImagesContainer">
-              {images
-                .filter((image) => image.landId === id)
-                .map((image, key) => (
-                  <img
-                    key={key}
-                    src={image.hash && image.hash.substring(6)}
-                    alt=""
-                    onClick={() => handleImageClick(image)}
-                    width='200px'
-                  />
-                ))}
-            </div>
+                            {images
+                                .filter((image) => image.landId === id)
+                                .map((image, key) => (
+                                    <img
+                                        key={key}
+                                        src={image.hash && image.hash}
+                                        alt=""
+                                        onClick={() => handleImageClick(image)}
+                                        width='200px'
+                                    />
+                                ))}
+                        </div>
           </div>
           <div className="buttons">
             <div style={{ display: 'flex', alignItems: 'center' }}>

@@ -2,6 +2,8 @@
 .how-it-works {
     background-color: #f0fff0;
     padding: 50px 0;
+    width: 80%;
+    text-align: left;
   }
   
   .how-it-works h2 {
@@ -14,6 +16,7 @@
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
+    text-align: left;
   }
   
   .step {
@@ -39,6 +42,8 @@
   .testimonials {
     background-color: #e0ffe0;
     padding: 50px 0;
+    width: 80%;
+    text-align: left;
   }
   
   .testimonials h2 {
@@ -66,6 +71,8 @@
   /* FAQs Section */
   .faqs {
     padding: 50px 0;
+    width: 80%;
+    text-align: left;
   }
   
   .faqs h2 {
@@ -183,10 +190,22 @@
     color: #32cd32; /* Lime green */
   }
   @media screen and (max-width: 800px) {
+    .how-it-works,
+    .testimonials{
+      width: 100%;
+      padding: 10px;
+      margin: 0;
+      margin-top: 20px;
+    }
+    
     /* How It Works Section */
     .steps {
       flex-direction: column;
       align-items: center;
+      width: 100%;
+      padding: 10px;
+      margin: 0;
+      margin-top: 20px;
     }
   
     .step {

@@ -10,11 +10,14 @@ import Rent from './pages/Rent';
 import PostLand from './pages/PostLand';
 import LandDetails from './pages/LandDetails';
 import AddImages from './pages/AddImages';
+import LoanDetails from './pages/LoanDetails';
 
 import { ethers } from 'ethers';
 import DecentragramAbi from './artifacts/contracts/Decentragram.sol/Decentragram.json';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import RentDetails from './pages/RentDetails';
+import InvestDetails from './pages/InvestDetails';
 
 function App() {
   const [account, setAccount] = useState("");
@@ -82,6 +85,10 @@ function App() {
               contract={contract}
               provider={provider}
             />} />
+             <Route path='/loan-details' element={<LoanDetails />} />
+             <Route path='/rent-details' element={<RentDetails />} />
+             <Route path='/invest-details' element={<InvestDetails />} />
+             
             <Route path='/post-land'
               element={<PostLand
                 account={account}

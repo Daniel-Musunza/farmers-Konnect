@@ -39,7 +39,7 @@ function Home({ account }) {
                   <h1>Get Investors</h1>
                   <p>You don't have enough capital for farming? Get Investors here!</p>
                   <div className="button">
-                    <a href="#">readmore<i className="fi fi-sr-angle-small-right"></i></a>
+                    <Link to="/invest-details">readmore<i className="fi fi-sr-angle-small-right"></i></Link>
                   </div>
                 </div>
               </div>
@@ -51,7 +51,7 @@ function Home({ account }) {
                   <h1>Rent Arable Land</h1>
                   <p>You want to do farming but you don't have a piece of land? Get some hectares here!</p>
                   <div className="button">
-                    <a href="#">readmore<i className="fi fi-sr-angle-small-right"></i></a>
+                    <Link to="/rent-details">readmore<i className="fi fi-sr-angle-small-right"></i></Link>
                   </div>
                 </div>
               </div>
@@ -63,7 +63,7 @@ function Home({ account }) {
                   <h1>In-house Loan Service</h1>
                   <p>Access to affordable and timely financing</p>
                   <div className="button">
-                    <a href="#">readmore<i className="fi fi-sr-angle-small-right"></i></a>
+                    <Link to="/loan-details">readmore<i className="fi fi-sr-angle-small-right"></i></Link>
                   </div>
                 </div>
               </div>
@@ -131,37 +131,22 @@ function Home({ account }) {
           </div>
         </section>
 
-        {/* Call to Action Section */}
-        <section className="cta" id="cta">
-          <div className="container">
-            <h2>Join the Movement</h2>
-            <p>Sign up today and unlock your agricultural potential.</p>
-            <div className="cta-buttons">
-              {user ? (
-                <button><Link to="/post-land">Post Land</Link></button>
-              ) : (
-                <button><Link to="/register">Get Started</Link></button>
-              )}
-            </div>
-          </div>
-        </section>
-
         {/* Contact Details Section */}
         <section className="contact" id="contact">
           <div className="container">
             <h2>Contact Us</h2>
             <p>For inquiries or support, reach out to us:</p>
             <ul>
-              <li>Email: info@farmerskonnect.com</li>
-              <li>Phone: +123-456-7890</li>
+              <li>Email:  <a href="mailto:info@farmerskonnect.org">info@farmerskonnect.org</a></li>
+              <li>Phone: <a href="tel:+254703363464"></a>+2547 0336 3464</li>
             </ul>
             <div className="social-media">
               <h3>Follow Us:</h3>
               <ul>
-                <li><a href="#">Facebook</a></li>
-                <li><a href="#">Twitter</a></li>
-                <li><a href="#">Instagram</a></li>
-                <li><a href="#">LinkedIn</a></li>
+                <li><a href="https://facebook.com/FarmersKonnect">Facebook</a></li>
+                <li><a href="https://twitter.com/FarmersKonnect">Twitter</a></li>
+                <li><a href="https://instagram.com/FarmersKonnect">Instagram</a></li>
+                <li><a href="https://linkedin.com/in/FarmersKonnect">LinkedIn</a></li>
               </ul>
             </div>
           </div>
