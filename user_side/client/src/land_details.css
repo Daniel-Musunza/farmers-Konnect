@@ -66,6 +66,14 @@
     #prodetails{
         width: 300px!important;
     }
+
+    #prodetails .single-pro-image {
+        width: 330px;
+    }
+    
+    .small-img-group {
+        width: 330px;
+    }
     .main-image img{
         display: flex;
         flex-direction: column;
@@ -76,14 +84,14 @@
         margin: 10px;
     }
     .single-pro-details {
-        width: 90%;
+        width: 300px;
         margin-left: 0;
         margin-right: 0;
         padding-top: 30px;
     }
     .main-image
      {
-        width: 90% ;
+        width: 300px;
         display: flex;
         justify-content: center;
         align-items: center;

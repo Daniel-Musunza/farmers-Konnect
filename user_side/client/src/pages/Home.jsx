@@ -7,10 +7,8 @@ function Home({ account }) {
     <>
 
       {/* Main Container */}
-      <div className="main-container">
-
-        {/* Hero Area */}
-        <section className="hero" id="hero">
+      <div className='main-container'>
+        <section className="hero" id="hero" >
           <div className="swiper slider">
             <div className="swiper-wrapper">
               <div className="swiper-slide hero-image">
@@ -97,7 +95,7 @@ function Home({ account }) {
         </section>
 
         {/* Testimonials Section */}
-        <section className="testimonials" id="testimonials">
+        {/* <section className="testimonials" id="testimonials">
           <div className="container">
             <h2>Testimonials</h2>
             <div className="testimonial">
@@ -110,7 +108,7 @@ function Home({ account }) {
               <p>"Thanks to Farmers' Konnect, I was able to monetize my unused land and contribute to sustainable agriculture." - Michael Johnson, Landowner</p>
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* FAQs Section */}
         <section className="faqs" id="faqs">
@@ -126,8 +124,9 @@ function Home({ account }) {
             </div>
             <div className="faq">
               <h3>Question 3: What types of agricultural ventures are supported on Farmers' Konnect?</h3>
-              <p>Answer: Farmers' Konnect supports a wide range of agricultural ventures, including crop farming, livestock rearing, and agroforestry.</p>
+              <p>Answer: Farmers' Konnect exclusively supports oil crop farming, including crops like canola, sunflower, and sesame.</p>
             </div>
+
           </div>
         </section>
 

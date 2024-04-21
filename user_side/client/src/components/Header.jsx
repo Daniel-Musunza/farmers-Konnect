@@ -26,6 +26,8 @@ function Header({ account }) {
   const handleChainChange = (value) => {
     setChain(value);
     localStorage.setItem('chain', value)
+
+    // toggleMobileMenu();
   }
   // const getCurrentUser = async() =>{
   //   const userRef = doc(collection(firestore, "users"), auth.currentUser.uid);
@@ -62,7 +64,7 @@ function Header({ account }) {
               // <button style={{color: 'red'}}> <a href="https://metamask.io/download/" >connect to metamask </a></button>
             )}
           </div>
-          
+
           <div className="right-data">
             {isMobileMenuOpen ? (
               <i className="fa-regular fa-circle-xmark" id="menu" style={{ color: '#fff', fontSize: '40px', marginRight: '20px' }} onClick={toggleMobileMenu}></i>
@@ -95,22 +97,22 @@ function Header({ account }) {
                 {account ? (
                   <></>
                 ) : (
-
-                  <a href="https://metamask.io/download/"  className="select-for-bg button" > <span style={{fontSize: '10px'}}>connect to metamask</span></a>
-
+                  <div className='select-for-bg' >
+                    <a href="https://metamask.io/download/" className="select-for-bg button" > <span style={{ fontSize: '10px' }}>connect to metamask</span></a>
+                  </div>
                 )}
               </>
             ) : (
               <div className='select-for-bg' >
                 {user ? (
                   <>
-                    <button onClick={() => { localStorage.removeItem('user'); window.location.reload(); }}  className="select-for-bg button">Log Out</button>
+                    <button onClick={() => { localStorage.removeItem('user'); window.location.reload(); }} className="select-for-bg button">Log Out</button>
                   </>
                 ) : (
-                  <div style={{display: 'flex'}}>
-                  
-                      <Link to="/login"  className='link button' style={{zIndex: 1000}}> <span> Log In</span></Link>
-                     <Link to="/register"  className='link button' style={{marginLeft: '-30px'}}><span style={{marginLeft: '30px'}}>  Register</span></Link>
+                  <div style={{ display: 'flex' }}>
+
+                    <Link to="/login" className='link button' style={{ zIndex: 1000 }}> <span> Log In</span></Link>
+                    <Link to="/register" className='link button' style={{ marginLeft: '-30px' }}><span style={{ marginLeft: '30px' }}>  Register</span></Link>
                   </div>
 
                 )}
@@ -135,66 +137,68 @@ function Header({ account }) {
       </div>
       {isMobileMenuOpen && (
         <div className='mobile-menu'>
-          <Link to="/" style={{ color: '#fff' }} className='link'>home</Link>
+          <Link to="/" style={{ color: '#fff' }} className='link' onClick={toggleMobileMenu}>home</Link>
           <br />
           <hr />
-          <Link to="/invest" style={{ color: '#fff' }} className='link'>Farm To Invest</Link>
+          <Link to="/invest" style={{ color: '#fff' }} className='link' onClick={toggleMobileMenu}>Farm To Invest</Link>
           <br />
           <hr />
-          <Link to="/rent" style={{ color: '#fff' }} className='link'>Land For Rent</Link>
+          <Link to="/rent" style={{ color: '#fff' }} className='link' onClick={toggleMobileMenu}>Land For Rent</Link>
           <br />
 
           <hr />
           {account ? (
-          <Link to="/post-land">post Land</Link>
+            <Link to="/post-land" onClick={toggleMobileMenu}>post Land</Link>
           ) : (
             <></>
             // <button style={{color: 'red'}}> <a href="https://metamask.io/download/" >Metamask </a></button>
           )}
           <select
-              name="web-version"
-              id="web-version"
-              style={{
-                borderRadius: '5px',
-                padding: '5px',
-                border: 'none',
-                backgroundColor: 'green',
-                cursor: 'pointer',
-                color: '#fff',
-                fontWeight: '700',
-                fontSize: '16px',
-                textTransform: 'uppercase'
-              }}
-              onChange={(e) => handleChainChange(e.target.value)}
-            >
-              <option value="web2" style={{ height: '40px' }}>Offchain(Web2.0)</option>
-              <option value="web3" style={{ height: '40px' }}>Onchain(Blockchain)</option>
-            </select>
-            {chain === 'web3' ? (
-              <>
-                {account ? (
-                  <></>
-                ) : (
+            name="web-version"
+            id="web-version"
+            style={{
+              borderRadius: '5px',
+              padding: '5px',
+              border: 'none',
+              backgroundColor: 'green',
+              cursor: 'pointer',
+              color: '#fff',
+              fontWeight: '700',
+              fontSize: '16px',
+              textTransform: 'uppercase'
+            }}
+            onChange={(e) => handleChainChange(e.target.value)}
+            value={chain || "web2"} // Set the value attribute to the chain in state or "web2" if it's null
+          >
+            <option value="web2" style={{ height: '40px' }} >Offchain(Web2.0)</option>
+            <option value="web3" style={{ height: '40px' }} >Onchain(Blockchain)</option>
+          </select>
 
-                  <Link to="https://metamask.io/download/" className='btn' >connect to metamask</Link>
+          {chain === 'web3' ? (
+            <>
+              {account ? (
+                <></>
+              ) : (
 
-                )}
-              </>
-            ) : (
-              <>
-                {user ? (
-                  <>
-                    <button onClick={() => { localStorage.removeItem('user'); window.location.reload(); }} className='btn'>Log Out</button>
-                  </>
-                ) : (
-                  <>
-                      <Link to="/login" className='link'>Log In</Link>
-                  <Link to="/register" className='link'>Register</Link>
-                  </>
+                <a href="https://metamask.io/download/" className='link' onClick={toggleMobileMenu}> <span style={{ fontSize: '10px' }}>connect to metamask</span></a>
 
-                )}
-              </>
-            )}
+              )}
+            </>
+          ) : (
+            <>
+              {user ? (
+                <>
+                  <button onClick={() => { localStorage.removeItem('user'); window.location.reload(); }} className='btn'>Log Out</button>
+                </>
+              ) : (
+                <>
+                  <Link to="/login" className='link' onClick={toggleMobileMenu}>Log In</Link>
+                  <Link to="/register" className='link' onClick={toggleMobileMenu}>Register</Link>
+                </>
+
+              )}
+            </>
+          )}
 
         </div>
       )}

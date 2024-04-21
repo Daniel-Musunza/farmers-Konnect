@@ -8,7 +8,7 @@ const LoanDetails = () => {
       <h2>FARMERS’ KONNECT’S LOAN SERVICE STRUCTURE</h2>
       <br />
       <br />
-      <img src="img/loan.jpg" alt="" />
+      <img src="img/loan.jpg" alt="" width="300px"/>
       <br />
       <br />
         <br />

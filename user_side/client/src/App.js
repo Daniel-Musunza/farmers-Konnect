@@ -69,7 +69,6 @@ function App() {
   return (
     <>
       <Router>
-        <div className='container'>
           <Header account={account} />
           <Routes>
             <Route path='/' element={<Home
@@ -110,8 +109,6 @@ function App() {
           </Routes>
 
           <Footer />
-
-        </div>
       </Router>
       <ToastContainer />
     </>
