@@ -433,7 +433,7 @@ section {
 
 .service .container .s1 {
   border-radius: 30px;
-  width: 330px;
+  width: 380px;
   height: 300px;
   display: flex;
   margin: 10px;
@@ -718,7 +718,9 @@ section {
     font-size: 20px;
     padding: 10px;
   }
-
+  .service .container .s1 {
+    width: 330px;
+  }
   .card {
     width: 100%;
   }

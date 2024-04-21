@@ -64,7 +64,7 @@
 
 @media (max-width: 800px) {
     #prodetails{
-        width: 300px!important;
+        width: 330px!important;
     }
 
     #prodetails .single-pro-image {
@@ -79,8 +79,8 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-       height: 300px!important;
-       width: auto!important;
+       height: auto!important;
+       width: 330px!important;
         margin: 10px;
     }
     .single-pro-details {
@@ -91,7 +91,7 @@
     }
     .main-image
      {
-        width: 300px;
+        width: 330px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -100,25 +100,10 @@
     display: none;
 }
 
-    .main-image img {
-        margin: 10px;
-        width: 100%;
-    }
-
-    .small-img-group {
-        width: 90%;
-    }
-    .small-img-group img{
-        margin-right: 0;
-    }
     #button {
         position: relative;
         top: 0;
 
     }
 
-    .single-pro-details {
-        position: relative;
-        margin-top: 20px;
-    }
 }
