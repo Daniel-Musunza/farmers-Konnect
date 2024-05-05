@@ -161,7 +161,7 @@ section {
   padding-top: 80px;
   padding-bottom: 20px;
   background-color: rgb(237, 250, 237);
-  min-height: 60vh;
+  min-height: 60vh!important;
   text-align: center;
 }
 
@@ -667,7 +667,7 @@ section {
   }
 }
 
-@media (min-width:800px) {
+@media (min-width:1281px) {
     .mobile-menu {
     display: none;
   }

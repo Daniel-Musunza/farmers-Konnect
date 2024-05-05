@@ -101,7 +101,7 @@ function Invest({ account }) {
                     {filteredInvestmentLands.map((land, key) => {
                         return (
                             <div className="card" key={key}>
-                                <div className="card__corner"></div>
+                                <div className="card__corner">delete</div>
                                 <div className="card__img">
                                     <img src={` ${land.hash}`} alt="" style={{ width: '100%' }} />
                                     <span className="card__span">In need of an Investor</span>
