@@ -1,12 +1,15 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom'
+
+import { toast } from 'react-toastify';
 import { countries as countriesList } from 'countries-list';
 import Spinner from '../components/Spinner'
 import { db } from "../firebase";
-import { getDocs, query, orderBy, collection } from 'firebase/firestore';
+import { getDocs, query, orderBy, collection, doc, deleteDoc } from 'firebase/firestore';
 const mycountries = Object.values(countriesList);
 
 function Invest({ account }) {
+    const user = JSON.parse(localStorage.getItem('user')) || null;
     const [lands, setLands] = useState([]);
     const [filteredInvestmentLands, setFilteredInvestmentLand] = useState([]);
     const [selectingCountry, setSelectingCountry] = useState(false);
@@ -19,10 +22,10 @@ function Invest({ account }) {
                 // Call the lands function on the contract
                 const querySnapshot = await getDocs(
                     query(collection(db, "lands"), orderBy("id", "desc"))
-                  );
-                
-                  const fetchedLands = querySnapshot.docs.map((doc) => doc.data());
-                
+                );
+
+                const fetchedLands = querySnapshot.docs.map((doc) => doc.data());
+
                 setLands(fetchedLands);
                 setLoading(false);
             } catch (error) {
@@ -34,7 +37,7 @@ function Invest({ account }) {
         fetchData();
     }, []);
 
-  
+
 
     const filterRef = useRef();
 
@@ -67,11 +70,28 @@ function Invest({ account }) {
         const filteredLands = investlands.filter((land) => land.country === selectedCountryValue);
         setFilteredInvestmentLand(filteredLands);
     };
+
+    const handleDelete = async (e, id) => {
+        setLoading(true);
+        e.preventDefault();
+        try {
+            const landsRef = collection(db, 'lands');
+            const landRef = doc(landsRef, id);
+            await deleteDoc(landRef);
+          toast("Land Deleted Successfully ...");
+          window.location.reload();
+        } catch (error) {
+          toast.error("Failed to delete!");
+          console.log(error);
+        }
+        setLoading(false);
+      }
+
     if (loading) {
         return <Spinner />
-      }
+    }
     return (
-        <div className="main-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <div className="main-container" style={{ display: 'flex', minHeight: '400px', flexDirection: 'column', alignItems: 'center' }}>
             <div className="heading" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', marginTop: '30px' }}>
                 <h3>Farms waiting for you to invest in</h3>
                 <div className="input-group" style={{ width: 'fit-content', marginLeft: '30px' }}>
@@ -101,7 +121,7 @@ function Invest({ account }) {
                     {filteredInvestmentLands.map((land, key) => {
                         return (
                             <div className="card" key={key}>
-                                <div className="card__corner">delete</div>
+                                <div className="card__corner"></div>
                                 <div className="card__img">
                                     <img src={` ${land.hash}`} alt="" style={{ width: '100%' }} />
                                     <span className="card__span">In need of an Investor</span>
@@ -117,24 +137,32 @@ function Invest({ account }) {
 
                 </div>
             )}
-            <div className="pro-container">
-                {investlands.map((land, key) => {
-                    return (
-                        <div className="card" key={key}>
-                            <div className="card__corner"></div>
-                            <div className="card__img">
-                                <img src={`${land.hash}`} alt="" style={{ width: '100%' }} />
-                                <span className="card__span">In need of an Investor</span>
+            {investlands.length > 0 ? (
+                <div className="pro-container">
+                    {investlands.map((land, key) => {
+                        return (
+                            <div className="card" key={key}>
+                                {user && (land && land.user == account || land && land.user == user?.uid) && (
+                                    <button onClick={(e) => handleDelete(e, land.id)} style={{ color: 'red', background: '#e0ffff', width: '30px', borderRadius: '50px', fontSize: '20px', float: 'right', position: 'relative', zIndex: '1000', cursor: 'pointer' }}><i class="fa-solid fa-trash-can"></i></button>
+                                )}
+                                <div className="card__corner"></div>
+                                <div className="card__img">
+                                    <img src={`${land.hash}`} alt="" style={{ width: '100%' }} />
+                                    <span className="card__span">In need of an Investor</span>
+                                </div>
+                                <div className="card-int">
+                                    <p className="card-int__title">{land.title}, USD {land.price} needed</p>
+                                    <p className="excerpt">Country: {land.country}, Soil Type:{land.soilType}</p>
+                                    <Link to={`/land-details/${land.id}`}><button className="card-int__button">Show</button></Link>
+                                </div>
                             </div>
-                            <div className="card-int">
-                                <p className="card-int__title">{land.title}, USD {land.price} needed</p>
-                                <p className="excerpt">Country: {land.country}, Soil Type:{land.soilType}</p>
-                                <Link to={`/land-details/${land.id}`}><button className="card-int__button">Show</button></Link>
-                            </div>
-                        </div>
-                    )
-                })}
-            </div>
+                        )
+                    })}
+                </div>
+            ) : (
+                <h3 style={{ textAlign: 'center' }}>No land available for investment</h3>
+            )}
+
         </div>
     )
 }

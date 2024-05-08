@@ -13,8 +13,8 @@ function Home({ account }) {
             <div className="swiper-wrapper">
               <div className="swiper-slide hero-image">
                 <div className="text">
-                  <p>Decentralized Agricultural Platform</p>
-                  <h1 style={{ color: '#fff' }}>Connects farmers to investors as well as to  arable land for farming</h1>
+                  <p>Decentralized Agricultural Platform </p>
+                  <h1 style={{ color: '#fff' }}>🌱 Connects Farmers with Investors & Arable Land for Oil Crop Farming, mainly Canola 🌱</h1>
                   {user ? (
                     <button><Link to="/post-land">Post land</Link></button>
                   ) : (
@@ -154,7 +154,7 @@ function Home({ account }) {
         </section>
 
         <section>
-          <h2>The team</h2>
+          <h2>Our Team</h2>
           <div className="team">
             <div className="team-member">
               <img src="img/omar.jpg" alt=""
@@ -168,8 +168,8 @@ function Home({ account }) {
                 }} />
               <div className='team-details'>
                 <h3>Kelvin Omari</h3>
-                <h5>Co-founder | CEO </h5>
-                <p></p>
+                <h5>Founder | CEO </h5>
+                <p>I'm a versatile, business-focused individual with a keen investor mindset, specializing in agriculture. With experience as a teacher, trainer, and project lead for four years before transitioning into the tech space serving in various roles such as operations officer, marketing officer, community lead, and business developer. Previously, I held the position of Chief Operations Officer in the Fintech company, and now  in the Agritech and agribusiness space. As the CEO and Founder of Farmers'Konnect Connect, my goal is to elevate our company into an African icon. My passion for agriculture led me to Farmers' Konnect opportunity, and we are eager to collaborate with you all. Join us at Farmers' Konnect, and together, lets make a difference.</p>
               </div>
 
             </div>
