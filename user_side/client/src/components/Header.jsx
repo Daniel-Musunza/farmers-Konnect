@@ -44,7 +44,7 @@ function Header({ account }) {
     <section className="header" id="header" style={{ backgroundColor: 'green' }}>
       <div className="container container1">
         <div style={{ color: '#fff', display: 'flex', alignItems: 'center' }} className="logo">
-          <Link to="/"><img src="img/logo.png" alt="" width="50px" /></Link>
+          <Link to="/"><img src="img/logo.png" alt="" /></Link>
           <h3 style={{ paddingLeft: '5px' }}>Farmers' Konnect</h3>
         </div>
         <nav>
@@ -126,6 +126,7 @@ function Header({ account }) {
           </div>
         </nav>
       </div>
+      {chain === 'web3' && (
       <div className="account">
         <h3>Account:
           {account ? (
@@ -135,6 +136,7 @@ function Header({ account }) {
           )}
         </h3>
       </div>
+      )}
       {isMobileMenuOpen && (
         <div className='mobile-menu'>
           <Link to="/" style={{ color: '#fff' }} className='link' onClick={toggleMobileMenu}>home</Link>

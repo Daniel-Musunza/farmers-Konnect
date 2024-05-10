@@ -74,6 +74,10 @@ section {
   padding: 15px 20px;
 }
 
+.logo img {
+  width: 60px;
+}
+
 .header .container nav .right-data {
   display: flex;
   align-items: center;
@@ -442,6 +446,11 @@ section {
   background-color: #fff;
 }
 
+.service .container .s1 a {
+  text-decoration: none;
+  color: inherit;
+}
+
 .service .container .s1:hover {
   background-color: #d3d3d3;
   border: 2px solid var(---white);
@@ -450,6 +459,7 @@ section {
 
 .service .container .s1 {
   text-align: center;
+
 }
 
 .service .container .s1 .data .serivce-image img {
@@ -513,11 +523,14 @@ section {
 /*service*/
 @media only screen and (max-width: 800px) {
 
- .s1 {
+  .s1 {
     width: 100%;
     max-width: none;
   }
 
+  .second-nav {
+    margin-top: -20px;
+  }
 
 }
 
@@ -667,15 +680,19 @@ section {
 }
 
 @media (min-width:1281px) {
-    .mobile-menu {
+  .mobile-menu {
     display: none;
   }
 }
 
 @media (max-width:800px) {
   .account {
-    top: 110px;
+    top: 60px;
     margin-left: 0;
+  }
+
+  #id {
+    font-size: medium;
   }
 
   .navbar {
@@ -684,27 +701,35 @@ section {
   }
 
   .header {
-    width: 100%!important;
+    width: 100% !important;
+    font-size: medium;
 
   }
 
-  .header .container .logo img {
-    width: 100px;
+  .mobile-menu {
+    margin-top: -60px;
+  }
+
+  .logo img {
+    width: 50px !important;
   }
 
   section {
     padding: 10px 16px;
     margin: 0;
-    
+
   }
 
   .pro-container {
     margin: 0;
   }
 
- 
+  .main-container {
+    padding-top: 50px;
+  }
 
   .hero {
+    margin-top: -40px;
     width: 100% !important;
   }
 
@@ -717,9 +742,12 @@ section {
     font-size: 20px;
     padding: 10px;
   }
+
   .service .container .s1 {
+
     width: 330px;
   }
+
   .card {
     width: 100%;
   }

@@ -15,12 +15,15 @@ function Home({ account }) {
                 <div className="text">
                   <p>Decentralized Agricultural Platform </p>
                   <h1 style={{ color: '#fff' }}>🌱 Connects Farmers with Investors & Arable Land for Oil Crop Farming, mainly Canola 🌱</h1>
+                  <div className="right-data" style={{display: 'flex', justifyContent: 'center', marginTop: '40px'}}>
                   {user ? (
-                    <button><Link to="/post-land">Post land</Link></button>
+                    
+                     <Link to="/post-land" className='button'> Post land </Link>
+                     
                   ) : (
-                    <button><Link to="/register">Get started</Link></button>
+                    <Link to="/register" className='button'>Get started</Link>
                   )}
-
+                  </div>
                 </div>
               </div>
             </div>
@@ -32,6 +35,7 @@ function Home({ account }) {
         <section className="service" id="about">
           <div className="container">
             <div className="s1">
+            <Link to="/invest-details">
               <div className="data">
                 <div className="text">
                   <h1>Get Investors</h1>
@@ -41,9 +45,11 @@ function Home({ account }) {
                   </div>
                 </div>
               </div>
+              </Link>
             </div>
 
             <div className="s1">
+            <Link to="/rent-details">
               <div className="data">
                 <div className="text">
                   <h1>Rent Arable Land</h1>
@@ -53,9 +59,11 @@ function Home({ account }) {
                   </div>
                 </div>
               </div>
+            </Link>
             </div>
 
             <div className="s1">
+            <Link to="/loan-details">
               <div className="data">
                 <div className="text">
                   <h1>In-house Loan Service</h1>
@@ -65,6 +73,7 @@ function Home({ account }) {
                   </div>
                 </div>
               </div>
+            </Link>
             </div>
           </div>
         </section>
@@ -169,7 +178,7 @@ function Home({ account }) {
               <div className='team-details'>
                 <h3>Kelvin Omari</h3>
                 <h5>Founder | CEO </h5>
-                <p>I'm a versatile, business-focused individual with a keen investor mindset, specializing in agriculture. With experience as a teacher, trainer, and project lead for four years before transitioning into the tech space serving in various roles such as operations officer, marketing officer, community lead, and business developer. Previously, I held the position of Chief Operations Officer in the Fintech company, and now  in the Agritech and agribusiness space. As the CEO and Founder of Farmers'Konnect Connect, my goal is to elevate our company into an African icon. My passion for agriculture led me to Farmers' Konnect opportunity, and we are eager to collaborate with you all. Join us at Farmers' Konnect, and together, lets make a difference.</p>
+                <p>I'm a versatile business professional specializing in agriculture, with extensive experience spanning education, project leadership, and various roles in the tech industry. As CEO and Founder of Farmers'Konnect, I'm dedicated to establishing our company as a leading African entity and making a meaningful impact in the agriculture sector.</p>
               </div>
 
             </div>
@@ -219,7 +228,7 @@ function Home({ account }) {
               <div className='team-details'>
                 <h3>Morris </h3>
                 <h5>Blockchain Developer</h5>
-                <p>I'm a versatile programmer, specialized in Python, JavaScript, TypeScript, Rust, Solidity, Java, and Motoko, covering both web 2.0 and web 3.0 technologies. I develop cutting-edge web applications using React, Node.js, GraphQL, and Motoko for decentralized apps. I'm always worm to ensure you have a great user experience.I excel in collaborative environments and am actively engaged in the tech community, I enjoy  contributing to open source projects and participating in hackathons and staying ahead of industry trends</p>
+                <p>I'm a versatile programmer skilled in Python, JavaScript, TypeScript, Rust, Solidity, Java, and Motoko, proficient in both web 2.0 and web 3.0 technologies. Specializing in React, Node.js, GraphQL, and Motoko, I'm dedicated to creating innovative web applications and decentralized apps while prioritizing user experience and actively contributing to the tech community.</p>
               </div>
             </div>
           </div>
