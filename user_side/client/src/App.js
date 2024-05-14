@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Home from './pages/Home';
@@ -18,6 +18,17 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import RentDetails from './pages/RentDetails';
 import InvestDetails from './pages/InvestDetails';
+
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
 
 function App() {
   const [account, setAccount] = useState("");
@@ -68,7 +79,9 @@ function App() {
 
   return (
     <>
+     
       <Router>
+      <ScrollToTop />
           <Header account={account} />
           <Routes>
             <Route path='/' element={<Home

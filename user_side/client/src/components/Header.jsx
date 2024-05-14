@@ -44,16 +44,16 @@ function Header({ account }) {
     <section className="header" id="header" style={{ backgroundColor: 'green' }}>
       <div className="container container1">
         <div style={{ color: '#fff', display: 'flex', alignItems: 'center' }} className="logo">
-          <Link to="/"><img src="img/logo.png" alt="" /></Link>
+          <Link to="/#top"><img src="img/logo.png" alt="" /></Link>
           <h3 style={{ paddingLeft: '5px' }}>Farmers' Konnect</h3>
         </div>
         <nav>
           <div className="navbar">
-            <Link to="/" style={{ color: '#fff' }}>home</Link>
-            <Link to="/invest" style={{ color: '#fff' }}>Farm To Invest</Link>
-            <Link to="/rent" style={{ color: '#fff' }}>Land For Rent</Link>
+            <Link to="/#top" style={{ color: '#fff' }}>home</Link>
+            <Link to="/invest#top" style={{ color: '#fff' }}>Farm To Invest</Link>
+            <Link to="/rent#top" style={{ color: '#fff' }}>Land For Rent</Link>
             {user ? (
-              <Link to="/post-land"
+              <Link to="/post-land#top"
                 style={{
                   color: '#fff'
                 }}>
@@ -139,18 +139,18 @@ function Header({ account }) {
       )}
       {isMobileMenuOpen && (
         <div className='mobile-menu'>
-          <Link to="/" style={{ color: '#fff' }} className='link' onClick={toggleMobileMenu}>home</Link>
+          <Link to="/#top" style={{ color: '#fff' }} className='link' onClick={toggleMobileMenu}>home</Link>
           <br />
           <hr />
-          <Link to="/invest" style={{ color: '#fff' }} className='link' onClick={toggleMobileMenu}>Farm To Invest</Link>
+          <Link to="/invest#top" style={{ color: '#fff' }} className='link' onClick={toggleMobileMenu}>Farm To Invest</Link>
           <br />
           <hr />
-          <Link to="/rent" style={{ color: '#fff' }} className='link' onClick={toggleMobileMenu}>Land For Rent</Link>
+          <Link to="/rent#top" style={{ color: '#fff' }} className='link' onClick={toggleMobileMenu}>Land For Rent</Link>
           <br />
 
           <hr />
           {account ? (
-            <Link to="/post-land" onClick={toggleMobileMenu}>post Land</Link>
+            <Link to="/post-land#top" onClick={toggleMobileMenu}>post Land</Link>
           ) : (
             <></>
             // <button style={{color: 'red'}}> <a href="https://metamask.io/download/" >Metamask </a></button>

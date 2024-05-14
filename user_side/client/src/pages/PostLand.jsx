@@ -117,7 +117,7 @@ function PostLand({ account }) {
         <>
             {loading && <Spinner />}
             <div className="main-container" style={{ maxWidth: '800px', margin: 'auto' }}>
-                <div className="pro-container2" style={{ width: '100%' }}>
+                <div className="pro-container2" style={{ width: '100%' }} id="top">
                     <div className="create-post">
                         <div className="contain">
                             <div className="land-info">

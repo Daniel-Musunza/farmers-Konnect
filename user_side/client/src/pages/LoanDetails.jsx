@@ -4,7 +4,7 @@ import '../LoanDetails.css'; // Import CSS file for styling
 const LoanDetails = () => {
   return (
     <div className="main-container">
-      <div className="section">
+      <div className="section" id="top">
       <h2>FARMERS’ KONNECT’S LOAN SERVICE STRUCTURE</h2>
       <br />
       <br />

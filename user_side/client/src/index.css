@@ -108,6 +108,7 @@ section {
   cursor: pointer;
   border-radius: 50px;
   box-shadow: 0px 5px 10px #fff;
+  color: inherit;
 }
 
 .header .container nav .right-data .button span,

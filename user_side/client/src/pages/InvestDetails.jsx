@@ -3,8 +3,8 @@ import '../LoanDetails.css'; // Import CSS file for styling
 
 const InvestDetails = () => {
     return (
-        <div className="main-container">
-            <div className="section">
+        <div className="main-container" id="top">
+            <div className="section" id="top">
                 <h2>At Farmers' Konnect, we understand that trust is paramount for investors venturing into agricultural land investment.</h2>
                 <br />
                 <br />

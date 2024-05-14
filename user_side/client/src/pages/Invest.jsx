@@ -92,7 +92,7 @@ function Invest({ account }) {
     }
     return (
         <div className="main-container" style={{ display: 'flex', minHeight: '400px', flexDirection: 'column', alignItems: 'center' }}>
-            <div className="heading" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', marginTop: '30px' }}>
+            <div className="heading" id="top" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', marginTop: '30px' }}>
                 <h3>Farms waiting for you to invest in</h3>
                 <div className="input-group" style={{ width: 'fit-content', marginLeft: '30px' }}>
                     <select name="landType" onChange={Filter} ref={filterRef} className="input-field">

@@ -9,6 +9,7 @@ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(null);
+  const [errMsg, setErrorMsg] = useState("");
   const navigate = useNavigate()
   let user = localStorage.getItem('user' || null);
 
@@ -26,7 +27,7 @@ function Login() {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const { uid, name } = userCredential.user;
       localStorage.setItem('user', JSON.stringify({ uid, email, name }));
-      
+
       toast.success("Success");
       setLoading(false)
       navigate('/');
@@ -35,14 +36,13 @@ function Login() {
       setLoading(false);
       switch (err.code) {
         case "auth/network-request-failed":
-          toast.error("Network Error");
+          setErrorMsg("Network Error, please connect to a stable internet");
           break;
-        case "auth/user-not-found":
-        case "auth/wrong-password":
-          toast.error("Wrong email or password");
+        case "auth/invalid-credential":
+          setErrorMsg("Invalid redentials, please register or confirm email or password to proceed");
           break;
         default:
-          toast.error("An error occurred");
+          setErrorMsg("An error occurred while trying to log in ");
       }
     }
 
@@ -63,8 +63,11 @@ function Login() {
           Login
         </h1>
       </section>
-      <section className='form' style={{padding: 0,  minHeight: '380px',  padding: '20px'}}>
+      <section className='form' style={{ padding: 0, minHeight: '380px', padding: '20px' }}>
         <form onSubmit={onSubmit}>
+        <div className='form-group'>
+          <p style={{color: 'red', textAlign: 'center'}}>{errMsg}</p>
+          </div>
           <div className='form-group'>
             <input
               type='email'

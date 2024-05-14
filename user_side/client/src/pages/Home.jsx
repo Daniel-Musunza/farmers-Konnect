@@ -8,7 +8,7 @@ function Home({ account }) {
 
       {/* Main Container */}
       <div className='main-container'>
-        <section className="hero" id="hero" >
+        <section className="hero" id="hero top" >
           <div className="swiper slider">
             <div className="swiper-wrapper">
               <div className="swiper-slide hero-image">
@@ -18,7 +18,7 @@ function Home({ account }) {
                   <div className="right-data" style={{display: 'flex', justifyContent: 'center', marginTop: '40px'}}>
                   {user ? (
                     
-                     <Link to="/post-land" className='button'> Post land </Link>
+                     <Link to="/post-land#top" className='button'> Post land </Link>
                      
                   ) : (
                     <Link to="/register" className='button'>Get started</Link>
@@ -35,13 +35,13 @@ function Home({ account }) {
         <section className="service" id="about">
           <div className="container">
             <div className="s1">
-            <Link to="/invest-details">
+            <Link to="/invest-details#top">
               <div className="data">
                 <div className="text">
                   <h1>Get Investors</h1>
                   <p>You don't have enough capital for farming? Get Investors here!</p>
                   <div className="button">
-                    <Link to="/invest-details">readmore<i className="fi fi-sr-angle-small-right"></i></Link>
+                    <Link to="/invest-details#top">readmore<i className="fi fi-sr-angle-small-right"></i></Link>
                   </div>
                 </div>
               </div>
@@ -49,13 +49,13 @@ function Home({ account }) {
             </div>
 
             <div className="s1">
-            <Link to="/rent-details">
+            <Link to="/rent-details#top">
               <div className="data">
                 <div className="text">
                   <h1>Rent Arable Land</h1>
                   <p>You want to do farming but you don't have a piece of land? Get some hectares here!</p>
                   <div className="button">
-                    <Link to="/rent-details">readmore<i className="fi fi-sr-angle-small-right"></i></Link>
+                    <Link to="/rent-details#top">readmore<i className="fi fi-sr-angle-small-right"></i></Link>
                   </div>
                 </div>
               </div>
@@ -63,13 +63,13 @@ function Home({ account }) {
             </div>
 
             <div className="s1">
-            <Link to="/loan-details">
+            <Link to="/loan-details#top">
               <div className="data">
                 <div className="text">
                   <h1>In-house Loan Service</h1>
                   <p>Access to affordable and timely financing</p>
                   <div className="button">
-                    <Link to="/loan-details">readmore<i className="fi fi-sr-angle-small-right"></i></Link>
+                    <Link to="/loan-details#top">readmore<i className="fi fi-sr-angle-small-right"></i></Link>
                   </div>
                 </div>
               </div>

@@ -81,7 +81,7 @@ useEffect(() => {
             owner={land.user}
           />
         )}
-        <section id="prodetails" className="section-p1">
+        <section id="prodetails top" className="section-p1">
           <div className="single-pro-image">
             <div className="contract" style={{ padding: '10px', borderRadius: '10px', position: 'fixed', zIndex: '1', textAlign: 'center', right: '10px', background: "#fff", width: '300px', minHeight: '200px' }}>
               <h2 style={{ marginTop: '20px' }}>Contract Status</h2>

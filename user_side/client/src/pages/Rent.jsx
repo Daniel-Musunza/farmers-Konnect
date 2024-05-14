@@ -94,7 +94,7 @@ function Rent({ contract, account }) {
     }
     return (
         <div className="main-container">
-            <div className="heading" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', marginTop: '30px' }}>
+            <div className="heading"  id="top" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', marginTop: '30px' }}>
                 <h3>Arable Farming Land For Rent</h3>
                 <div className="input-group" style={{ width: 'fit-content', marginLeft: '30px' }}>
                     <select name="landType" onChange={Filter} ref={filterRef} className="input-field">
