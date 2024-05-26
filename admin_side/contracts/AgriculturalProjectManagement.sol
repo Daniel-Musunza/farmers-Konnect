@@ -3,10 +3,11 @@ pragma solidity ^0.8.0;
 
 /**
  * @title Agricultural Project Management
- * @dev Implements project management for agricultural projects with owner-based access control.
+ * @dev Implements project management for agricultural projects with flexible access control and enhanced error messages.
  */
 contract AgriculturalProjectManagement {
     address public owner;
+    mapping(address => bool) public admins;
 
     /**
      * @dev Enum for defining possible states of a project.
@@ -40,14 +41,15 @@ contract AgriculturalProjectManagement {
      */
     constructor() {
         owner = msg.sender;
+        admins[msg.sender] = true; // Owner is also an admin by default
     }
 
     /**
-     * @dev Modifier to restrict functions to the `owner`.
-     * @notice Restricts function access to the owner of the contract.
+     * @dev Modifier to restrict functions to admins.
+     * @notice Restricts function access to admins of the contract.
      */
-    modifier onlyOwner() {
-        require(msg.sender == owner, "Only owner can call this function.");
+    modifier onlyAdmin() {
+        require(admins[msg.sender], "Only admin can call this function.");
         _;
     }
 
@@ -60,7 +62,7 @@ contract AgriculturalProjectManagement {
      * @param status The status of the project.
      * @notice Ensures endDate is later than startDate and emits the ProjectUpdated event.
      */
-    function updateProject(uint256 projectId, string memory name, uint256 startDate, uint256 endDate, ProjectStatus status) public onlyOwner {
+    function updateProject(uint256 projectId, string memory name, uint256 startDate, uint256 endDate, ProjectStatus status) public onlyAdmin {
         require(endDate > startDate, "End date must be after start date.");
         projects[projectId] = Project(name, startDate, endDate, status);
         emit ProjectUpdated(projectId, name, startDate, endDate, status);
@@ -75,5 +77,19 @@ contract AgriculturalProjectManagement {
         return projects[projectId];
     }
 
-    // Additional functions as required
+    /**
+     * @dev Adds or removes an admin.
+     * @param adminAddress The address to be added or removed as an admin.
+     * @param isAdmin True if adding as admin, false if removing.
+     */
+    function setAdmin(address adminAddress, bool isAdmin) public onlyOwner {
+        admins[adminAddress] = isAdmin;
+    }
+
+    /**
+     * @dev Fallback function to handle incoming Ether transactions.
+     */
+    receive() external payable {
+        // Handle incoming Ether transactions as needed
+    }
 }
