@@ -12,8 +12,7 @@ function Footer() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-
-
+    
     try {
 
       const subscriptionsCollectionRef = collection(db, "subscriptions");
@@ -32,6 +31,7 @@ function Footer() {
       toast.error("An error occurred while subscribing.");
     }
   };
+
   return (
 
     <section className="footer" id="footer">

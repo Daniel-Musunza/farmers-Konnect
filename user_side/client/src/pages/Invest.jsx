@@ -74,18 +74,27 @@ function Invest({ account }) {
     const handleDelete = async (e, id) => {
         setLoading(true);
         e.preventDefault();
+        
         try {
-            const landsRef = collection(db, 'lands');
-            const landRef = doc(landsRef, id);
-            await deleteDoc(landRef);
-          toast("Land Deleted Successfully ...");
+          if (!id) {
+            throw new Error('Document ID is undefined or null.');
+          }
+      
+          const landsRef = collection(db, 'lands');
+          const landRef = doc(landsRef, id.toString()); // Ensure id is converted to string if necessary
+          
+          await deleteDoc(landRef);
+          
+          toast.success("Land Deleted Successfully");
           window.location.reload();
         } catch (error) {
-          toast.error("Failed to delete!");
-          console.log(error);
+          toast.error("Failed to delete land.");
+          console.error("Error deleting land:", error);
+        } finally {
+          setLoading(false);
         }
-        setLoading(false);
-      }
+      };
+      
 
     if (loading) {
         return <Spinner />
