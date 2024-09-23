@@ -18,6 +18,19 @@
 li{
     margin-left: 20px;
 }
+.canola-contract-farming{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.canola-contract-farming ol,
+.canola-contract-farming ul
+{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
 @media only screen and (max-width: 800px) {
     .section {
         width: 100%;

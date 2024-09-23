@@ -5,7 +5,7 @@ const RentDetails = () => {
     return (
         <div className="main-container">
             <div className="section" id="top">
-                <h2>FARMERS’ KONNECT’S RENT SERVICE STRUCTURE</h2>
+                <h2> Land Leasing Structure</h2>
                 <br />
              
                 <br />

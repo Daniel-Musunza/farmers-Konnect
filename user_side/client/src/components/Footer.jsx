@@ -47,9 +47,10 @@ function Footer() {
             <Link to="/rent#top" style={{ color: '#fff' }}>Land For Rent</Link>
           </nav>
           <nav className='second-nav'>
+          <Link to="/contract-details#top" style={{ color: '#fff' }}>Contract Farming Details</Link>
             <Link to="/invest-details#top" style={{ color: '#fff' }}>Investment details</Link>
             <Link to="/rent-details#top" style={{ color: '#fff' }}>Rental land Details</Link>
-            <Link to="/loan-details#top" style={{ color: '#fff' }}>Loan Details</Link>
+         
           </nav>
         </div>
         <div className="search">

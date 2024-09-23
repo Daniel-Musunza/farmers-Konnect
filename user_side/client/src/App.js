@@ -10,7 +10,7 @@ import Rent from './pages/Rent';
 import PostLand from './pages/PostLand';
 import LandDetails from './pages/LandDetails';
 import AddImages from './pages/AddImages';
-import LoanDetails from './pages/LoanDetails';
+import ContractDetails from './pages/ContractDetails';
 
 import { ethers } from 'ethers';
 import DecentragramAbi from './artifacts/contracts/Decentragram.sol/Decentragram.json';
@@ -97,7 +97,7 @@ function App() {
               contract={contract}
               provider={provider}
             />} />
-             <Route path='/loan-details' element={<LoanDetails />} />
+             <Route path='/contract-details' element={<ContractDetails />} />
              <Route path='/rent-details' element={<RentDetails />} />
              <Route path='/invest-details' element={<InvestDetails />} />
              
